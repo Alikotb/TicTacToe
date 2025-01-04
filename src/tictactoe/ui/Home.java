@@ -38,6 +38,7 @@ public class Home extends BorderPane {
         flowPane = new FlowPane();
         imageView = new ImageView();
 
+        this.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -71,7 +72,9 @@ public class Home extends BorderPane {
         offlineButton.setText("OFFLINE");
 
         offlineButton.setOnAction((ActionEvent event) -> {
-            stage.setScene(new Scene(new OfflineBase(stage), 800, 600));
+            Scene scene = new Scene(new OfflineBase(stage), 800, 600);
+            stage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
 
         });
 
@@ -86,7 +89,9 @@ public class Home extends BorderPane {
         onlineButton.setText("ONLINE");
         onlineButton.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         onlineButton.setOnAction((ActionEvent event) -> {
-            stage.setScene(new Scene(new LogInBase(stage), 800, 600));
+            Scene scene = new Scene(new LogInBase(stage), 800, 600);
+            stage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
 
         });
         GridPane.setMargin(onlineButton, new Insets(0.0, 0.0, 20.0, 170.0));

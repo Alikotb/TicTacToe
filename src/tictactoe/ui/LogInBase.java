@@ -93,14 +93,16 @@ public class LogInBase extends BorderPane {
 
         imageView.setFitHeight(118.0);
         imageView.setFitWidth(308.0);
-        // imageView.setImage(new Image(getClass().getResource("/resources/img/logo.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
         GridPane.setMargin(imageView, new Insets(100.0, 0.0, 0.0, 246.0));
 
         back.setMnemonicParsing(false);
         back.setId("back");
         back.setText("");
         back.setOnAction((ActionEvent event) -> {
-            mystage.setScene(new Scene(new Home(mystage), 800, 600));
+            Scene scene = new Scene(new Home(mystage), 800, 600);
+            mystage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
 
         });
 
@@ -131,7 +133,9 @@ public class LogInBase extends BorderPane {
         Login.setText("LOGIN");
         Login.setId("Login");
         Login.setOnAction((ActionEvent event) -> {
-            mystage.setScene(new Scene(new NewGame1Base(mystage), 800, 600));
+            Scene scene = new Scene(new NewGame1Base(mystage), 800, 600);
+            mystage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
 
         });
         GridPane.setMargin(Login, new Insets(0.0, 0.0, 0.0, 300.0));
@@ -150,8 +154,9 @@ public class LogInBase extends BorderPane {
         Login2.setText("SIGN UP");
         Login2.setId("Login2");
         Login2.setOnAction((ActionEvent event) -> {
-            mystage.setScene(new Scene(new SignUp(mystage), 800, 600));
-
+            Scene scene = new Scene(new SignUp(mystage), 800, 600);
+            mystage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         });
 
         GridPane.setMargin(Login2, new Insets(0.0, 0.0, 0.0, 475.0));

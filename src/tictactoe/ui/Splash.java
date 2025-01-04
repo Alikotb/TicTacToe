@@ -39,7 +39,7 @@ public class Splash extends BorderPane {
         setPrefHeight(400.0);
         setPrefWidth(600.0);
 
-        Stop[] stops = new Stop[] {
+        Stop[] stops = new Stop[]{
             new Stop(0, Color.web("#cce4f6")),
             new Stop(1, Color.web("#377ebc"))
         };
@@ -55,21 +55,20 @@ public class Splash extends BorderPane {
         BorderPane.setAlignment(vBox, Pos.CENTER);
 
         vBox.setAlignment(Pos.CENTER);
-        vBox.setSpacing(20);  
+        vBox.setSpacing(20);
 
-        imgView.setFitHeight(getPrefHeight()/2);  
-        imgView.setFitWidth(getPrefWidth()/2);    
+        imgView.setFitHeight(getPrefHeight() / 2);
+        imgView.setFitWidth(getPrefWidth() / 2);
         imgView.setPickOnBounds(true);
         imgView.setPreserveRatio(true);
 
-        
         try {
             imgView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
         } catch (NullPointerException e) {
             System.err.println("Image is not found");
         }
 
-        progressBar.setPrefWidth(getPrefWidth()/2);  
+        progressBar.setPrefWidth(getPrefWidth() / 2);
         progressBar.setProgress(0.0);
         progressBar.setStyle("-fx-accent: #4caf50; -fx-control-inner-background: #ffffff;");
 

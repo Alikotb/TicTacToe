@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
-public  class NewGame1Base extends BorderPane {
+public class NewGame1Base extends BorderPane {
 
     protected final GridPane gridPane;
     protected final ColumnConstraints columnConstraints;
@@ -26,10 +26,10 @@ public  class NewGame1Base extends BorderPane {
     protected final ImageView imageView;
     protected final Button NEWGAME;
     protected final Button History;
-        protected Stage mystage;
+    protected Stage mystage;
 
     public NewGame1Base(Stage mystage) {
-        this.mystage=mystage;
+        this.mystage = mystage;
         gridPane = new GridPane();
         columnConstraints = new ColumnConstraints();
         rowConstraints = new RowConstraints();
@@ -82,14 +82,14 @@ public  class NewGame1Base extends BorderPane {
 
         LogOut.setMnemonicParsing(false);
         LogOut.setText("");
-//        ImageView imageView0 = new ImageView(new Image(getClass().getResource("/resources/img/logout.png").toExternalForm()));
-//        imageView0.setFitWidth(75);
-//        imageView0.setFitHeight(75);
-//        LogOut.setGraphic(imageView0);
+        ImageView imageView0 = new ImageView(new Image(getClass().getResource("/resources/images/logout.png").toExternalForm()));
+        imageView0.setFitWidth(75);
+        imageView0.setFitHeight(75);
+        LogOut.setGraphic(imageView0);
         LogOut.setId("LogOut");
         GridPane.setMargin(LogOut, new Insets(0.0, 20.0, 0.0, 680.0));
 
-       // Avater.setImage(new Image(getClass().getResource("/resources/img/hacker.png").toExternalForm()));
+        Avater.setImage(new Image(getClass().getResource("/resources/images/hacker.png").toExternalForm()));
         GridPane.setMargin(Avater, new Insets(0.0, 0.0, 0.0, 25.0));
 
         label.setText("Ali Kotb");
@@ -101,9 +101,9 @@ public  class NewGame1Base extends BorderPane {
         GridPane.setMargin(label0, new Insets(50.0, 0.0, 0.0, 125.0));
 
         GridPane.setRowIndex(imageView, 1);
-//        imageView.setFitHeight(118.0);
-//        imageView.setFitWidth(308.0);
-//        imageView.setImage(new Image(getClass().getResource("/resources/img/logo.png").toExternalForm()));
+        imageView.setFitHeight(118.0);
+        imageView.setFitWidth(308.0);
+        imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
         GridPane.setMargin(imageView, new Insets(0.0, 0.0, 0.0, 246.0));
 
         GridPane.setRowIndex(NEWGAME, 2);

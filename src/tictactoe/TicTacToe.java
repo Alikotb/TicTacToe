@@ -1,4 +1,3 @@
-
 package tictactoe;
 
 import tictactoe.ui.Home;
@@ -14,12 +13,13 @@ import tictactoe.ui.Splash;
  * @author medos
  */
 public class TicTacToe extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = new Splash(stage);        
-        Scene scene = new Scene(root,800,600);
-        
+        Parent root = new Splash(stage);
+        Scene scene = new Scene(root, 800, 600);
+        scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+
         stage.setScene(scene);
         stage.show();
     }
@@ -30,5 +30,5 @@ public class TicTacToe extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

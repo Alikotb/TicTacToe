@@ -137,8 +137,9 @@ public class SignUp extends BorderPane {
         LogInButton.setMnemonicParsing(false);
         LogInButton.setText("Log in");
         LogInButton.setOnAction((ActionEvent event) -> {
-            stage.setScene(new Scene(new LogInBase(stage), 800, 600));
-
+            Scene scene = new Scene(new LogInBase(stage), 800, 600);
+            stage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         });
 
         FlowPane.setMargin(LogInButton, new Insets(0.0, 0.0, 0.0, 20.0));
@@ -156,13 +157,13 @@ public class SignUp extends BorderPane {
         backIcon.setDisable(true);
         backIcon.setFitHeight(48.0);
         backIcon.setFitWidth(50.0);
-        backIcon.setImage(new Image(getClass().getResource("/resources/images/backIcon.png").toExternalForm()));
+        backIcon.setImage(new Image(getClass().getResource("/resources/images/back.png").toExternalForm()));
         backButton.setGraphic(backIcon);
-         backButton.setOnAction((ActionEvent event) -> {
-            stage.setScene(new Scene(new LogInBase(stage), 800, 600));
-
+        backButton.setOnAction((ActionEvent event) -> {
+            Scene scene = (new Scene(new LogInBase(stage), 800, 600));
+            stage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         });
-
 
         imageView.setFitHeight(57.0);
         imageView.setFitWidth(171.0);
@@ -179,7 +180,7 @@ public class SignUp extends BorderPane {
         imageView.setId("logoImage ");
         backButton.setId("backButton");
 
-      //  this.getStylesheets().add(getClass().getResource("/CSS/homeStyle.css").toExternalForm());
+        this.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
 
         gridPane.getColumnConstraints().add(columnConstraints);
         gridPane.getRowConstraints().add(rowConstraints);

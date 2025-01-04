@@ -100,8 +100,9 @@ public class OfflineBase extends BorderPane {
         back.setGraphic(imageView0);
         back.setId("back");
         back.setOnAction((ActionEvent event) -> {
-            mystage.setScene(new Scene(new Home(mystage), 800, 600));
-
+            Scene scene = new Scene(new Home(mystage), 800, 600);
+            mystage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         });
 
         // back.setBackground(null);
