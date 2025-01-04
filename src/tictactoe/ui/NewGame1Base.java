@@ -1,6 +1,7 @@
 package tictactoe.ui;
 
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -112,6 +113,14 @@ public class NewGame1Base extends BorderPane {
         NEWGAME.setPrefWidth(480.0);
         NEWGAME.setText("NEW GAME");
         NEWGAME.setId("NEWGAME");
+
+        NEWGAME.setOnAction(e -> {
+            OnlineUsers onlineUsers = new OnlineUsers();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(onlineUsers,350,500));
+            stage.show();
+            
+        });
 
         GridPane.setMargin(NEWGAME, new Insets(0.0, 0.0, 0.0, 160.0));
 
