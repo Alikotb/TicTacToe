@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.ui;
 
 import java.util.Optional;
 import javafx.event.ActionEvent;
