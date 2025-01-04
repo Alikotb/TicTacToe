@@ -69,6 +69,10 @@ public  class Home extends BorderPane {
         offlineButton.setPrefHeight(50.0);
         offlineButton.setPrefWidth(190.0);
         offlineButton.setText("OFFLINE");
+        offlineButton.setOnAction((ActionEvent event) -> {
+                    stage.setScene(new Scene(new OfflineBase(stage), 800, 600));
+
+        });
         GridPane.setMargin(offlineButton, new Insets(0.0, 0.0, 80.0, 170.0));
         offlineButton.setFont(new Font("System Bold", 20.0));
 
