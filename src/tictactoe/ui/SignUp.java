@@ -1,5 +1,6 @@
-package tictactoe;
+package tictactoe.ui;
 
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -135,6 +136,11 @@ public class SignUp extends BorderPane {
 
         LogInButton.setMnemonicParsing(false);
         LogInButton.setText("Log in");
+        LogInButton.setOnAction((ActionEvent event) -> {
+            stage.setScene(new Scene(new LogInBase(stage), 800, 600));
+
+        });
+
         FlowPane.setMargin(LogInButton, new Insets(0.0, 0.0, 0.0, 20.0));
         VBox.setMargin(flowPane, new Insets(0.0));
         setBottom(vBox);
@@ -152,6 +158,11 @@ public class SignUp extends BorderPane {
         backIcon.setFitWidth(50.0);
         backIcon.setImage(new Image(getClass().getResource("/resources/images/backIcon.png").toExternalForm()));
         backButton.setGraphic(backIcon);
+         backButton.setOnAction((ActionEvent event) -> {
+            stage.setScene(new Scene(new LogInBase(stage), 800, 600));
+
+        });
+
 
         imageView.setFitHeight(57.0);
         imageView.setFitWidth(171.0);
