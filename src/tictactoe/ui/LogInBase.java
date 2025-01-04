@@ -130,6 +130,10 @@ public class LogInBase extends BorderPane {
         Login.setMnemonicParsing(false);
         Login.setText("LOGIN");
         Login.setId("Login");
+        Login.setOnAction((ActionEvent event) -> {
+            mystage.setScene(new Scene(new NewGame1Base(mystage), 800, 600));
+
+        });
         GridPane.setMargin(Login, new Insets(0.0, 0.0, 0.0, 300.0));
 
         GridPane.setRowIndex(label, 4);
