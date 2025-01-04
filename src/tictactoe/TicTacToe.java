@@ -17,7 +17,7 @@ public class TicTacToe extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = new Board(1);
+        Parent root = new Splash(stage);
         Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
 
