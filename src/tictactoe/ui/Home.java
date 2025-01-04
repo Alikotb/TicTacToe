@@ -16,8 +16,8 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public  class Home extends BorderPane {
 
+public class Home extends BorderPane {
     protected final GridPane gridPane;
     protected final ColumnConstraints columnConstraints;
     protected final RowConstraints rowConstraints;
@@ -69,9 +69,15 @@ public  class Home extends BorderPane {
         offlineButton.setPrefHeight(50.0);
         offlineButton.setPrefWidth(190.0);
         offlineButton.setText("OFFLINE");
-        GridPane.setMargin(offlineButton, new Insets(0.0, 0.0, 80.0, 170.0));
-        offlineButton.setFont(new Font("System Bold", 20.0));
 
+        offlineButton.setOnAction((ActionEvent event) -> {
+                    stage.setScene(new Scene(new OfflineBase(stage), 800, 600));
+
+        });
+
+       
+
+        GridPane.setMargin(offlineButton, new Insets(0.0, 0.0, 80.0, 170.0));
 
         GridPane.setRowIndex(onlineButton, 1);
         onlineButton.setMinHeight(50.0);
@@ -94,10 +100,10 @@ public  class Home extends BorderPane {
         imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
         FlowPane.setMargin(imageView, new Insets(0.0, 0.0, 0.0, 200.0));
         setTop(flowPane);
-        
-        
-         offlineButton.setId("offlineBtn");
-         onlineButton.setId("onlineBtn");
+
+
+        offlineButton.setId("offlineBtn");
+        onlineButton.setId("onlineBtn");
 
         gridPane.getColumnConstraints().add(columnConstraints);
         gridPane.getRowConstraints().add(rowConstraints);
