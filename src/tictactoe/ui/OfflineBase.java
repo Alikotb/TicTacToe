@@ -133,6 +133,12 @@ public class OfflineBase extends BorderPane {
         History.setPrefWidth(480.0);
         History.setText(" History");
         History.setId("History");
+        History.setOnAction(e -> {
+            Stage stage = new Stage();
+            stage.setTitle("History");
+            stage.setScene(new Scene(new History(),355,500));
+            stage.show();
+        });
 
         GridPane.setMargin(History, new Insets(0.0, 0.0, 0.0, 160.0));
         setCenter(gridPane);
