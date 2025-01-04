@@ -1,5 +1,10 @@
+@font-face {
+    font-family: "MyCustomFont";
+    src: url("/resources/fonts/MyCustomFont.ttf");
+}
 .root {
     -fx-background-color: linear-gradient(to bottom, #EBF8FF, #71B9D7, #0D88B7);
+    -fx-font-family: "MyCustomFont";
   
   }
   
@@ -29,7 +34,7 @@
   }
   
   #username, #email, #password, #confirmPassword {
-      -fx-font-size: 20px;
+      -fx-font-size: 25px;
       -fx-font-family: "Black Han Sans";
       -fx-background-radius: 25px;
       -fx-border-radius: 25px;
@@ -43,6 +48,7 @@
   #signUpButton {
       -fx-background-color: #003399;
       -fx-background-radius: 25px;
+      -fx-font-family: "Black Han Sans";
       -fx-text-fill: white;
       -fx-font-size: 20px;
       -fx-font-weight: bold;
@@ -54,6 +60,7 @@
   #LogInButton {
       -fx-background-color: transparent;
       -fx-font-size: 18px;
+      -fx-font-family: "Black Han Sans";
       -fx-text-fill: #002080;
       -fx-font-weight: bold;
       -fx-underline: true;
@@ -70,6 +77,7 @@
   }
   
   .dialog-title {
+      -fx-font-family: "Black Han Sans";
       -fx-text-fill: white;
       -fx-font-size: 18px;
       -fx-font-weight: bold;
@@ -81,22 +89,26 @@
   }
   
   .opponent-label {
+      -fx-font-family: "Black Han Sans";
       -fx-text-fill: white;
       -fx-font-size: 14px;
   }
   
   .score-label {
+      -fx-font-family: "Black Han Sans";
       -fx-text-fill: white;
       -fx-font-size: 14px;
   }
   
   .message-label {
+      -fx-font-family: "Black Han Sans";
       -fx-text-fill: white;
       -fx-font-size: 12px;
       -fx-wrap-text: true;
   }
   
   .accept-button {
+      -fx-font-family: "Black Han Sans";
       -fx-background-color: green;
       -fx-text-fill: white;
       -fx-font-size: 12px;
@@ -104,6 +116,7 @@
   }
   
   .decline-button {
+      -fx-font-family: "Black Han Sans";
       -fx-background-color: red;
       -fx-text-fill: white;
       -fx-font-size: 12px;
@@ -111,6 +124,7 @@
   }
   
   .content-pane {
+      -fx-font-family: "Black Han Sans";
       -fx-padding: 15;
       -fx-alignment: center;
   }
@@ -159,4 +173,5 @@
     -fx-padding: 10px; 
     -fx-background-radius: 50px;
     -fx-background-color: white;
+    -fx-font-family: "Black Han Sans";
     }
