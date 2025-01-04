@@ -122,7 +122,7 @@ public class SignUp extends BorderPane {
         signUpButton.setPrefWidth(141.0);
         signUpButton.setText("SIGN UP");
         signUpButton.setFont(new Font(16.0));
-        VBox.setMargin(signUpButton, new Insets(0.0, 0.0, 0.0, 230.0));
+        VBox.setMargin(signUpButton, new Insets(0.0, 0.0, 0.0, 300.0));
 
         flowPane.setPrefHeight(200.0);
         flowPane.setPrefWidth(200.0);
@@ -168,7 +168,7 @@ public class SignUp extends BorderPane {
         imageView.setFitHeight(57.0);
         imageView.setFitWidth(171.0);
         imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
-        FlowPane.setMargin(imageView, new Insets(0.0, 0.0, 0.0, 150.0));
+        FlowPane.setMargin(imageView, new Insets(0.0, 0.0, 0.0, 220.0));
         setTop(flowPane0);
 
         username.setId("username");
