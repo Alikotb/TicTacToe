@@ -113,6 +113,7 @@ public class OfflineBase extends BorderPane {
         PlayVsComp.setPrefWidth(480.0);
         PlayVsComp.setText("Play Vs PC");
         PlayVsComp.setId("PlayVsComp");
+        PlayVsComp.setOnAction(e -> {mystage.setScene(new Scene(new Board(Board.MODE_PC)));});
 
         GridPane.setMargin(PlayVsComp, new Insets(0.0, 0.0, 0.0, 160.0));
 

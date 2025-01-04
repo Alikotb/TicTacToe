@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <ImageView fitHeight="108.0" fitWidth="308.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="TOP_CENTER">
+         <BorderPane.margin>
+            <Insets top="100.0" />
+         </BorderPane.margin>
+         <image>
+            <Image url="@../images/logo.png" />
+         </image>
+      </ImageView>
+   </top>
+   <center>
+      <FlowPane fx:id="flowPaneCenter" alignment="CENTER" orientation="VERTICAL" prefHeight="300.0" prefWidth="320.0" BorderPane.alignment="CENTER">
+         <children>
+            <FlowPane fx:id="flowPaneRow1" prefHeight="100.0" prefWidth="320.0">
+               <children>
+                  <Button fx:id="tile1" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Line fx:id="line1" endY="250.0" startY="160.0" stroke="WHITE" strokeWidth="10.0" />
+                  <Button fx:id="tile2" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Line fx:id="line2" endY="250.0" startY="160.0" stroke="WHITE" strokeWidth="10.0" />
+                  <Button fx:id="tile3" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </FlowPane>
+            <Line fx:id="line3" endX="550.0" startX="240.0" stroke="WHITE" strokeWidth="10.0" />
+            <FlowPane fx:id="flowPaneRow2" prefHeight="100.0" prefWidth="320.0">
+               <children>
+                  <Button fx:id="tile4" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Line fx:id="line4" endY="250.0" startY="160.0" stroke="WHITE" strokeWidth="10.0" />
+                  <Button fx:id="tile5" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Line fx:id="line5" endY="250.0" startY="160.0" stroke="WHITE" strokeWidth="10.0" />
+                  <Button fx:id="tile6" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </FlowPane>
+            <Line fx:id="line6" endX="550.0" startX="240.0" stroke="WHITE" strokeWidth="10.0" />
+            <FlowPane fx:id="flowPaneRow3" prefHeight="100.0" prefWidth="320.0">
+               <children>
+                  <Button fx:id="tile7" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Line fx:id="line7" endY="250.0" startY="160.0" stroke="WHITE" strokeWidth="10.0" />
+                  <Button fx:id="tile8" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Line fx:id="line8" endY="250.0" startY="160.0" stroke="WHITE" strokeWidth="10.0" />
+                  <Button fx:id="tile9" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </FlowPane>
+         </children>
+      </FlowPane>
+   </center>
+   <right>
+      <VBox fx:id="vbPlayer2" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="240.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="36.0" />
+         </BorderPane.margin>
+         <children>
+            <ImageView fx:id="ivPlayer2" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/player1.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </ImageView>
+            <Label fx:id="userNamePlayer2" text="AbdelRahman" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </right>
+   <left>
+      <VBox fx:id="vbPlayer1" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="240.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="ivPlayer1" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/player1.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </ImageView>
+            <Label fx:id="userNamePlayer1" text="Nour" textFill="WHITE">
+               <font>
+                  <Font name="Arial Narrow" size="24.0" />
+               </font>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets top="36.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+</BorderPane>

@@ -20,6 +20,7 @@ public class TicTacToe extends Application {
         Parent root = new Splash(stage);        
         Scene scene = new Scene(root,800,600);
         
+        stage.setTitle("Tic Tac Toe");
         stage.setScene(scene);
         stage.show();
     }
