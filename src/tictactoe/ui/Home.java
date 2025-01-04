@@ -102,10 +102,10 @@ public class Home extends BorderPane {
         flowPane.setPrefHeight(73.0);
         flowPane.setPrefWidth(600.0);
 
-        imageView.setFitHeight(76.0);
-        imageView.setFitWidth(200.0);
+        imageView.setFitHeight(90.0);
+        imageView.setFitWidth(270.0);
         imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
-        FlowPane.setMargin(imageView, new Insets(0.0, 0.0, 0.0, 300.0));
+        FlowPane.setMargin(imageView, new Insets(80.0, 0.0, 0.0, 300.0));
         setTop(flowPane);
 
         offlineButton.setId("offlineBtn");
