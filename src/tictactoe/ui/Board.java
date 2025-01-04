@@ -90,7 +90,7 @@ public class Board extends BorderPane {
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
         BorderPane.setMargin(imageView, new Insets(70.0, 0.0, 0.0, 0.0));
-//        imageView.setImage(new Image(getClass().getResource("../images/logo.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
         setTop(imageView);
 
         BorderPane.setAlignment(flowPaneCenter, javafx.geometry.Pos.CENTER);
@@ -213,9 +213,9 @@ public class Board extends BorderPane {
         ivPlayer2.setFitWidth(120.0);
         ivPlayer2.setPickOnBounds(true);
         ivPlayer2.setPreserveRatio(true);
-//        ivPlayer2.setImage(new Image(getClass().getResource("../images/player1.png").toExternalForm()));
+       ivPlayer2.setImage(new Image(getClass().getResource("/resources/images/player1.png").toExternalForm()));
         VBox.setMargin(ivPlayer2, new Insets(0.0, 0.0, 15.0, 0.0));
-//        Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/MyCustomFont.ttf"), 25.0);  // 16px size
+//      Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/MyCustomFont.ttf"), 25.0);  // 16px size
 
         if (mode == MODE_PC) {
             userNamePlayer1.setText("Player 1");
@@ -241,7 +241,7 @@ public class Board extends BorderPane {
         ivPlayer1.setFitWidth(120.0);
         ivPlayer1.setPickOnBounds(true);
         ivPlayer1.setPreserveRatio(true);
-//        ivPlayer1.setImage(new Image(getClass().getResource("../images/player1.png").toExternalForm()));
+        ivPlayer1.setImage(new Image(getClass().getResource("/resources/images/player1.png").toExternalForm()));
         VBox.setMargin(ivPlayer1, new Insets(0.0, 0.0, 15.0, 0.0));
 
         userNamePlayer1.setTextFill(javafx.scene.paint.Color.WHITE);
