@@ -14,6 +14,8 @@ import javafx.scene.shape.Circle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import tictactoe.alert.IncomingRequestDialog;
@@ -37,7 +39,7 @@ public class OnlineUsers extends BorderPane {
             protected void updateItem(HBox item, boolean empty) {
                 super.updateItem(item, empty);
                 if (item != null && !empty) {
-                    setStyle("-fx-background-color: #1F509A;"); 
+                    setStyle("-fx-background-color: #EBF8FF;"); 
                     setGraphic(item);
                 } else {
                     setStyle("-fx-background-color: #1F509A;"); 
@@ -47,25 +49,34 @@ public class OnlineUsers extends BorderPane {
         });
 
         
-        addUser("User1", 50, "in-game");
-        addUser("User2", 70, "Available");
-        addUser("User1", 50, "in-game");
-        addUser("User2", 70, "Available");
-        addUser("User1", 50, "in-game");
-        addUser("User2", 70, "Available");
-        addUser("User1", 50, "in-game");
-        addUser("User2", 70, "Available");
-        addUser("User1", 50, "in-game");
-        addUser("User2", 70, "Available");
-        addUser("User1", 50, "in-game");
-        addUser("User2", 70, "Available");
-        addUser("User1", 50, "in-game");
-        addUser("User2", 70, "Available");
-        addUser("User1", 50, "in-game");
-        addUser("User2", 70, "Available");
+        addUser("User1", 250, "in-game");
+        addUser("User2", 170, "Available");
+        addUser("User3", 150, "in-game");
+        addUser("User4", 230, "Available");
+        addUser("User5", 90, "in-game");
+        addUser("User6", 130, "Available");
+        addUser("User7", 180, "in-game");
+       
 
 
-        this.setMaxSize(350, 700); 
+        listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener(){
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if(newValue != null){
+                    HBox selectedUser = (HBox) newValue;
+                    VBox userInfo = (VBox) selectedUser.getChildren().get(1);
+                    Label userNameLabel = (Label) userInfo.getChildren().get(0);
+                    Label scoreLabel = (Label) userInfo.getChildren().get(1);
+                    String username = userNameLabel.getText();
+                    String score = scoreLabel.getText();
+                    IncomingRequestDialog incomingRequestDialog = new IncomingRequestDialog();
+                    incomingRequestDialog.showRequestDialog(username, score);
+                }
+            }
+        });
+        
+        
+        this.setMaxSize(350, 500); 
         this.setCenter(listView);
     }
 
@@ -105,13 +116,7 @@ public class OnlineUsers extends BorderPane {
         }
 
         HBox userBox = new HBox(25, avatar, userInfo, statusLabel);
-        userBox.setStyle("-fx-background-color: #EBF8FF; -fx-border-color: #EBF8FF; -fx-border-width: 1;");
-        
-        userBox.setOnMouseClicked(event -> {
-                IncomingRequestDialog incomingRequestDialog = new IncomingRequestDialog();
-                incomingRequestDialog.showRequestDialog("User3", "120");
-        });
-        
+        userBox.setStyle("-fx-border-width: 1;");
         return userBox;
     }
 
