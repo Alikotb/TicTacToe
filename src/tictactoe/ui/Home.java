@@ -89,7 +89,7 @@ public class Home extends BorderPane {
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
 
         });
-        GridPane.setMargin(onlineButton, new Insets(0.0, 0.0, 60.0, 150.0));
+        GridPane.setMargin(onlineButton, new Insets(0.0, 0.0, 120.0, 150.0));
         onlineButton.setFont(new Font("System Bold", 20.0));
         BorderPane.setMargin(gridPane, new Insets(0.0));
         setCenter(gridPane);
@@ -100,7 +100,7 @@ public class Home extends BorderPane {
         imageView.setFitHeight(90.0);
         imageView.setFitWidth(270.0);
         imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
-        FlowPane.setMargin(imageView, new Insets(80.0, 0.0, 0.0, 300.0));
+        FlowPane.setMargin(imageView, new Insets(100.0, 0.0, 0.0, 246.0));
         setTop(flowPane);
 
         offlineButton.setId("offlineBtn");

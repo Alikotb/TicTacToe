@@ -1,5 +1,6 @@
 package tictactoe.ui;
 
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -88,13 +89,20 @@ public class NewGame1Base extends BorderPane {
         imageView0.setFitHeight(75);
         LogOut.setGraphic(imageView0);
         LogOut.setId("LogOut");
+        LogOut.setOnAction((ActionEvent event) -> {
+            Scene scene = new Scene(new LogInBase(mystage), 800, 600);
+            mystage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+        });
+
+        
         GridPane.setMargin(LogOut, new Insets(0.0, 20.0, 0.0, 680.0));
 
         Avater.setImage(new Image(getClass().getResource("/resources/images/hacker.png").toExternalForm()));
         GridPane.setMargin(Avater, new Insets(0.0, 0.0, 0.0, 25.0));
 
         label.setText("Ali Kotb");
-        label.setId("UserName ");
+        label.setId("UserName");
         GridPane.setMargin(label, new Insets(0.0, 0.0, 25.0, 125.0));
 
         label0.setText("777");
