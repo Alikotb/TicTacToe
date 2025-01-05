@@ -99,6 +99,10 @@ public class LogInBase extends BorderPane {
         back.setMnemonicParsing(false);
         back.setId("back");
         back.setText("");
+         ImageView imageView0 = new ImageView(new Image(getClass().getResource("/resources/images/back.png").toExternalForm()));
+        imageView0.setFitWidth(75);
+        imageView0.setFitHeight(75);
+        back.setGraphic(imageView0);
         back.setOnAction((ActionEvent event) -> {
             Scene scene = new Scene(new Home(mystage), 800, 600);
             mystage.setScene(scene);
@@ -142,7 +146,7 @@ public class LogInBase extends BorderPane {
 
         GridPane.setRowIndex(label, 4);
         label.setPrefHeight(31.0);
-        label.setPrefWidth(260.0);
+        label.setPrefWidth(290.0);
         label.setText("Don't Have Account?");
         label.setId("label");
         GridPane.setMargin(label, new Insets(0.0, 0.0, 0.0, 225.0));
@@ -150,7 +154,7 @@ public class LogInBase extends BorderPane {
         GridPane.setRowIndex(Login2, 4);
         Login2.setMnemonicParsing(false);
         Login2.setPrefHeight(31.0);
-        Login2.setPrefWidth(100.0);
+        Login2.setPrefWidth(125.0);
         Login2.setText("SIGN UP");
         Login2.setId("Login2");
         Login2.setOnAction((ActionEvent event) -> {
@@ -159,7 +163,7 @@ public class LogInBase extends BorderPane {
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         });
 
-        GridPane.setMargin(Login2, new Insets(0.0, 0.0, 0.0, 475.0));
+        GridPane.setMargin(Login2, new Insets(0.0, 0.0, 0.0, 530.0));
         Login2.setPadding(new Insets(0.0, 15.0, 0.0, 0.0));
         setCenter(gridPane);
 

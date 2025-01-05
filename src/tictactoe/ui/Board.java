@@ -213,9 +213,11 @@ public class Board extends BorderPane {
         ivPlayer2.setFitWidth(120.0);
         ivPlayer2.setPickOnBounds(true);
         ivPlayer2.setPreserveRatio(true);
-       ivPlayer2.setImage(new Image(getClass().getResource("/resources/images/player1.png").toExternalForm()));
+        ivPlayer2.setImage(new Image(getClass().getResource("/resources/images/player1.png").toExternalForm()));
         VBox.setMargin(ivPlayer2, new Insets(0.0, 0.0, 15.0, 0.0));
-//      Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/MyCustomFont.ttf"), 25.0);  // 16px size
+
+//        Font font = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/MyCustomFont.ttf"), 25.0);  // 16px size
+//        setStyle("-fx-background-color: linear-gradient(to bottom, #EBF8FF, #71B9D7, #0D88B7)");
 
         if (mode == MODE_PC) {
             userNamePlayer1.setText("Player 1");

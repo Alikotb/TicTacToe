@@ -162,7 +162,7 @@
     -fx-background-color: rgba(31, 80, 154, 0.0); 
 
 }
-#PlayWithFriend:hover, #PlayVsComp:hover, #History:hover,#Login:hover,#Login2:hover,#HISTORY:hover,#NEWGAME:hover{
+#PlayWithFriend:hover, #PlayVsComp:hover, #History:hover,#Login:hover,#HISTORY:hover,#NEWGAME:hover{
     -fx-background-color: #16427D;
     
 }
