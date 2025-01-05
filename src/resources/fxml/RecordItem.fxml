@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER_LEFT" prefHeight="84.0" prefWidth="334.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="userImage" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/player1.png" />
+         </image>
+         <HBox.margin>
+            <Insets left="8.0" right="8.0" />
+         </HBox.margin>
+      </ImageView>
+      <Label fx:id="userName" text="Yousef" textFill="#1f509a">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Region prefHeight="85.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+      <Label fx:id="winStatus" alignment="TOP_RIGHT" text="VICTORY" textFill="#28a745">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <padding>
+            <Insets right="8.0" />
+         </padding>
+         <HBox.margin>
+            <Insets right="8.0" />
+         </HBox.margin>
+      </Label>
+   </children>
+   <padding>
+      <Insets left="8.0" right="8.0" top="8.0" />
+   </padding>
+</HBox>

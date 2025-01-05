@@ -1,28 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tictactoe;
 
+import tictactoe.ui.Home;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tictactoe.ui.Board;
+import tictactoe.ui.SignUp;
+import tictactoe.ui.Splash;
 
 /**
  *
  * @author medos
  */
 public class TicTacToe extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
-        Scene scene = new Scene(root);
-        
+        Parent root = new Splash(stage);
+        Scene scene = new Scene(root, 800, 600);
+        scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+
+        stage.setTitle("Tic Tac Toe");
         stage.setScene(scene);
         stage.show();
     }
@@ -33,5 +33,5 @@ public class TicTacToe extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
