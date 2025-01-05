@@ -17,6 +17,11 @@ public class History extends ListView {
         ObservableList<RecordItem> records = FXCollections.observableArrayList(
                 new RecordItem("Yousef", true),
                 new RecordItem("Ahmed", false),
+                new RecordItem("Nour", true),
+                new RecordItem("Habiba", true),
+                new RecordItem("Nasser", true),
+                new RecordItem("Aliaa", false),
+                new RecordItem("AbdelRahman", false),
                 new RecordItem("Ali", true)
         );
 
@@ -24,6 +29,8 @@ public class History extends ListView {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 if (newValue != null) {
+                    RecordItem currentUser = (RecordItem) newValue;
+                    System.out.println("username: " + currentUser.userName + "\n");
 //                    TODO Handle record match
                 }
             }
@@ -37,7 +44,7 @@ public class History extends ListView {
                 if (item != null && !empty) {
                     setStyle("-fx-background-color: #fff;");
                     setGraphic(item);
-                    
+
                 } else {
                     setStyle("-fx-background-color: #1F509A;");
                     setGraphic(null);
