@@ -63,10 +63,7 @@ public class SignUp extends BorderPane {
         backIcon = new ImageView();
         imageView = new ImageView();
 
-        setMaxHeight(USE_PREF_SIZE);
-        setMaxWidth(USE_PREF_SIZE);
-        setMinHeight(USE_PREF_SIZE);
-        setMinWidth(USE_PREF_SIZE);
+
         setPrefHeight(400.0);
         setPrefWidth(600.0);
 
@@ -76,83 +73,82 @@ public class SignUp extends BorderPane {
         columnConstraints.setMinWidth(10.0);
         columnConstraints.setPrefWidth(100.0);
 
-        rowConstraints.setMinHeight(10.0);
-        rowConstraints.setPrefHeight(30.0);
+        rowConstraints.setPrefHeight(20.0);
         rowConstraints.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
-        rowConstraints0.setMinHeight(10.0);
-        rowConstraints0.setPrefHeight(30.0);
+        rowConstraints0.setPrefHeight(20.0);
         rowConstraints0.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
-        rowConstraints1.setMinHeight(10.0);
-        rowConstraints1.setPrefHeight(30.0);
+        rowConstraints1.setPrefHeight(20.0);
         rowConstraints1.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
-        rowConstraints2.setMinHeight(10.0);
-        rowConstraints2.setPrefHeight(30.0);
+        rowConstraints2.setPrefHeight(20.0);
         rowConstraints2.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
         username.setPromptText("Username");
         username.setOpaqueInsets(new Insets(0.0));
-        GridPane.setMargin(username, new Insets(10.0, 90.0, 10.0, 90.0));
+        GridPane.setMargin(username, new Insets(0.0, 150.0, 0.0, 150.0));
 
         GridPane.setRowIndex(email, 1);
         email.setPromptText("Email");
-        GridPane.setMargin(email, new Insets(10.0, 90.0, 10.0, 90.0));
+        GridPane.setMargin(email, new Insets(0.0, 150.0, 0.0, 150.0));
 
         GridPane.setRowIndex(password, 2);
         password.setPromptText("Password");
-        GridPane.setMargin(password, new Insets(10.0, 90.0, 10.0, 90.0));
+        GridPane.setMargin(password, new Insets(0.0, 150.0, 0.0, 150.0));
 
         GridPane.setRowIndex(confirmPassword, 3);
         confirmPassword.setPromptText("Confirm password");
-        GridPane.setMargin(confirmPassword, new Insets(10.0, 90.0, 10.0, 90.0));
+        GridPane.setMargin(confirmPassword, new Insets(0.0, 150.0, 0.0, 150.0));
         setCenter(gridPane);
 
         BorderPane.setAlignment(vBox, javafx.geometry.Pos.CENTER);
-        vBox.setPrefHeight(89.0);
+        vBox.setPrefHeight(150.0);
         vBox.setPrefWidth(605.0);
 
         signUpButton.setMnemonicParsing(false);
-        signUpButton.setPrefHeight(35.0);
-        signUpButton.setPrefWidth(160.0);
+        signUpButton.setPrefHeight(100.0);
+        signUpButton.setPrefWidth(220.0);
         signUpButton.setText("SIGN UP");
         signUpButton.setFont(new Font(16.0));
-        VBox.setMargin(signUpButton, new Insets(0.0, 0.0, 0.0, 300.0));
+        VBox.setMargin(signUpButton, new Insets(20.0, 0.0, 0.0, 280.0));
 
         flowPane.setPrefHeight(200.0);
         flowPane.setPrefWidth(200.0);
+        
+        Font font = Font.loadFont(getClass().getResourceAsStream("MyCustomFont.ttf"), 25.0);
 
         text.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         text.setStrokeWidth(0.0);
         text.setText("Already Have An Account?");
-        text.setFont(Font.font("Black Han Sans", FontWeight.BOLD, 18));
+        text.setFont(Font.font("Black Han Sans", FontWeight.BOLD, 22));
         text.setFill(Color.WHITE);
         FlowPane.setMargin(text, new Insets(0.0, 0.0, 0.0, 230.0));
+        text.getStyleClass().add("mytext");
 
         LogInButton.setMnemonicParsing(false);
-        LogInButton.setText("Log in");
+        LogInButton.setText("LOGIN");
         LogInButton.setOnAction((ActionEvent event) -> {
             Scene scene = new Scene(new LogInBase(stage), 800, 600);
             stage.setScene(scene);
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         });
 
-        FlowPane.setMargin(LogInButton, new Insets(0.0, 0.0, 0.0, 20.0));
+        FlowPane.setMargin(LogInButton, new Insets(0.0, 0.0, 0.0, 0.0));
         VBox.setMargin(flowPane, new Insets(0.0));
         setBottom(vBox);
-
+        flowPane0.setMargin(backButton, new Insets(0.0, 0.0, 0.0, 20.0));
         BorderPane.setAlignment(flowPane0, javafx.geometry.Pos.CENTER);
-        flowPane0.setPrefHeight(59.0);
+        flowPane0.setPrefHeight(150.0);
         flowPane0.setPrefWidth(600.0);
 
         backButton.setMnemonicParsing(false);
-        backButton.setPrefHeight(42.0);
-        backButton.setPrefWidth(50.0);
+        backButton.setPrefHeight(70.0);
+        backButton.setPrefWidth(70.0);
 
         backIcon.setDisable(true);
-        backIcon.setFitHeight(48.0);
-        backIcon.setFitWidth(50.0);
+        backIcon.setFitHeight(70.0);
+        backIcon.setFitWidth(70.0);
         backIcon.setImage(new Image(getClass().getResource("/resources/images/back.png").toExternalForm()));
         backButton.setGraphic(backIcon);
         backButton.setOnAction((ActionEvent event) -> {
@@ -161,10 +157,10 @@ public class SignUp extends BorderPane {
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         });
 
-        imageView.setFitHeight(65.0);
-        imageView.setFitWidth(180.0);
+        imageView.setFitHeight(100.0);
+        imageView.setFitWidth(230.0);
         imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
-        FlowPane.setMargin(imageView, new Insets(0.0, 0.0, 0.0, 220.0));
+        FlowPane.setMargin(imageView, new Insets(50.0, 10.0, 0.0, 180.0));
         setTop(flowPane0);
 
         username.setId("username");

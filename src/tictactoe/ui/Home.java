@@ -39,10 +39,6 @@ public class Home extends BorderPane {
         imageView = new ImageView();
 
         this.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
-        setMaxHeight(USE_PREF_SIZE);
-        setMaxWidth(USE_PREF_SIZE);
-        setMinHeight(USE_PREF_SIZE);
-        setMinWidth(USE_PREF_SIZE);
         setPrefHeight(400.0);
         setPrefWidth(600.0);
 
@@ -63,9 +59,8 @@ public class Home extends BorderPane {
         rowConstraints0.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
         GridPane.setRowSpan(offlineButton, 2);
-        offlineButton.setAlignment(javafx.geometry.Pos.CENTER);
-        offlineButton.setMinHeight(85.0);
-        offlineButton.setMinWidth(500.0);
+        offlineButton.setPrefWidth(490);
+        offlineButton.setPrefHeight(100);
         offlineButton.setMnemonicParsing(false);
         offlineButton.setText("OFFLINE");
 
@@ -78,8 +73,8 @@ public class Home extends BorderPane {
 
         GridPane.setMargin(offlineButton, new Insets(0.0, 0.0, 160.0, 150.0));
         GridPane.setRowIndex(onlineButton, 1);
-        onlineButton.setMinHeight(85);
-        onlineButton.setMinWidth(500);
+        onlineButton.setPrefWidth(490);
+        onlineButton.setPrefHeight(100);
         onlineButton.setMnemonicParsing(false);
         onlineButton.setText("ONLINE");
         onlineButton.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
@@ -90,21 +85,21 @@ public class Home extends BorderPane {
 
         });
         GridPane.setMargin(onlineButton, new Insets(0.0, 0.0, 60.0, 150.0));
-        onlineButton.setFont(new Font("System Bold", 20.0));
         BorderPane.setMargin(gridPane, new Insets(0.0));
         setCenter(gridPane);
         BorderPane.setAlignment(flowPane, javafx.geometry.Pos.CENTER);
         flowPane.setPrefHeight(73.0);
         flowPane.setPrefWidth(600.0);
 
-        imageView.setFitHeight(120.0);
-        imageView.setFitWidth(300.0);
+        imageView.setFitHeight(118.0);
+        imageView.setFitWidth(308.0);
         imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
-        FlowPane.setMargin(imageView, new Insets(140.0, 0.0, 0.0, 250.0));
+        FlowPane.setMargin(imageView, new Insets(70.0, 0.0, 0.0, 246.0));
+        setCenter(gridPane);
         setTop(flowPane);
 
-        offlineButton.setId("offlineBtn");
-        onlineButton.setId("onlineBtn");
+        onlineButton.getStyleClass().add("homeBtn");
+        offlineButton.getStyleClass().add("homeBtn");
 
         gridPane.getColumnConstraints().add(columnConstraints);
         gridPane.getRowConstraints().add(rowConstraints);
