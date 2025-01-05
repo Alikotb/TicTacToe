@@ -93,24 +93,20 @@ public class SignUp extends BorderPane {
         rowConstraints2.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
         username.setPromptText("Username");
-        username.setFont(new Font("Arial Italic", 17.0));
         username.setOpaqueInsets(new Insets(0.0));
-        GridPane.setMargin(username, new Insets(0.0, 80.0, 0.0, 80.0));
+        GridPane.setMargin(username, new Insets(10.0, 90.0, 10.0, 90.0));
 
         GridPane.setRowIndex(email, 1);
         email.setPromptText("Email");
-        GridPane.setMargin(email, new Insets(0.0, 80.0, 0.0, 80.0));
-        email.setFont(new Font("Arial Italic", 17.0));
+        GridPane.setMargin(email, new Insets(10.0, 90.0, 10.0, 90.0));
 
         GridPane.setRowIndex(password, 2);
         password.setPromptText("Password");
-        GridPane.setMargin(password, new Insets(0.0, 80.0, 0.0, 80.0));
-        password.setFont(new Font("Arial Italic", 17.0));
+        GridPane.setMargin(password, new Insets(10.0, 90.0, 10.0, 90.0));
 
         GridPane.setRowIndex(confirmPassword, 3);
         confirmPassword.setPromptText("Confirm password");
-        GridPane.setMargin(confirmPassword, new Insets(0.0, 80.0, 0.0, 80.0));
-        confirmPassword.setFont(new Font("Arial Italic", 17.0));
+        GridPane.setMargin(confirmPassword, new Insets(10.0, 90.0, 10.0, 90.0));
         setCenter(gridPane);
 
         BorderPane.setAlignment(vBox, javafx.geometry.Pos.CENTER);
@@ -118,8 +114,8 @@ public class SignUp extends BorderPane {
         vBox.setPrefWidth(605.0);
 
         signUpButton.setMnemonicParsing(false);
-        signUpButton.setPrefHeight(25.0);
-        signUpButton.setPrefWidth(141.0);
+        signUpButton.setPrefHeight(35.0);
+        signUpButton.setPrefWidth(160.0);
         signUpButton.setText("SIGN UP");
         signUpButton.setFont(new Font(16.0));
         VBox.setMargin(signUpButton, new Insets(0.0, 0.0, 0.0, 300.0));
@@ -165,8 +161,8 @@ public class SignUp extends BorderPane {
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         });
 
-        imageView.setFitHeight(57.0);
-        imageView.setFitWidth(171.0);
+        imageView.setFitHeight(65.0);
+        imageView.setFitWidth(180.0);
         imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
         FlowPane.setMargin(imageView, new Insets(0.0, 0.0, 0.0, 220.0));
         setTop(flowPane0);

@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tictactoe.ui.Board;
+import tictactoe.ui.SignUp;
 import tictactoe.ui.Splash;
 
 /**
@@ -17,7 +18,7 @@ public class TicTacToe extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = new Splash(stage);
+        Parent root = new SignUp(stage);
         Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
 
