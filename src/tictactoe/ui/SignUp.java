@@ -111,6 +111,12 @@ public class SignUp extends BorderPane {
         signUpButton.setPrefWidth(220.0);
         signUpButton.setText("SIGN UP");
         signUpButton.setFont(new Font(16.0));
+        signUpButton.setOnAction((ActionEvent event) -> {
+            Scene scene = new Scene(new LogInBase(stage), 800, 600);
+            stage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+        });
+
         VBox.setMargin(signUpButton, new Insets(20.0, 0.0, 0.0, 280.0));
 
         flowPane.setPrefHeight(200.0);

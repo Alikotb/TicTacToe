@@ -51,7 +51,7 @@
   
   #username, #email, #password, #confirmPassword {
       -fx-font-size: 25px;
-      -fx-padding: 12px; 
+      -fx-padding: 8px; 
       -fx-font-family: "Black Han Sans";
       -fx-background-radius: 50px;
       -fx-border-color: #81BFDA; 
