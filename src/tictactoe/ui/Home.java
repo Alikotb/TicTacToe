@@ -84,30 +84,30 @@ public class Home extends BorderPane {
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
 
         });
-<<<<<<< HEAD
+
         GridPane.setMargin(onlineButton, new Insets(0.0, 0.0, 60.0, 150.0));
-=======
+
         GridPane.setMargin(onlineButton, new Insets(0.0, 0.0, 120.0, 150.0));
         onlineButton.setFont(new Font("System Bold", 20.0));
->>>>>>> origin/development
+
         BorderPane.setMargin(gridPane, new Insets(0.0));
         setCenter(gridPane);
         BorderPane.setAlignment(flowPane, javafx.geometry.Pos.CENTER);
         flowPane.setPrefHeight(73.0);
         flowPane.setPrefWidth(600.0);
 
-<<<<<<< HEAD
+
         imageView.setFitHeight(118.0);
         imageView.setFitWidth(308.0);
         imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
         FlowPane.setMargin(imageView, new Insets(70.0, 0.0, 0.0, 246.0));
         setCenter(gridPane);
-=======
+
         imageView.setFitHeight(90.0);
         imageView.setFitWidth(270.0);
         imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
         FlowPane.setMargin(imageView, new Insets(100.0, 0.0, 0.0, 246.0));
->>>>>>> origin/development
+
         setTop(flowPane);
 
         onlineButton.getStyleClass().add("homeBtn");

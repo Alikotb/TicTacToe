@@ -5,7 +5,7 @@
 .root {
     -fx-background-color: linear-gradient(to bottom, #EBF8FF, #71B9D7, #0D88B7);
     -fx-font-family: "MyCustomFont";
-<<<<<<< HEAD
+
   
   }
 /*  
@@ -151,14 +151,14 @@
       -fx-padding: 15;
       -fx-alignment: center;
   }
-=======
 
-}
+
+
 
 .button {
     -fx-cursor: hand;
 }
->>>>>>> origin/development
+
 
 
 #offlineBtn,#onlineBtn {
