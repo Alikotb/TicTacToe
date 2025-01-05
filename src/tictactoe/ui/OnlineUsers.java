@@ -18,6 +18,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 import tictactoe.alert.IncomingRequestDialog;
 
 
@@ -27,7 +28,7 @@ public class OnlineUsers extends BorderPane {
     private final List<Image> avatarImages;
     private final Random random;
 
-    public OnlineUsers() {
+    public OnlineUsers(Stage stage) {
         random = new Random();
         avatarImages = loadAvatars();
 
@@ -70,7 +71,7 @@ public class OnlineUsers extends BorderPane {
                     String username = userNameLabel.getText();
                     String score = scoreLabel.getText();
                     IncomingRequestDialog incomingRequestDialog = new IncomingRequestDialog();
-                    incomingRequestDialog.showRequestDialog(username, score);
+                    incomingRequestDialog.showRequestDialog(stage, username, score);
                 }
             }
         });

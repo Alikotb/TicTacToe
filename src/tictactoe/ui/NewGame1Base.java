@@ -115,11 +115,11 @@ public class NewGame1Base extends BorderPane {
         NEWGAME.setId("NEWGAME");
 
         NEWGAME.setOnAction(e -> {
-            OnlineUsers onlineUsers = new OnlineUsers();
+            OnlineUsers onlineUsers = new OnlineUsers(mystage);
             Stage stage = new Stage();
-            stage.setScene(new Scene(onlineUsers,350,500));
+            stage.setScene(new Scene(onlineUsers, 350, 500));
             stage.show();
-            
+
         });
 
         GridPane.setMargin(NEWGAME, new Insets(0.0, 0.0, 0.0, 160.0));
