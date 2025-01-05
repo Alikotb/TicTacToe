@@ -1,6 +1,8 @@
 package tictactoe.ui;
 
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -87,13 +89,20 @@ public class NewGame1Base extends BorderPane {
         imageView0.setFitHeight(75);
         LogOut.setGraphic(imageView0);
         LogOut.setId("LogOut");
+        LogOut.setOnAction((ActionEvent event) -> {
+            Scene scene = new Scene(new LogInBase(mystage), 800, 600);
+            mystage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+        });
+
+        
         GridPane.setMargin(LogOut, new Insets(0.0, 20.0, 0.0, 680.0));
 
         Avater.setImage(new Image(getClass().getResource("/resources/images/hacker.png").toExternalForm()));
         GridPane.setMargin(Avater, new Insets(0.0, 0.0, 0.0, 25.0));
 
         label.setText("Ali Kotb");
-        label.setId("UserName ");
+        label.setId("UserName");
         GridPane.setMargin(label, new Insets(0.0, 0.0, 25.0, 125.0));
 
         label0.setText("777");
@@ -113,6 +122,14 @@ public class NewGame1Base extends BorderPane {
         NEWGAME.setText("NEW GAME");
         NEWGAME.setId("NEWGAME");
 
+        NEWGAME.setOnAction(e -> {
+            OnlineUsers onlineUsers = new OnlineUsers(mystage);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(onlineUsers, 350, 500));
+            stage.show();
+
+        });
+
         GridPane.setMargin(NEWGAME, new Insets(0.0, 0.0, 0.0, 160.0));
 
         GridPane.setRowIndex(History, 3);
@@ -121,6 +138,11 @@ public class NewGame1Base extends BorderPane {
         History.setPrefWidth(480.0);
         History.setText("HISTORY");
         History.setId("HISTORY");
+        History.setOnAction(e -> {
+            Stage historyStage = new Stage();
+            historyStage.setScene(new Scene(new History()));
+            historyStage.show();
+        });
 
         GridPane.setMargin(History, new Insets(0.0, 0.0, 100.0, 160.0));
         setCenter(gridPane);

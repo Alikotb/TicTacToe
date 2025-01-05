@@ -114,7 +114,9 @@ public class OfflineBase extends BorderPane {
         PlayVsComp.setPrefWidth(480.0);
         PlayVsComp.setText("Play Vs PC");
         PlayVsComp.setId("PlayVsComp");
-        PlayVsComp.setOnAction(e -> {mystage.setScene(new Scene(new Board(Board.MODE_PC)));});
+        PlayVsComp.setOnAction(e -> {
+            mystage.setScene(new Scene(new Board(Board.MODE_PC)));
+        });
 
         GridPane.setMargin(PlayVsComp, new Insets(0.0, 0.0, 0.0, 160.0));
 
@@ -124,7 +126,10 @@ public class OfflineBase extends BorderPane {
         PlayWithFriend.setPrefWidth(480.0);
         PlayWithFriend.setText("Play With a Friend");
         PlayWithFriend.setId("PlayWithFriend");
-
+        PlayWithFriend.setOnAction(e -> {
+            mystage.setScene(new Scene(new Board(Board.MODE_PLAYER)));
+        });
+        
         GridPane.setMargin(PlayWithFriend, new Insets(0.0, 0.0, 0.0, 160.0));
 
         GridPane.setRowIndex(History, 4);
@@ -133,6 +138,12 @@ public class OfflineBase extends BorderPane {
         History.setPrefWidth(480.0);
         History.setText(" History");
         History.setId("History");
+        History.setOnAction(e -> {
+            Stage stage = new Stage();
+            stage.setTitle("History");
+            stage.setScene(new Scene(new History(), 355, 500));
+            stage.show();
+        });
 
         GridPane.setMargin(History, new Insets(0.0, 0.0, 0.0, 160.0));
         setCenter(gridPane);

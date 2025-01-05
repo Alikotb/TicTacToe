@@ -213,9 +213,11 @@ public class Board extends BorderPane {
         ivPlayer2.setFitWidth(120.0);
         ivPlayer2.setPickOnBounds(true);
         ivPlayer2.setPreserveRatio(true);
-       ivPlayer2.setImage(new Image(getClass().getResource("/resources/images/player1.png").toExternalForm()));
+        ivPlayer2.setImage(new Image(getClass().getResource("/resources/images/player2.png").toExternalForm()));
         VBox.setMargin(ivPlayer2, new Insets(0.0, 0.0, 15.0, 0.0));
-//      Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/MyCustomFont.ttf"), 25.0);  // 16px size
+
+        Font font = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/MyCustomFont.ttf"), 25.0);  // 16px size
+        setStyle("-fx-background-color: linear-gradient(to bottom, #EBF8FF, #71B9D7, #0D88B7)");
 
         if (mode == MODE_PC) {
             userNamePlayer1.setText("Player 1");
@@ -229,7 +231,7 @@ public class Board extends BorderPane {
         }
         userNamePlayer2.setTextFill(javafx.scene.paint.Color.WHITE);
         userNamePlayer2.setWrapText(true);
-//        userNamePlayer2.setFont(font);
+        userNamePlayer2.setFont(font);
         setRight(vbPlayer2);
 
         BorderPane.setAlignment(vbPlayer1, javafx.geometry.Pos.CENTER);
@@ -245,7 +247,7 @@ public class Board extends BorderPane {
         VBox.setMargin(ivPlayer1, new Insets(0.0, 0.0, 15.0, 0.0));
 
         userNamePlayer1.setTextFill(javafx.scene.paint.Color.WHITE);
-//        userNamePlayer1.setFont(font);
+        userNamePlayer1.setFont(font);
         BorderPane.setMargin(vbPlayer1, new Insets(36.0, 0.0, 0.0, 0.0));
         setLeft(vbPlayer1);
 
