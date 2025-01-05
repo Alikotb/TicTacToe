@@ -54,21 +54,19 @@ public class Home extends BorderPane {
         columnConstraints.setMinWidth(10.0);
         columnConstraints.setPrefWidth(100.0);
 
-        rowConstraints.setMinHeight(10.0);
-        rowConstraints.setPrefHeight(30.0);
+        rowConstraints.setMinHeight(100.0);
+        rowConstraints.setPrefHeight(220.0);
         rowConstraints.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
-        rowConstraints0.setMinHeight(10.0);
-        rowConstraints0.setPrefHeight(30.0);
+        rowConstraints0.setMinHeight(100.0);
+        rowConstraints0.setPrefHeight(220.0);
         rowConstraints0.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
 
         GridPane.setRowSpan(offlineButton, 2);
         offlineButton.setAlignment(javafx.geometry.Pos.CENTER);
-        offlineButton.setMinHeight(70.0);
-        offlineButton.setMinWidth(120.0);
+        offlineButton.setMinHeight(85.0);
+        offlineButton.setMinWidth(500.0);
         offlineButton.setMnemonicParsing(false);
-        offlineButton.setPrefHeight(50.0);
-        offlineButton.setPrefWidth(190.0);
         offlineButton.setText("OFFLINE");
 
         offlineButton.setOnAction((ActionEvent event) -> {
@@ -78,14 +76,11 @@ public class Home extends BorderPane {
 
         });
 
-        GridPane.setMargin(offlineButton, new Insets(0.0, 0.0, 80.0, 250.0));
-
+        GridPane.setMargin(offlineButton, new Insets(0.0, 0.0, 160.0, 150.0));
         GridPane.setRowIndex(onlineButton, 1);
-        onlineButton.setMinHeight(70.0);
-        onlineButton.setMinWidth(120.0);
+        onlineButton.setMinHeight(85);
+        onlineButton.setMinWidth(500);
         onlineButton.setMnemonicParsing(false);
-        onlineButton.setPrefHeight(50.0);
-        onlineButton.setPrefWidth(190.0);
         onlineButton.setText("ONLINE");
         onlineButton.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         onlineButton.setOnAction((ActionEvent event) -> {
@@ -94,7 +89,7 @@ public class Home extends BorderPane {
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
 
         });
-        GridPane.setMargin(onlineButton, new Insets(0.0, 0.0, 20.0, 250.0));
+        GridPane.setMargin(onlineButton, new Insets(0.0, 0.0, 60.0, 150.0));
         onlineButton.setFont(new Font("System Bold", 20.0));
         BorderPane.setMargin(gridPane, new Insets(0.0));
         setCenter(gridPane);

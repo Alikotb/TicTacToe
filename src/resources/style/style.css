@@ -14,7 +14,7 @@
       -fx-background-color: #1F509A;
       -fx-border-width: 2px;
       -fx-background-radius: 50px;
-      -fx-font-size: 30px;
+      -fx-font-size: 45px;
       -fx-font-family: "Black Han Sans";
       -fx-font-weight: bold;
       -fx-text-fill: white;
@@ -34,15 +34,14 @@
   }
   
   #username, #email, #password, #confirmPassword {
-      -fx-font-size: 25px;
+      -fx-font-size: 35px;
       -fx-font-family: "Black Han Sans";
-      -fx-background-radius: 25px;
+      -fx-background-radius: 30px;
       -fx-border-radius: 25px;
       -fx-border-color: transparent;
       -fx-background-color: white;
       -fx-text-fill: gray;
       -fx-prompt-text-fill: lightgray;
-      -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0);
   }
   
   #signUpButton {
