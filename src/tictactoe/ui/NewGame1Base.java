@@ -130,6 +130,11 @@ public class NewGame1Base extends BorderPane {
         History.setPrefWidth(480.0);
         History.setText("HISTORY");
         History.setId("HISTORY");
+        History.setOnAction(e -> {
+            Stage historyStage = new Stage();
+            historyStage.setScene(new Scene(new History()));
+            historyStage.show();
+        });
 
         GridPane.setMargin(History, new Insets(0.0, 0.0, 100.0, 160.0));
         setCenter(gridPane);

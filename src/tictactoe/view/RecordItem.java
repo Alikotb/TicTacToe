@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 public class RecordItem extends HBox {
 
     protected final ImageView userImage;
-    protected final Label userName;
+    public Label userName;
     protected final Region region;
     protected final Label winStatus;
 
@@ -50,8 +50,10 @@ public class RecordItem extends HBox {
             winStatus.setText("DEFEAT");
             winStatus.setTextFill(javafx.scene.paint.Color.valueOf("#FF4C4C"));
         }
+        Font font = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/MyCustomFont.ttf"), 25.0);  // 16px size
 
-//        winStatus.setFont(new Font("System Bold", 24.0));
+        winStatus.setFont(font);
+
         winStatus.setPadding(new Insets(0.0, 8.0, 0.0, 0.0));
         HBox.setMargin(winStatus, new Insets(0.0, 8.0, 0.0, 0.0));
 
