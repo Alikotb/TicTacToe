@@ -6,10 +6,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.Optional;
+import javafx.scene.Scene;
+import tictactoe.ui.Board;
 
 public class IncomingRequestDialog {
 
-    public Optional<Boolean> showRequestDialog(String opponentName, String score) {
+    public Optional<Boolean> showRequestDialog(Stage stage, String opponentName, String score) {
       
         Dialog<Boolean> dialog = new Dialog<>();
         dialog.setTitle("Game Challenge");
@@ -66,6 +68,7 @@ public class IncomingRequestDialog {
         // Handle the result
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == acceptButtonType) {
+                stage.setScene(new Scene(new Board(Board.MODE_ONLINE)));
                 return true;  // Accept button clicked
             } else {
                 return false; // Decline button clicked
