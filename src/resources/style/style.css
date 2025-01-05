@@ -5,12 +5,160 @@
 .root {
     -fx-background-color: linear-gradient(to bottom, #EBF8FF, #71B9D7, #0D88B7);
     -fx-font-family: "MyCustomFont";
+<<<<<<< HEAD
+  
+  }
+/*  
+  #offlineBtn,#onlineBtn {
+      -fx-pref-width: 280px;
+      -fx-pref-height: 55px;
+      -fx-background-color: #1F509A;
+      -fx-border-width: 2px;
+      -fx-background-radius: 50px;
+      -fx-font-size: 45px;
+      -fx-font-family: "Black Han Sans";
+      -fx-font-weight: bold;
+      -fx-text-fill: white;
+      -fx-alignment: center;
+      -fx-padding: 0;
+      
+  }
+  
+  #offlineBtn:hover,#onlineBtn:hover,#signUpButton:hover {
+      -fx-background-color:#16427D;
+  }
+  
+  #logoImage {
+      -fx-fit-height: 80px;
+      -fx-fit-width: 300px;
+      -fx-margin: 20px auto;
+  }*/
+
+
+.homeBtn {
+    -fx-background-color: #1F509A;
+    -fx-border-width: 2px;
+    -fx-background-radius: 50px;
+    -fx-font-family: "Black Han Sans";
+    -fx-font-size: 50px;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-padding: 0;
+}
+.homeBtn:hover {
+    -fx-background-color: #16427D;
+}
+  
+  #username, #email, #password, #confirmPassword {
+      -fx-font-size: 25px;
+      -fx-padding: 12px; 
+      -fx-font-family: "Black Han Sans";
+      -fx-background-radius: 50px;
+      -fx-border-color: #81BFDA; 
+      -fx-border-radius: 50; 
+      -fx-border-width: 1.5px;
+      -fx-background-color: white;
+      -fx-text-fill: gray;
+      -fx-prompt-text-fill: lightgray;
+  }
+  
+  #signUpButton {
+      -fx-background-color: #003399;
+      -fx-background-radius: 30px;
+      -fx-padding: 12px; 
+      -fx-font-family: "Black Han Sans";
+      -fx-text-fill: white;
+      -fx-font-size: 30px;
+      -fx-font-weight: bold;
+      -fx-cursor: hand;
+      -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.5, 0, 0);
+  }
+  .mytext {
+    -fx-font-family: 'Black Han Sans';
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+  
+  
+  #LogInButton {
+      -fx-background-color: transparent;
+      -fx-font-size: 22px;
+      -fx-font-family: "Black Han Sans";
+      -fx-text-fill: #002080;
+      -fx-font-weight: bold;
+      -fx-underline: true;
+      -fx-cursor: hand;
+  }
+  
+  #backButton{
+      -fx-background-color: transparent;
+  }
+  
+  .dialog-pane {
+      -fx-background-color: #1F509A;
+      -fx-background-radius: 10;
+  }
+  
+  .dialog-title {
+      -fx-font-family: "Black Han Sans";
+      -fx-text-fill: white;
+      -fx-font-size: 18px;
+      -fx-font-weight: bold;
+  }
+  
+  .avatar-image {
+      -fx-background-radius: 50;
+      -fx-border-radius: 50;
+  }
+  
+  .opponent-label {
+      -fx-font-family: "Black Han Sans";
+      -fx-text-fill: white;
+      -fx-font-size: 14px;
+  }
+  
+  .score-label {
+      -fx-font-family: "Black Han Sans";
+      -fx-text-fill: white;
+      -fx-font-size: 14px;
+  }
+  
+  .message-label {
+      -fx-font-family: "Black Han Sans";
+      -fx-text-fill: white;
+      -fx-font-size: 12px;
+      -fx-wrap-text: true;
+  }
+  
+  .accept-button {
+      -fx-font-family: "Black Han Sans";
+      -fx-background-color: green;
+      -fx-text-fill: white;
+      -fx-font-size: 12px;
+      -fx-background-radius: 20;
+  }
+  
+  .decline-button {
+      -fx-font-family: "Black Han Sans";
+      -fx-background-color: red;
+      -fx-text-fill: white;
+      -fx-font-size: 12px;
+      -fx-background-radius: 20;
+  }
+  
+  .content-pane {
+      -fx-font-family: "Black Han Sans";
+      -fx-padding: 15;
+      -fx-alignment: center;
+  }
+=======
 
 }
 
 .button {
     -fx-cursor: hand;
 }
+>>>>>>> origin/development
 
 
 #offlineBtn,#onlineBtn {
