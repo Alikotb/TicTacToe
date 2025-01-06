@@ -7,7 +7,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.Optional;
 import javafx.scene.Scene;
-import tictactoe.ui.Board;
+import tictactoe.ui.screens.Board;
 
 public class IncomingRequestDialog {
 

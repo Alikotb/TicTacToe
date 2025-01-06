@@ -1,4 +1,4 @@
-package tictactoe.ui;
+package tictactoe.ui.screens;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
