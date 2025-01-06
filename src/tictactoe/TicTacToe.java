@@ -1,14 +1,14 @@
 package tictactoe;
 
-import tictactoe.ui.Home;
+import tictactoe.ui.screens.Home;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import tictactoe.ui.Board;
-import tictactoe.ui.SignUp;
-import tictactoe.ui.Splash;
+import tictactoe.ui.screens.Board;
+import tictactoe.ui.screens.SignUp;
+import tictactoe.ui.screens.Splash;
 
 /**
  *

@@ -1,4 +1,4 @@
-package tictactoe.ui;
+package tictactoe.ui.screens;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;

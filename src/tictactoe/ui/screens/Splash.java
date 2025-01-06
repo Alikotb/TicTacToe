@@ -1,4 +1,4 @@
-package tictactoe.ui;
+package tictactoe.ui.screens;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

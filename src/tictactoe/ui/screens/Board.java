@@ -1,5 +1,6 @@
-package tictactoe.ui;
+package tictactoe.ui.screens;
 
+import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
@@ -11,37 +12,36 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import tictactoe.domain.model.Tile;
+import tictactoe.domain.usecases.GetTileIconUseCase;
+import tictactoe.domain.usecases.HandlePositionsUseCase;
 
 public class Board extends BorderPane {
 
     protected final ImageView imageView;
     protected final FlowPane flowPaneCenter;
     protected final FlowPane flowPaneRow1;
-    protected final Button tile1;
+    protected final Tile tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9;
     protected final Line line1;
-    protected final Button tile2;
     protected final Line line2;
-    protected final Button tile3;
     protected final Line line3;
     protected final FlowPane flowPaneRow2;
-    protected final Button tile4;
     protected final Line line4;
-    protected final Button tile5;
     protected final Line line5;
-    protected final Button tile6;
     protected final Line line6;
     protected final FlowPane flowPaneRow3;
-    protected final Button tile7;
     protected final Line line7;
-    protected final Button tile8;
     protected final Line line8;
-    protected final Button tile9;
     protected final VBox vbPlayer2;
     protected final ImageView ivPlayer2;
     protected final Label userNamePlayer2;
     protected final VBox vbPlayer1;
     protected final ImageView ivPlayer1;
     protected final Label userNamePlayer1;
+
+    ArrayList<Tile> tiles;
+    HandlePositionsUseCase handlePositionsUseCase;
+    boolean isX;
     public static final int MODE_PC = 1;
     public static final int MODE_PLAYER = 2;
     public static final int MODE_ONLINE = 3;
@@ -51,31 +51,35 @@ public class Board extends BorderPane {
         imageView = new ImageView(new Image("/resources/images/logo.png"));
         flowPaneCenter = new FlowPane();
         flowPaneRow1 = new FlowPane();
-        tile1 = new Button();
+        tile1 = new Tile(1);
         line1 = new Line();
-        tile2 = new Button();
+        tile2 = new Tile(2);
         line2 = new Line();
-        tile3 = new Button();
+        tile3 = new Tile(3);
         line3 = new Line();
         flowPaneRow2 = new FlowPane();
-        tile4 = new Button();
+        tile4 = new Tile(4);
         line4 = new Line();
-        tile5 = new Button();
+        tile5 = new Tile(5);
         line5 = new Line();
-        tile6 = new Button();
+        tile6 = new Tile(6);
         line6 = new Line();
         flowPaneRow3 = new FlowPane();
-        tile7 = new Button();
+        tile7 = new Tile(7);
         line7 = new Line();
-        tile8 = new Button();
+        tile8 = new Tile(8);
         line8 = new Line();
-        tile9 = new Button();
+        tile9 = new Tile(9);
         vbPlayer2 = new VBox();
         ivPlayer2 = new ImageView(new Image("/resources/images/player1.png"));
         userNamePlayer2 = new Label();
         vbPlayer1 = new VBox();
         ivPlayer1 = new ImageView(new Image("/resources/images/player1.png"));
         userNamePlayer1 = new Label();
+
+        isX = true;
+        tiles = new ArrayList<>();
+        handlePositionsUseCase = new HandlePositionsUseCase();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -102,33 +106,33 @@ public class Board extends BorderPane {
         flowPaneRow1.setPrefHeight(100.0);
         flowPaneRow1.setPrefWidth(320.0);
 
-        tile1.setMnemonicParsing(false);
-        tile1.setPrefHeight(100.0);
-        tile1.setPrefWidth(100.0);
-        tile1.setCursor(Cursor.HAND);
-        tile1.setBackground(null);
+        tile1.getBtn().setMnemonicParsing(false);
+        tile1.getBtn().setPrefHeight(100.0);
+        tile1.getBtn().setPrefWidth(100.0);
+        tile1.getBtn().setCursor(Cursor.HAND);
+        tile1.getBtn().setBackground(null);
 
         line1.setEndY(250.0);
         line1.setStartY(160.0);
         line1.setStroke(javafx.scene.paint.Color.WHITE);
         line1.setStrokeWidth(10.0);
 
-        tile2.setMnemonicParsing(false);
-        tile2.setPrefHeight(100.0);
-        tile2.setPrefWidth(100.0);
-        tile2.setCursor(Cursor.HAND);
-        tile2.setBackground(null);
+        tile2.getBtn().setMnemonicParsing(false);
+        tile2.getBtn().setPrefHeight(100.0);
+        tile2.getBtn().setPrefWidth(100.0);
+        tile2.getBtn().setCursor(Cursor.HAND);
+        tile2.getBtn().setBackground(null);
 
         line2.setEndY(250.0);
         line2.setStartY(160.0);
         line2.setStroke(javafx.scene.paint.Color.WHITE);
         line2.setStrokeWidth(10.0);
 
-        tile3.setMnemonicParsing(false);
-        tile3.setPrefHeight(100.0);
-        tile3.setPrefWidth(100.0);
-        tile3.setCursor(Cursor.HAND);
-        tile3.setBackground(null);
+        tile3.getBtn().setMnemonicParsing(false);
+        tile3.getBtn().setPrefHeight(100.0);
+        tile3.getBtn().setPrefWidth(100.0);
+        tile3.getBtn().setCursor(Cursor.HAND);
+        tile3.getBtn().setBackground(null);
 
         line3.setEndX(550.0);
         line3.setStartX(240.0);
@@ -138,33 +142,33 @@ public class Board extends BorderPane {
         flowPaneRow2.setPrefHeight(100.0);
         flowPaneRow2.setPrefWidth(320.0);
 
-        tile4.setMnemonicParsing(false);
-        tile4.setPrefHeight(100.0);
-        tile4.setPrefWidth(100.0);
-        tile4.setCursor(Cursor.HAND);
-        tile4.setBackground(null);
+        tile4.getBtn().setMnemonicParsing(false);
+        tile4.getBtn().setPrefHeight(100.0);
+        tile4.getBtn().setPrefWidth(100.0);
+        tile4.getBtn().setCursor(Cursor.HAND);
+        tile4.getBtn().setBackground(null);
 
         line4.setEndY(250.0);
         line4.setStartY(160.0);
         line4.setStroke(javafx.scene.paint.Color.WHITE);
         line4.setStrokeWidth(10.0);
 
-        tile5.setMnemonicParsing(false);
-        tile5.setPrefHeight(100.0);
-        tile5.setPrefWidth(100.0);
-        tile5.setCursor(Cursor.HAND);
-        tile5.setBackground(null);
+        tile5.getBtn().setMnemonicParsing(false);
+        tile5.getBtn().setPrefHeight(100.0);
+        tile5.getBtn().setPrefWidth(100.0);
+        tile5.getBtn().setCursor(Cursor.HAND);
+        tile5.getBtn().setBackground(null);
 
         line5.setEndY(250.0);
         line5.setStartY(160.0);
         line5.setStroke(javafx.scene.paint.Color.WHITE);
         line5.setStrokeWidth(10.0);
 
-        tile6.setMnemonicParsing(false);
-        tile6.setPrefHeight(100.0);
-        tile6.setPrefWidth(100.0);
-        tile6.setCursor(Cursor.HAND);
-        tile6.setBackground(null);
+        tile6.getBtn().setMnemonicParsing(false);
+        tile6.getBtn().setPrefHeight(100.0);
+        tile6.getBtn().setPrefWidth(100.0);
+        tile6.getBtn().setCursor(Cursor.HAND);
+        tile6.getBtn().setBackground(null);
 
         line6.setEndX(550.0);
         line6.setStartX(240.0);
@@ -174,34 +178,44 @@ public class Board extends BorderPane {
         flowPaneRow3.setPrefHeight(100.0);
         flowPaneRow3.setPrefWidth(320.0);
 
-        tile7.setMnemonicParsing(false);
-        tile7.setPrefHeight(100.0);
-        tile7.setPrefWidth(100.0);
-        tile7.setCursor(Cursor.HAND);
-        tile7.setBackground(null);
+        tile7.getBtn().setMnemonicParsing(false);
+        tile7.getBtn().setPrefHeight(100.0);
+        tile7.getBtn().setPrefWidth(100.0);
+        tile7.getBtn().setCursor(Cursor.HAND);
+        tile7.getBtn().setBackground(null);
 
         line7.setEndY(250.0);
         line7.setStartY(160.0);
         line7.setStroke(javafx.scene.paint.Color.WHITE);
         line7.setStrokeWidth(10.0);
 
-        tile8.setMnemonicParsing(false);
-        tile8.setPrefHeight(100.0);
-        tile8.setPrefWidth(100.0);
-        tile8.setCursor(Cursor.HAND);
-        tile8.setBackground(null);
+        tile8.getBtn().setMnemonicParsing(false);
+        tile8.getBtn().setPrefHeight(100.0);
+        tile8.getBtn().setPrefWidth(100.0);
+        tile8.getBtn().setCursor(Cursor.HAND);
+        tile8.getBtn().setBackground(null);
 
         line8.setEndY(250.0);
         line8.setStartY(160.0);
         line8.setStroke(javafx.scene.paint.Color.WHITE);
         line8.setStrokeWidth(10.0);
 
-        tile9.setMnemonicParsing(false);
-        tile9.setPrefHeight(100.0);
-        tile9.setPrefWidth(100.0);
-        tile9.setCursor(Cursor.HAND);
-        tile9.setBackground(null);
+        tile9.getBtn().setMnemonicParsing(false);
+        tile9.getBtn().setPrefHeight(100.0);
+        tile9.getBtn().setPrefWidth(100.0);
+        tile9.getBtn().setCursor(Cursor.HAND);
+        tile9.getBtn().setBackground(null);
         setCenter(flowPaneCenter);
+
+        tiles.add(tile1);
+        tiles.add(tile2);
+        tiles.add(tile3);
+        tiles.add(tile4);
+        tiles.add(tile5);
+        tiles.add(tile6);
+        tiles.add(tile7);
+        tiles.add(tile8);
+        tiles.add(tile9);
 
         BorderPane.setAlignment(vbPlayer2, javafx.geometry.Pos.CENTER);
         vbPlayer2.setAlignment(javafx.geometry.Pos.TOP_CENTER);
@@ -251,30 +265,51 @@ public class Board extends BorderPane {
         BorderPane.setMargin(vbPlayer1, new Insets(36.0, 0.0, 0.0, 0.0));
         setLeft(vbPlayer1);
 
-        flowPaneRow1.getChildren().add(tile1);
+        flowPaneRow1.getChildren().add(tile1.getBtn());
         flowPaneRow1.getChildren().add(line1);
-        flowPaneRow1.getChildren().add(tile2);
+        flowPaneRow1.getChildren().add(tile2.getBtn());
         flowPaneRow1.getChildren().add(line2);
-        flowPaneRow1.getChildren().add(tile3);
+        flowPaneRow1.getChildren().add(tile3.getBtn());
         flowPaneCenter.getChildren().add(flowPaneRow1);
         flowPaneCenter.getChildren().add(line3);
-        flowPaneRow2.getChildren().add(tile4);
+        flowPaneRow2.getChildren().add(tile4.getBtn());
         flowPaneRow2.getChildren().add(line4);
-        flowPaneRow2.getChildren().add(tile5);
+        flowPaneRow2.getChildren().add(tile5.getBtn());
         flowPaneRow2.getChildren().add(line5);
-        flowPaneRow2.getChildren().add(tile6);
+        flowPaneRow2.getChildren().add(tile6.getBtn());
         flowPaneCenter.getChildren().add(flowPaneRow2);
         flowPaneCenter.getChildren().add(line6);
-        flowPaneRow3.getChildren().add(tile7);
+        flowPaneRow3.getChildren().add(tile7.getBtn());
         flowPaneRow3.getChildren().add(line7);
-        flowPaneRow3.getChildren().add(tile8);
+        flowPaneRow3.getChildren().add(tile8.getBtn());
         flowPaneRow3.getChildren().add(line8);
-        flowPaneRow3.getChildren().add(tile9);
+        flowPaneRow3.getChildren().add(tile9.getBtn());
         flowPaneCenter.getChildren().add(flowPaneRow3);
         vbPlayer2.getChildren().add(ivPlayer2);
         vbPlayer2.getChildren().add(userNamePlayer2);
         vbPlayer1.getChildren().add(ivPlayer1);
         vbPlayer1.getChildren().add(userNamePlayer1);
 
+        setListeners();
+
+    }
+
+    private void printXO(Tile tile) {
+        tile.getBtn().setGraphic(GetTileIconUseCase.getTileIcon(isX));
+        reverseXO();
+        handlePositionsUseCase.handlePositions(tile);
+    }
+
+    private void reverseXO() {
+        isX = !isX;
+    }
+
+    private void setListeners() {
+        for (Tile tile : tiles) {
+            tile.getBtn().setOnAction((e) -> {
+                printXO(tile);
+            });
+
+        }
     }
 }
