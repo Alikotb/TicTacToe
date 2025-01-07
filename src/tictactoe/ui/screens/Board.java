@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import tictactoe.domain.model.Tile;
+import tictactoe.domain.usecases.PlayBackgroundMusicUseCase;
+import tictactoe.domain.usecases.PlaySoundUseCase;
 import tictactoe.domain.usecases.RecordPositionUseCase;
 
 public class Board extends BorderPane {
@@ -39,9 +41,12 @@ public class Board extends BorderPane {
 
     ArrayList<Tile> tiles;
     protected RecordPositionUseCase recordPositionsUseCase;
+    protected PlaySoundUseCase playSound;
+
     boolean isX, isFinished;
 
     public Board() {
+        PlayBackgroundMusicUseCase.getInstance().stopBackgroundMusic();
 
         imageView = new ImageView(new Image("/resources/images/logo.png"));
         flowPaneCenter = new FlowPane();
@@ -75,6 +80,7 @@ public class Board extends BorderPane {
         isX = true;
         tiles = new ArrayList<>();
         recordPositionsUseCase = new RecordPositionUseCase();
+        playSound = new PlaySoundUseCase();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -308,6 +314,14 @@ public class Board extends BorderPane {
 
         }
     }
-    
-    
+
+    protected void playSound() {
+        if (isX) {
+            playSound.playSound(2);
+        } else {
+            playSound.playSound(1);
+        }
+
+    }
+
 }
