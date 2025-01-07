@@ -14,6 +14,7 @@ public class PlayerTwoBoard extends Board {
             return;
         }
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
+        playSound();
         recordPositionsUseCase.recordPositions(tile, isX);
         reverseXO();
     }
