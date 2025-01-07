@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library location="alexandria sotar" description="historical alexandria library" >
+<librarian>Mohamed</librarian>
+<sections>
+
+<type description="Comedy"> 
+	<book>
+		<title>A Confederacy of Dunces</title>
+		<ISBN>978-0802130204</ISBN>
+		<Author>John Kennedy Toole</Author>
+		<preface> this is the preface of book</preface>
+		<part description="part1">
+		<title>A Confederacy of Dunces part1</title>
+		<chapters>
+			<chapter description="chapter1" > 
+			<title>A Confederacy of Dunces chapter 1</title>
+			<summery> this is the summery of chapter1</summery>
+			<sections>
+				<section> 
+					<content>
+					  <paragraphs>
+					   <paragraph description="paragraph1"> content of paragraph one</paragraph>
+					   <paragraph description="paragraph2"> content of paragraph two</paragraph>
+					   <paragraph description="paragraph3"> content of paragraph three</paragraph>
+					   </paragraphs>
+					</content>
+				</section>
+			
+			</sections>
+			
+			</chapter>
+
+		</chapters>
+		</part>
+	</book>
+	<book>
+		<title>The Definitive</title>
+		<ISBN> 978-0316449885</ISBN>
+		<Author>Lindy West</Author>
+		<preface> this is the preface of book</preface>
+		<part description="part1">
+		<title>A Confederacy of Dunces part1</title>
+		<chapters>
+			<chapter description="chapter1" > 
+			<title>A Confederacy of Dunces chapter 1</title>
+			<summery> this is the summery of chapter1</summery>
+			<sections>
+				<section> 
+					<content>
+					  <paragraphs>
+					   <paragraph description="paragraph1"> content of paragraph one</paragraph>
+					   <paragraph description="paragraph2"> content of paragraph two</paragraph>
+					   <paragraph description="paragraph3"> content of paragraph three</paragraph>
+					   </paragraphs>
+					</content>
+				</section>
+			
+			</sections>
+			
+			</chapter>
+
+		</chapters>
+		</part>
+		
+		
+	</book>
+	
+</type>
+
+<type description="Romantic"> 
+	<book>
+		<title>Pride and Prejudice</title>
+		<ISBN>978-0141439518</ISBN>
+		<Author>Jane Austen</Author>
+		<preface> this is the preface of book</preface>
+	</book>
+
+</type>
+
+<type description="Action"> 
+	<book>
+		<title>Jurassic Park</title>
+		<ISBN>978-0345538987</ISBN>
+		<Author>Michael Crichton</Author>
+		<preface> this is the preface of book</preface>
+		<part description="part1">
+		<title>A Confederacy of Dunces part1</title>
+		<chapters>
+			<chapter description="chapter1" > 
+			<title>A Confederacy of Dunces chapter 1</title>
+			<summery> this is the summery of chapter1</summery>
+			<sections>
+				<section> 
+					<content>
+					  <paragraphs>
+					   <paragraph description="paragraph1"> content of paragraph one</paragraph>
+					   <paragraph description="paragraph2"> content of paragraph two</paragraph>
+					   <paragraph description="paragraph3"> content of paragraph three</paragraph>
+					   </paragraphs>
+					</content>
+				</section>
+			
+			</sections>
+			
+			</chapter>
+
+		</chapters>
+		</part>
+	</book>
+
+</type>
+
+</sections>
+</library>
+
+
