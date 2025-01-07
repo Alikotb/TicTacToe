@@ -3,7 +3,6 @@ package tictactoe.ui.screens;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import tictactoe.domain.model.Tile;
-import tictactoe.domain.usecases.GetTileIconUseCase;
 import tictactoe.domain.usecases.RecordPositionUseCase;
 
 public class Board extends BorderPane {
@@ -40,7 +38,7 @@ public class Board extends BorderPane {
     protected final Label userNamePlayer1;
 
     ArrayList<Tile> tiles;
-    protected RecordPositionUseCase handlePositionsUseCase;
+    protected RecordPositionUseCase recordPositionsUseCase;
     boolean isX, isFinished;
 
     public Board() {
@@ -76,7 +74,7 @@ public class Board extends BorderPane {
 
         isX = true;
         tiles = new ArrayList<>();
-        handlePositionsUseCase = new RecordPositionUseCase();
+        recordPositionsUseCase = new RecordPositionUseCase();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -291,10 +289,11 @@ public class Board extends BorderPane {
 
     }
 
-    protected void printXO(Tile tile) {}
+    protected void printXO(Tile tile) {
+    }
 
     protected boolean isGameFinished() {
-        return isFinished = handlePositionsUseCase.getPositions().isEmpty();
+        return isFinished = recordPositionsUseCase.getPositions().isEmpty();
     }
 
     protected void reverseXO() {
@@ -309,4 +308,6 @@ public class Board extends BorderPane {
 
         }
     }
+    
+    
 }
