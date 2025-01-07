@@ -1,7 +1,7 @@
 package tictactoe.ui.screens;
 
 import tictactoe.domain.model.Tile;
-import tictactoe.domain.usecases.GetTileIconUseCase;
+import tictactoe.domain.usecases.GetXOImageUseCase;
 
 public class PlayerTwoBoard extends Board {
 
@@ -10,11 +10,11 @@ public class PlayerTwoBoard extends Board {
         if (isGameFinished()) {
             return; //Game Finished Alert
         }
-        if (!handlePositionsUseCase.getPositions().contains(tile.getPosition())) {
+        if (!recordPositionsUseCase.getPositions().contains(tile.getPosition())) {
             return;
         }
-        tile.getBtn().setGraphic(GetTileIconUseCase.getTileIcon(isX));
-        handlePositionsUseCase.recordPositions(tile, isX);
+        tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
+        recordPositionsUseCase.recordPositions(tile, isX);
         reverseXO();
     }
 }
