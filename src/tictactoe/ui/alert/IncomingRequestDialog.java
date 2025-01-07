@@ -68,7 +68,7 @@ public class IncomingRequestDialog {
         // Handle the result
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == acceptButtonType) {
-                stage.setScene(new Scene(new Board(Board.MODE_ONLINE)));
+                stage.setScene(new Scene(new Board()));
                 return true;  // Accept button clicked
             } else {
                 return false; // Decline button clicked

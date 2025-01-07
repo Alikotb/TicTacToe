@@ -14,7 +14,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetTileIconUseCase;
-import tictactoe.domain.usecases.HandlePositionsUseCase;
+import tictactoe.domain.usecases.RecordPositionUseCase;
 
 public class Board extends BorderPane {
 
@@ -40,13 +40,10 @@ public class Board extends BorderPane {
     protected final Label userNamePlayer1;
 
     ArrayList<Tile> tiles;
-    HandlePositionsUseCase handlePositionsUseCase;
-    boolean isX;
-    public static final int MODE_PC = 1;
-    public static final int MODE_PLAYER = 2;
-    public static final int MODE_ONLINE = 3;
+    protected RecordPositionUseCase handlePositionsUseCase;
+    boolean isX, isFinished;
 
-    public Board(int mode) {
+    public Board() {
 
         imageView = new ImageView(new Image("/resources/images/logo.png"));
         flowPaneCenter = new FlowPane();
@@ -79,7 +76,7 @@ public class Board extends BorderPane {
 
         isX = true;
         tiles = new ArrayList<>();
-        handlePositionsUseCase = new HandlePositionsUseCase();
+        handlePositionsUseCase = new RecordPositionUseCase();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -233,16 +230,16 @@ public class Board extends BorderPane {
         Font font = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/MyCustomFont.ttf"), 25.0);  // 16px size
         setStyle("-fx-background-color: linear-gradient(to bottom, #EBF8FF, #71B9D7, #0D88B7)");
 
-        if (mode == MODE_PC) {
-            userNamePlayer1.setText("Player 1");
-            userNamePlayer2.setText("PC");
-        } else if (mode == MODE_PLAYER) {
-            userNamePlayer1.setText("Player 1");
-            userNamePlayer2.setText("Player 2");
-        } else if (mode == MODE_ONLINE) {
-            userNamePlayer1.setText("Yousef");
-            userNamePlayer2.setText("Ali");
-        }
+//        if (mode == MODE_PC) {
+//            userNamePlayer1.setText("Player 1");
+//            userNamePlayer2.setText("PC");
+//        } else if (mode == MODE_PLAYER) {
+//            userNamePlayer1.setText("Player 1");
+//            userNamePlayer2.setText("Player 2");
+//        } else if (mode == MODE_ONLINE) {
+//            userNamePlayer1.setText("Yousef");
+//            userNamePlayer2.setText("Ali");
+//        }
         userNamePlayer2.setTextFill(javafx.scene.paint.Color.WHITE);
         userNamePlayer2.setWrapText(true);
         userNamePlayer2.setFont(font);
@@ -294,13 +291,13 @@ public class Board extends BorderPane {
 
     }
 
-    private void printXO(Tile tile) {
-        tile.getBtn().setGraphic(GetTileIconUseCase.getTileIcon(isX));
-        reverseXO();
-        handlePositionsUseCase.handlePositions(tile);
+    protected void printXO(Tile tile) {}
+
+    protected boolean isGameFinished() {
+        return isFinished = handlePositionsUseCase.getPositions().isEmpty();
     }
 
-    private void reverseXO() {
+    protected void reverseXO() {
         isX = !isX;
     }
 
