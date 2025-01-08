@@ -116,7 +116,7 @@ public class OfflineBase extends BorderPane {
         PlayVsComp.setText("Play Vs PC");
         PlayVsComp.setId("PlayVsComp");
         PlayVsComp.setOnAction(e -> {
-            mystage.setScene(new Scene(new PcBoard()));
+            mystage.setScene(new Scene(new PcBoard(mystage)));
         });
 
         GridPane.setMargin(PlayVsComp, new Insets(0.0, 0.0, 0.0, 160.0));
@@ -128,7 +128,7 @@ public class OfflineBase extends BorderPane {
         PlayWithFriend.setText("Play With a Friend");
         PlayWithFriend.setId("PlayWithFriend");
         PlayWithFriend.setOnAction(e -> {
-            mystage.setScene(new Scene(new PlayerTwoBoard()));
+            mystage.setScene(new Scene(new PlayerTwoBoard(mystage)));
         });
         
         GridPane.setMargin(PlayWithFriend, new Insets(0.0, 0.0, 0.0, 160.0));

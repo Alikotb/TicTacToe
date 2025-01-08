@@ -1,13 +1,24 @@
 package tictactoe.ui.screens;
 
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetRandomPositionUseCase;
 import tictactoe.domain.usecases.GetXOImageUseCase;
 import tictactoe.domain.usecases.GetTileUseCase;
+import tictactoe.ui.alert.PlayerOnePopUp;
 
 public class PcBoard extends Board {
 
-    int currentPosition;
+    public PcBoard(Stage owner) {
+       super(owner);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(new PlayerOnePopUp(stage, this)));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(owner);
+        stage.show();
+    }
 
     @Override
     protected void printXO(Tile tile) {
@@ -20,7 +31,7 @@ public class PcBoard extends Board {
         printXO();
     }
 
-    private void printXO() {
+    protected void printXO() {
 
         if (isGameFinished()) {
             return; // Game Finished Alert
@@ -31,5 +42,4 @@ public class PcBoard extends Board {
         recordPositionsUseCase.recordPositions(tile, isX);
         reverseXO();
     }
-
 }
