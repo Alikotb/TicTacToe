@@ -113,6 +113,11 @@
                   <Font size="24.0" />
                </font>
             </Label>
+            <Label fx:id="player2Score" text="0" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
    </right>
@@ -128,6 +133,11 @@
                </VBox.margin>
             </ImageView>
             <Label fx:id="userNamePlayer1" text="Nour" textFill="WHITE">
+               <font>
+                  <Font name="Arial Narrow" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="player1Score" text="0" textFill="WHITE">
                <font>
                   <Font name="Arial Narrow" size="24.0" />
                </font>

@@ -1,4 +1,4 @@
-package tictactoe.alert;
+package tictactoe.ui.alert;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -68,7 +68,7 @@ public class IncomingRequestDialog {
         // Handle the result
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == acceptButtonType) {
-                stage.setScene(new Scene(new Board()));
+                stage.setScene(new Scene(new Board(new Stage())));
                 return true;  // Accept button clicked
             } else {
                 return false; // Decline button clicked
