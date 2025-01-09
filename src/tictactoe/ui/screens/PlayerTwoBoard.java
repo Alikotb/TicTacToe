@@ -6,14 +6,14 @@ import javafx.stage.Stage;
 import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetXOImageUseCase;
 import tictactoe.domain.usecases.IsWinnerUseCase;
-import tictactoe.ui.alert.PlayerTwoPopUp;
+import tictactoe.ui.alert.PromptUserNames;
 
 public class PlayerTwoBoard extends Board {
   
     PlayerTwoBoard(Stage owner) {
         super(owner);
         Stage stage = new Stage();
-        stage.setScene(new Scene(new PlayerTwoPopUp(stage, this)));
+        stage.setScene(new Scene(new PromptUserNames(stage, this)));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(owner);
         stage.show();
@@ -22,15 +22,17 @@ public class PlayerTwoBoard extends Board {
     @Override
     protected void printXO(Tile tile) {
         if (isGameFinished()) {
-            return; //Game Finished Alert
+            return; 
         }
         if (!recordPositionsUseCase.getPositions().contains(tile.getPosition())) {
             return;
         }
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
-        playSound();
         recordPositionsUseCase.recordPositions(tile, isX);
-        checkWinner();
+        
         reverseXO();
+        timer.cancel();
+        timer.startTimer(5, isX); // TODO
+        checkWinner();
     }
 }
