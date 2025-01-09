@@ -1,6 +1,7 @@
 package tictactoe.ui.screens;
 
 import java.util.ArrayList;
+import java.util.List;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -15,6 +16,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import tictactoe.domain.model.Tile;
+import tictactoe.domain.usecases.IsWinnerUseCase;
 import tictactoe.domain.usecases.PlayBackgroundMusicUseCase;
 import tictactoe.domain.usecases.PlaySoundUseCase;
 import tictactoe.domain.usecases.RecordPositionUseCase;
@@ -48,6 +50,7 @@ public class Board extends BorderPane {
     ArrayList<Tile> tiles;
     protected RecordPositionUseCase recordPositionsUseCase;
     protected PlaySoundUseCase playSound;
+    protected IsWinnerUseCase winnerCkeck;
 
     boolean isX, isFinished;
     Stage stage;
@@ -93,6 +96,7 @@ public class Board extends BorderPane {
         tiles = new ArrayList<>();
         recordPositionsUseCase = new RecordPositionUseCase();
         playSound = new PlaySoundUseCase();
+        winnerCkeck = new IsWinnerUseCase();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -313,8 +317,37 @@ public class Board extends BorderPane {
     protected void printXO(Tile tile) {
     }
 
+    protected void checkWinner() {
+        int result = winnerCkeck.isWinner(recordPositionsUseCase);
+        if (result == 1) {
+            isFinished = true;
+            highlightWinningTiles(winnerCkeck.getWinningPositions());
+        } else if (result == 2) {
+            isFinished = true;
+            highlightWinningTiles(winnerCkeck.getWinningPositions());
+        } 
+    }
+
+    protected void highlightWinningTiles(List<Integer> winningPositions) {
+        for (Integer position : winningPositions) {
+            Tile tile = getTileByPosition(position);
+            if (tile != null) {
+                tile.getBtn().setStyle("-fx-background-color: #89CFF0");
+            }
+        }
+    }
+
+    private Tile getTileByPosition(int position) {
+        for (Tile tile : tiles) {
+            if (tile.getPosition() == position) {
+                return tile;
+            }
+        }
+        return null;
+    }
+
     protected boolean isGameFinished() {
-        return isFinished = recordPositionsUseCase.getPositions().isEmpty();
+        return recordPositionsUseCase.getPositions().isEmpty()|| isFinished;
     }
 
     protected void reverseXO() {

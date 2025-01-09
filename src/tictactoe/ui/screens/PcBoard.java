@@ -27,6 +27,7 @@ public class PcBoard extends Board {
         }
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
         recordPositionsUseCase.recordPositions(tile, isX);
+        checkWinner();
         reverseXO();
         printXO();
     }
@@ -40,6 +41,7 @@ public class PcBoard extends Board {
         Tile tile = GetTileUseCase.getTile(tiles, randomPosition);
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
         recordPositionsUseCase.recordPositions(tile, isX);
+        checkWinner();
         reverseXO();
     }
 }

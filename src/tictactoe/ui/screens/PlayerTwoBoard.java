@@ -5,10 +5,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetXOImageUseCase;
+import tictactoe.domain.usecases.IsWinnerUseCase;
 import tictactoe.ui.alert.PlayerTwoPopUp;
 
 public class PlayerTwoBoard extends Board {
-
+  
     PlayerTwoBoard(Stage owner) {
         super(owner);
         Stage stage = new Stage();
@@ -29,6 +30,7 @@ public class PlayerTwoBoard extends Board {
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
         playSound();
         recordPositionsUseCase.recordPositions(tile, isX);
+        checkWinner();
         reverseXO();
     }
 }
