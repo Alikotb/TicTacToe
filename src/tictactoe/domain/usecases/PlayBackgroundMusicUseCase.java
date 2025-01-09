@@ -24,7 +24,7 @@ public class PlayBackgroundMusicUseCase {
         if (backgroundPlayer == null || backgroundPlayer.getStatus() == MediaPlayer.Status.DISPOSED) {
             Media media = new Media(BACKGROUND_SOUND.toURI().toString());
             backgroundPlayer = new MediaPlayer(media);
-
+            backgroundPlayer.setVolume(0.1);
             backgroundPlayer.setOnEndOfMedia(() -> backgroundPlayer.play());
         }
         if (backgroundPlayer.getStatus() != MediaPlayer.Status.PLAYING) {
