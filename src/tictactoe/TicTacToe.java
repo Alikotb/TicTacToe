@@ -22,6 +22,7 @@ public class TicTacToe extends Application {
         Parent root = new Splash(stage);
         Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+        PlayBackgroundMusicUseCase.getInstance().startBackgroundMusic();
 
         stage.setTitle("Tic Tac Toe");
         stage.setScene(scene);
@@ -32,7 +33,6 @@ public class TicTacToe extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        PlayBackgroundMusicUseCase.getInstance().startBackgroundMusic();
         launch(args);
     }
 
