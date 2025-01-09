@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,6 +14,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.IsWinnerUseCase;
 import tictactoe.domain.usecases.PlayBackgroundMusicUseCase;
@@ -36,10 +39,13 @@ public class Board extends BorderPane {
     protected final Line line8;
     protected final VBox vbPlayer2;
     protected final ImageView ivPlayer2;
-    protected final Label userNamePlayer2;
+    protected Label userNamePlayer2;
     protected final VBox vbPlayer1;
     protected final ImageView ivPlayer1;
-    protected final Label userNamePlayer1;
+    protected Label userNamePlayer1;
+    protected Label player1Score;
+    protected Label player2Score;
+    Button recordBtn, forfeitBtn;
 
     ArrayList<Tile> tiles;
     protected RecordPositionUseCase recordPositionsUseCase;
@@ -47,8 +53,9 @@ public class Board extends BorderPane {
     protected IsWinnerUseCase winnerCkeck;
 
     boolean isX, isFinished;
+    Stage stage;
 
-    public Board() {
+    public Board(Stage stage) {
         PlayBackgroundMusicUseCase.getInstance().stopBackgroundMusic();
 
         imageView = new ImageView(new Image("/resources/images/logo.png"));
@@ -79,7 +86,12 @@ public class Board extends BorderPane {
         vbPlayer1 = new VBox();
         ivPlayer1 = new ImageView(new Image("/resources/images/player1.png"));
         userNamePlayer1 = new Label();
+        player1Score = new Label();
+        player2Score = new Label();
+        recordBtn = new Button();
+        forfeitBtn = new Button();
 
+        this.stage = stage;
         isX = true;
         tiles = new ArrayList<>();
         recordPositionsUseCase = new RecordPositionUseCase();
@@ -92,6 +104,9 @@ public class Board extends BorderPane {
         setMinWidth(USE_PREF_SIZE);
         setPrefHeight(600.0);
         setPrefWidth(800.0);
+        
+        forfeitBtn.setText("Forfeit");
+        recordBtn.setText("Record");
 
         BorderPane.setAlignment(imageView, javafx.geometry.Pos.TOP_CENTER);
         imageView.setFitHeight(108.0);
@@ -212,16 +227,6 @@ public class Board extends BorderPane {
         tile9.getBtn().setBackground(null);
         setCenter(flowPaneCenter);
 
-        tiles.add(tile1);
-        tiles.add(tile2);
-        tiles.add(tile3);
-        tiles.add(tile4);
-        tiles.add(tile5);
-        tiles.add(tile6);
-        tiles.add(tile7);
-        tiles.add(tile8);
-        tiles.add(tile9);
-
         BorderPane.setAlignment(vbPlayer2, javafx.geometry.Pos.CENTER);
         vbPlayer2.setAlignment(javafx.geometry.Pos.TOP_CENTER);
         vbPlayer2.setPrefHeight(200.0);
@@ -238,16 +243,12 @@ public class Board extends BorderPane {
         Font font = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/MyCustomFont.ttf"), 25.0);  // 16px size
         setStyle("-fx-background-color: linear-gradient(to bottom, #EBF8FF, #71B9D7, #0D88B7)");
 
-//        if (mode == MODE_PC) {
-//            userNamePlayer1.setText("Player 1");
-//            userNamePlayer2.setText("PC");
-//        } else if (mode == MODE_PLAYER) {
-//            userNamePlayer1.setText("Player 1");
-//            userNamePlayer2.setText("Player 2");
-//        } else if (mode == MODE_ONLINE) {
-//            userNamePlayer1.setText("Yousef");
-//            userNamePlayer2.setText("Ali");
-//        }
+        player1Score.setTextFill(javafx.scene.paint.Color.WHITE);
+        player1Score.setFont(font);
+
+        player2Score.setTextFill(javafx.scene.paint.Color.WHITE);
+        player2Score.setFont(font);
+
         userNamePlayer2.setTextFill(javafx.scene.paint.Color.WHITE);
         userNamePlayer2.setWrapText(true);
         userNamePlayer2.setFont(font);
@@ -292,8 +293,22 @@ public class Board extends BorderPane {
         flowPaneCenter.getChildren().add(flowPaneRow3);
         vbPlayer2.getChildren().add(ivPlayer2);
         vbPlayer2.getChildren().add(userNamePlayer2);
+        vbPlayer2.getChildren().add(player2Score);
         vbPlayer1.getChildren().add(ivPlayer1);
         vbPlayer1.getChildren().add(userNamePlayer1);
+        vbPlayer1.getChildren().add(player1Score);
+        vbPlayer2.getChildren().add(recordBtn);
+        vbPlayer1.getChildren().add(forfeitBtn);
+
+        tiles.add(tile1);
+        tiles.add(tile2);
+        tiles.add(tile3);
+        tiles.add(tile4);
+        tiles.add(tile5);
+        tiles.add(tile6);
+        tiles.add(tile7);
+        tiles.add(tile8);
+        tiles.add(tile9);
 
         setListeners();
 
@@ -346,6 +361,14 @@ public class Board extends BorderPane {
             });
 
         }
+
+        recordBtn.setOnAction(e -> {
+            // TODO : Add record method
+        });
+
+        forfeitBtn.setOnAction(e -> {
+            stage.setScene(new Scene(new Home(stage)));
+        });
     }
 
     protected void playSound() {
@@ -357,4 +380,19 @@ public class Board extends BorderPane {
 
     }
 
+    public void setUserNamePlayer2(String userNamePlayer2) {
+        this.userNamePlayer2.setText(userNamePlayer2);
+    }
+
+    public void setUserNamePlayer1(String userNamePlayer1) {
+        this.userNamePlayer1.setText(userNamePlayer1);
+    }
+
+    public void setPlayer1Score(String player1Score) {
+        this.player1Score.setText(player1Score);
+    }
+
+    public void setPlayer2Score(String player2Score) {
+        this.player2Score.setText(player2Score);
+    }
 }

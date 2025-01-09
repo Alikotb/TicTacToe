@@ -19,7 +19,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import tictactoe.alert.IncomingRequestDialog;
+import tictactoe.ui.alert.IncomingRequestDialog;
 
 
 public class OnlineUsers extends BorderPane {

@@ -1,4 +1,4 @@
-package tictactoe.alert;
+package tictactoe.ui.alert;
 
 import java.io.File;
 import javafx.geometry.Insets;
