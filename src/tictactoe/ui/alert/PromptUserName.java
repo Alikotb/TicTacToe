@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import tictactoe.ui.screens.Board;
 
-public class PlayerOnePopUp extends FlowPane {
+public class PromptUserName extends FlowPane {
 
     protected final Button closeBtn;
     protected final Label label;
@@ -17,7 +17,7 @@ public class PlayerOnePopUp extends FlowPane {
     protected final FlowPane buttonsFlowPane;
     protected final Button OkBtn;
 
-    public PlayerOnePopUp(Stage stage, Board board) {
+    public PromptUserName(Stage stage, Board board) {
 
         closeBtn = new Button();
         label = new Label();

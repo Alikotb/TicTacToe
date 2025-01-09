@@ -7,17 +7,21 @@ import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetRandomPositionUseCase;
 import tictactoe.domain.usecases.GetXOImageUseCase;
 import tictactoe.domain.usecases.GetTileUseCase;
-import tictactoe.ui.alert.PlayerOnePopUp;
+import tictactoe.ui.alert.PromptUserName;
 
 public class PcBoard extends Board {
 
     public PcBoard(Stage owner) {
-       super(owner);
+        super(owner);
         Stage stage = new Stage();
-        stage.setScene(new Scene(new PlayerOnePopUp(stage, this)));
+        stage.setScene(new Scene(new PromptUserName(stage, this)));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(owner);
         stage.show();
+
+        timer.setOnTimeStopped(() -> {
+            printXO();
+        });
     }
 
     @Override
@@ -29,19 +33,6 @@ public class PcBoard extends Board {
         recordPositionsUseCase.recordPositions(tile, isX);
         checkWinner();
         reverseXO();
-        printXO();
-    }
-
-    protected void printXO() {
-
-        if (isGameFinished()) {
-            return; // Game Finished Alert
-        }
-        int randomPosition = GetRandomPositionUseCase.getRandomPosition(recordPositionsUseCase.getPositions());
-        Tile tile = GetTileUseCase.getTile(tiles, randomPosition);
-        tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
-        recordPositionsUseCase.recordPositions(tile, isX);
-        checkWinner();
-        reverseXO();
+        timer.startTimer(1);
     }
 }
