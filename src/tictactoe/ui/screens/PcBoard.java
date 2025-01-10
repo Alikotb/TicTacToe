@@ -26,7 +26,7 @@ public class PcBoard extends Board {
 
     @Override
     protected void printXO(Tile tile) {
-        if (!recordPositionsUseCase.getPositions().contains(tile.getPosition())) {
+        if (!recordPositionsUseCase.getPositions().contains(tile.getPosition())||isFinished) {
             return;
         }
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
