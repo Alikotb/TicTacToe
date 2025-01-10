@@ -18,7 +18,7 @@ public class IsWinnerUseCase {
         int[][] possibleWinningCombinations = {
             {1, 2, 3}, {4, 5, 6}, {7, 8, 9}, // possible horizontail winning combination
             {1, 4, 7}, {2, 5, 8}, {3, 6, 9}, // possible vertical winning combination
-            {1, 5, 8}, {3, 5, 7} // possible diagonal winning combination
+            {1, 5, 9}, {3, 5, 7} // possible diagonal winning combination
         };
 
         for (int i = 0; i < possibleWinningCombinations.length; i++) { // if playerone has the winning combination
@@ -55,6 +55,9 @@ public class IsWinnerUseCase {
 
         }
         winningPositions.clear();
+        if (allPositionOfGame.isEmpty()) {
+            return 3;
+        }
         return 0; // no one win
     }
 

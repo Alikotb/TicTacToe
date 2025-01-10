@@ -70,8 +70,8 @@ public class PromptUserNames extends FlowPane {
 
             board.setUserNamePlayer1(userName1.isEmpty() ? "Player1" : userName1);
             board.setUserNamePlayer2(userName2.isEmpty() ? "Player2" : userName2);
-            board.setPlayer1Score("0");
-            board.setPlayer2Score("0");
+//            board.setPlayer1Score("0");
+//            board.setPlayer2Score("0");
             board.startTimer();
             stage.close();
         });

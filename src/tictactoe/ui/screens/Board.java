@@ -62,6 +62,8 @@ public class Board extends BorderPane {
 
     boolean isX, isFinished;
     Stage stage;
+    private int player1ScoreValue;
+    private int player2ScoreValue;
 
     public Board(Stage stage) {
         PlayBackgroundMusicUseCase.getInstance().stopBackgroundMusic();
@@ -257,9 +259,11 @@ public class Board extends BorderPane {
 
         player1Score.setTextFill(javafx.scene.paint.Color.WHITE);
         player1Score.setFont(font);
+        setPlayer1Score(player1ScoreValue);
 
         player2Score.setTextFill(javafx.scene.paint.Color.WHITE);
         player2Score.setFont(font);
+        setPlayer2Score(player2ScoreValue);
 
         userNamePlayer2.setTextFill(javafx.scene.paint.Color.WHITE);
         userNamePlayer2.setWrapText(true);
@@ -341,15 +345,26 @@ public class Board extends BorderPane {
             timer.cancel();
             playSound.playSound(4);
             isFinished = true;
-
             highlightWinningTiles(winnerCkeck.getWinningPositions());
-            new EndGameAlert('w').show();
+            player1ScoreValue += 100;
+            setPlayer1Score(player1ScoreValue);
+            new EndGameAlert('w', stage, this).show();
+
         } else if (result == 2) {
             timer.cancel();
             playSound.playSound(6);
             isFinished = true;
             highlightWinningTiles(winnerCkeck.getWinningPositions());
-            new EndGameAlert('l').show();
+
+            player2ScoreValue += 100;
+            setPlayer2Score(player2ScoreValue);
+            new EndGameAlert('l', stage, this).show();
+
+        } else if (result == 3) {
+            timer.cancel();
+            isFinished = true;
+            playSound();
+
         } else {
             playSound();
         }
@@ -417,12 +432,12 @@ public class Board extends BorderPane {
         this.userNamePlayer1.setText(userNamePlayer1);
     }
 
-    public void setPlayer1Score(String player1Score) {
-        this.player1Score.setText(player1Score);
+    public void setPlayer1Score(int score) {
+        this.player1Score.setText(score + "");
     }
 
-    public void setPlayer2Score(String player2Score) {
-        this.player2Score.setText(player2Score);
+    public void setPlayer2Score(int score) {
+        this.player2Score.setText(score + "");
     }
 
     public void startTimer() {
@@ -446,4 +461,17 @@ public class Board extends BorderPane {
         reverseXO();
     }
 
+    public void restartGame() {
+        // Reset all tiles, positions, and other game states
+        for (Tile tile : tiles) {
+            tile.getBtn().setGraphic(null); // Remove the XO marks
+            tile.getBtn().setStyle("");
+        }
+        recordPositionsUseCase = new RecordPositionUseCase();
+        isX = true;
+        isFinished = false;
+
+        recordBtn.setText("Recourd");
+        recordBtn.setDisable(false);
+    }
 }

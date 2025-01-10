@@ -64,8 +64,8 @@ public class PromptUserName extends FlowPane {
             String userName = userNameTextField.getText().trim();
             board.setUserNamePlayer1(userName.isEmpty() ? "Player1" : userName);
             board.setUserNamePlayer2("Pc");
-            board.setPlayer1Score("0");
-            board.setPlayer2Score("0");
+//            board.setPlayer1Score("0");
+//            board.setPlayer2Score("0");
             stage.close();
         });
         FlowPane.setMargin(OkBtn, new Insets(0.0, 0.0, 0.0, 0.0));
