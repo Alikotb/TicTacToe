@@ -34,6 +34,9 @@ public class EndGameAlert {
         if (status == 'l') {
             file = new File("src/resources/videos/lose.mp4");
         }
+        if (status == 'e') {
+            file = new File("src/resources/videos/draw.mp4");
+        }
     }
 
     public void show() {
@@ -91,13 +94,6 @@ public class EndGameAlert {
                 e.consume();
             });
 
-            /*
-                alertStage.iconifiedProperty().addListener((observable, oldValue, newValue) -> {
-                    if (newValue) {
-                        alertStage.setIconified(false);  
-                    }
-                });
-             */
             alertStage.show();
 
         } else {
