@@ -25,6 +25,8 @@ import tictactoe.domain.usecases.PlaySoundUseCase;
 import tictactoe.domain.usecases.RecordPositionUseCase;
 import tictactoe.domain.usecases.TimerUseCase;
 import tictactoe.ui.alert.EndGameAlert;
+import tictactoe.domain.usecases.RecordingUseCase;
+import tictactoe.domain.model.Record;
 
 public class Board extends BorderPane {
 
@@ -54,6 +56,8 @@ public class Board extends BorderPane {
     protected Label playerTwoTimer;
     protected Button recordBtn, forfeitBtn;
 
+    char TheWinner;
+    boolean isRecording;
     ArrayList<Tile> tiles;
     protected RecordPositionUseCase recordPositionsUseCase;
     protected PlaySoundUseCase playSound;
@@ -66,6 +70,7 @@ public class Board extends BorderPane {
     private int player2ScoreValue;
 
     public Board(Stage stage) {
+        isRecording=false;
         PlayBackgroundMusicUseCase.getInstance().stopBackgroundMusic();
 
         imageView = new ImageView(new Image("/resources/images/logo.png"));
@@ -342,15 +347,22 @@ public class Board extends BorderPane {
     protected void checkWinner() {
         int result = winnerCkeck.isWinner(recordPositionsUseCase);
         if (result == 1) {
+            TheWinner = 'W';
             timer.cancel();
             playSound.playSound(4);
             isFinished = true;
             highlightWinningTiles(winnerCkeck.getWinningPositions());
             player1ScoreValue += 100;
             setPlayer1Score(player1ScoreValue);
+              if(isRecording){
+                                                 // System.out.println("=="+userNamePlayer1.getText());
+                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer1.getText(), this.TheWinner);
+            }
             new EndGameAlert('w', stage, this).show();
+            
 
         } else if (result == 2) {
+            TheWinner = 'L';
             timer.cancel();
             playSound.playSound(6);
             isFinished = true;
@@ -358,11 +370,21 @@ public class Board extends BorderPane {
 
             player2ScoreValue += 100;
             setPlayer2Score(player2ScoreValue);
+            if(isRecording){
+                                System.out.println("=="+userNamePlayer1.getText());
+                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer1.getText(), this.TheWinner);
+            }
             new EndGameAlert('l', stage, this).show();
+            
 
         } else if (result == 3) {
+            TheWinner = 'E';
             timer.cancel();
             isFinished = true;
+              if(isRecording){
+                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer1.getText(), this.TheWinner);
+
+            }
             playSound();
 
         } else {
@@ -404,9 +426,14 @@ public class Board extends BorderPane {
             });
 
         }
-
         recordBtn.setOnAction(e -> {
-            // TODO : Add record method
+            //if (isFinished==true) {
+            isRecording=true;
+//                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.toString(), userNamePlayer1.toString(), this.TheWinner);
+//                this.recordBtn.setDisable(false);
+           // }
+            recordBtn.setText("Recording...");
+            recordBtn.setDisable(true);
         });
 
         forfeitBtn.setOnAction(e -> {

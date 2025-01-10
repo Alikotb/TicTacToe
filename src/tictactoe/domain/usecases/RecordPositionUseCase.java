@@ -2,6 +2,7 @@ package tictactoe.domain.usecases;
 
 import java.util.ArrayList;
 import tictactoe.domain.model.Tile;
+import tictactoe.domain.usecases.RecordingUseCase;
 
 public class RecordPositionUseCase {
 
@@ -21,8 +22,10 @@ public class RecordPositionUseCase {
 
     private void addPosition(Tile tile, boolean isX) {
         if (isX) {
+            RecordingUseCase.Pos += tile.getPosition();
             playerOnePositions.add(tile.getPosition());
         } else {
+            RecordingUseCase.Pos += tile.getPosition();
             playerTwoPositions.add(tile.getPosition());
         }
 
