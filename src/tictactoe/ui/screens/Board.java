@@ -25,6 +25,8 @@ import tictactoe.domain.usecases.PlaySoundUseCase;
 import tictactoe.domain.usecases.RecordPositionUseCase;
 import tictactoe.domain.usecases.TimerUseCase;
 import tictactoe.ui.alert.EndGameAlert;
+import tictactoe.domain.usecases.RecordingUseCase;
+import tictactoe.domain.model.Record;
 
 public class Board extends BorderPane {
 
@@ -54,6 +56,8 @@ public class Board extends BorderPane {
     protected Label playerTwoTimer;
     protected Button recordBtn, forfeitBtn;
 
+    char TheWinner;
+    boolean isRecording;
     ArrayList<Tile> tiles;
     protected RecordPositionUseCase recordPositionsUseCase;
     protected PlaySoundUseCase playSound;
@@ -62,8 +66,11 @@ public class Board extends BorderPane {
 
     boolean isX, isFinished;
     Stage stage;
+    private int player1ScoreValue;
+    private int player2ScoreValue;
 
     public Board(Stage stage) {
+        isRecording=false;
         PlayBackgroundMusicUseCase.getInstance().stopBackgroundMusic();
 
         imageView = new ImageView(new Image("/resources/images/logo.png"));
@@ -257,9 +264,11 @@ public class Board extends BorderPane {
 
         player1Score.setTextFill(javafx.scene.paint.Color.WHITE);
         player1Score.setFont(font);
+        setPlayer1Score(player1ScoreValue);
 
         player2Score.setTextFill(javafx.scene.paint.Color.WHITE);
         player2Score.setFont(font);
+        setPlayer2Score(player2ScoreValue);
 
         userNamePlayer2.setTextFill(javafx.scene.paint.Color.WHITE);
         userNamePlayer2.setWrapText(true);
@@ -338,18 +347,46 @@ public class Board extends BorderPane {
     protected void checkWinner() {
         int result = winnerCkeck.isWinner(recordPositionsUseCase);
         if (result == 1) {
+            TheWinner = 'W';
             timer.cancel();
             playSound.playSound(4);
             isFinished = true;
-
             highlightWinningTiles(winnerCkeck.getWinningPositions());
-            new EndGameAlert('w').show();
+            player1ScoreValue += 100;
+            setPlayer1Score(player1ScoreValue);
+              if(isRecording){
+                                                 // System.out.println("=="+userNamePlayer1.getText());
+                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer1.getText(), this.TheWinner);
+            }
+            new EndGameAlert('w', stage, this).show();
+            
+
         } else if (result == 2) {
+            TheWinner = 'L';
             timer.cancel();
             playSound.playSound(6);
             isFinished = true;
             highlightWinningTiles(winnerCkeck.getWinningPositions());
-            new EndGameAlert('l').show();
+
+            player2ScoreValue += 100;
+            setPlayer2Score(player2ScoreValue);
+            if(isRecording){
+                                System.out.println("=="+userNamePlayer1.getText());
+                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer1.getText(), this.TheWinner);
+            }
+            new EndGameAlert('l', stage, this).show();
+            
+
+        } else if (result == 3) {
+            TheWinner = 'E';
+            timer.cancel();
+            isFinished = true;
+              if(isRecording){
+                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer1.getText(), this.TheWinner);
+
+            }
+            playSound();
+
         } else {
             playSound();
         }
@@ -389,9 +426,14 @@ public class Board extends BorderPane {
             });
 
         }
-
         recordBtn.setOnAction(e -> {
-            // TODO : Add record method
+            //if (isFinished==true) {
+            isRecording=true;
+//                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.toString(), userNamePlayer1.toString(), this.TheWinner);
+//                this.recordBtn.setDisable(false);
+           // }
+            recordBtn.setText("Recording...");
+            recordBtn.setDisable(true);
         });
 
         forfeitBtn.setOnAction(e -> {
@@ -417,12 +459,12 @@ public class Board extends BorderPane {
         this.userNamePlayer1.setText(userNamePlayer1);
     }
 
-    public void setPlayer1Score(String player1Score) {
-        this.player1Score.setText(player1Score);
+    public void setPlayer1Score(int score) {
+        this.player1Score.setText(score + "");
     }
 
-    public void setPlayer2Score(String player2Score) {
-        this.player2Score.setText(player2Score);
+    public void setPlayer2Score(int score) {
+        this.player2Score.setText(score + "");
     }
 
     public void startTimer() {
@@ -446,4 +488,17 @@ public class Board extends BorderPane {
         reverseXO();
     }
 
+    public void restartGame() {
+        // Reset all tiles, positions, and other game states
+        for (Tile tile : tiles) {
+            tile.getBtn().setGraphic(null); // Remove the XO marks
+            tile.getBtn().setStyle("");
+        }
+        recordPositionsUseCase = new RecordPositionUseCase();
+        isX = true;
+        isFinished = false;
+
+        recordBtn.setText("Recourd");
+        recordBtn.setDisable(false);
+    }
 }

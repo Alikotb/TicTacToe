@@ -12,6 +12,8 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import tictactoe.ui.screens.Board;
+import tictactoe.ui.screens.OfflineBase;
 
 public class EndGameAlert {
 
@@ -19,13 +21,21 @@ public class EndGameAlert {
     private Media video;
     private MediaPlayer mediaPlayer;
     private MediaView mediaView;
+    private Stage stage;
+    private Stage alertStage;
+    private Board board;
 
-    public EndGameAlert(char status) {
+    public EndGameAlert(char status, Stage stage, Board board) {
+        this.stage = stage;
+        this.board = board;
         if (status == 'w') {
             file = new File("src/resources/videos/win.mp4");
         }
         if (status == 'l') {
             file = new File("src/resources/videos/lose.mp4");
+        }
+        if (status == 'e') {
+            file = new File("src/resources/videos/draw.mp4");
         }
     }
 
@@ -48,19 +58,21 @@ public class EndGameAlert {
             Button exitButton = new Button("Exit");
             restartButton.setId("restartBtn");
             exitButton.setId("exitBtn");
-             restartButton.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;");
+            restartButton.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;");
             exitButton.setStyle("-fx-background-color: red; -fx-text-fill: white;-fx-font-size: 24px; -fx-font-weight: bold;");
 
             restartButton.setOnAction(e -> {
-                /*
-                    << ADD Implementation To Restart Game >>
-                 */
+                mediaPlayer.stop();
+                board.restartGame();
+                alertStage.close();
             });
 
             exitButton.setOnAction(e -> {
-                /*
-                    << ADD Implementation To Go Back Home Page  >>
-                 */
+                mediaPlayer.stop();
+                alertStage.close();
+                Scene offlineScene = new Scene(new OfflineBase(stage), 800, 600);
+                stage.setScene(offlineScene);
+                offlineScene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
             });
 
             FlowPane buttonPane = new FlowPane();
@@ -72,7 +84,7 @@ public class EndGameAlert {
             vbox.setStyle("-fx-alignment: center; -fx-padding: 5; -fx-background-color: #1F509A;");
 
             Scene alertScene = new Scene(vbox, 700, 500);
-            Stage alertStage = new Stage();
+            alertStage = new Stage();
 
             alertStage.setScene(alertScene);
 
@@ -82,13 +94,6 @@ public class EndGameAlert {
                 e.consume();
             });
 
-            /*
-                alertStage.iconifiedProperty().addListener((observable, oldValue, newValue) -> {
-                    if (newValue) {
-                        alertStage.setIconified(false);  
-                    }
-                });
-             */
             alertStage.show();
 
         } else {

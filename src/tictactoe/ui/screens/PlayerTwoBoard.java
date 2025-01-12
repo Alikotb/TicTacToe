@@ -24,7 +24,7 @@ public class PlayerTwoBoard extends Board {
         if (isGameFinished()) {
             return; 
         }
-        if (!recordPositionsUseCase.getPositions().contains(tile.getPosition())) {
+        if (!recordPositionsUseCase.getPositions().contains(tile.getPosition())||isFinished) {
             return;
         }
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
