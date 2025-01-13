@@ -8,30 +8,22 @@ public class NetworkService {
     private final ConnectionService server = ConnectionService.getInstance();
 
     public boolean signUp(String json) {
-        if (!server.connect()) {
-            return false;
-        }
-        // TODO
-        return true;
+        return sendRequest(json);
     }
 
-    public boolean login(String username) {
-        if (!server.connect()) {
-            return false;
-        }
-
-        return true;
+    public boolean login(String json) {
+        return sendRequest(json);
     }
 
     public boolean getOnlineUsers(String json) {
-        if (!server.connect()) {
-            return false;
-        }
-        // TODO
-        return true;
+        return sendRequest(json);
     }
 
-    public boolean sendRequest(String json) {
+    public boolean sendInvitation(String json) {
+        return sendRequest(json);
+    }
+
+    private boolean sendRequest(String json) {
         if (!server.connect()) {
             return false;
         }
@@ -44,20 +36,11 @@ public class NetworkService {
         return true;
     }
 
-    public boolean sendMove() {
-        if (!server.connect()) {
-            return false;
-        }
-        // TODO
-        return true;
+    public boolean sendMove(String json) {
+        return sendRequest(json);
     }
 
     public boolean logout(String json) {
-        if (!server.connect()) {
-            return false;
-        }
-
-        // TODO 
-        return true;
+        return sendRequest(json);
     }
 }

@@ -22,7 +22,7 @@ public class ConnectionService {
     private static final int ACTION_SIGN_UP = 1;
     private static final int ACTION_LOGIN = 2;
     private static final int ACTION_ONLINE_USERS = 3;
-    private static final int ACTION_SEND_REQUEST = 4;
+    private static final int ACTION_SEND_INVITATION = 4;
     private static final int ACTION_SEND_MOVE = 5;
     private static final int ACTION_LOGOUT = 6;
 
@@ -71,6 +71,7 @@ public class ConnectionService {
         } catch (IOException ex) {
             System.out.println("Error desconnecting from server" + ex.getMessage());
         }
+        th.stop();
     }
 
     public boolean isConnected() {
@@ -88,8 +89,7 @@ public class ConnectionService {
     public void startListening() {
         th = new Thread(() -> {
 
-            running = true;
-            while (running) {
+            while (true) {
                 handleAction();
             }
         });
@@ -121,7 +121,7 @@ public class ConnectionService {
                     // TODO Online Users 
                     break;
                 }
-                case ACTION_SEND_REQUEST: {
+                case ACTION_SEND_INVITATION: {
                     String opponentName = jsonObj.getString("player1");
                     String score = jsonObj.getString("score");
                     Platform.runLater(() -> new IncomingRequestDialog().showRequestDialog(
