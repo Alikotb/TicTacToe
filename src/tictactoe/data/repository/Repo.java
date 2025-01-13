@@ -19,7 +19,7 @@ public class Repo {
     }
 
     public boolean sendRequest(String json) {
-        return service.sendRequest(json);
+        return service.sendInvitation(json);
     }
 
     public boolean sendMove(String json) {
