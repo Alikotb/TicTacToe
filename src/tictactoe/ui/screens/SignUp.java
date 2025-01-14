@@ -1,11 +1,13 @@
 package tictactoe.ui.screens;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,15 +16,20 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javax.json.Json;
+import javax.json.JsonObject;
+import tictactoe.data.repository.Repo;
+import tictactoe.domain.usecases.HashingUseCase;
+import tictactoe.domain.usecases.ValidationUseCase;
 
 public class SignUp extends BorderPane {
 
     protected final FlowPane flowPane;
     protected final TextField userNameTextField;
     protected final TextField emailTextFeild;
-    protected final TextField passwordTextFeild;
-    protected final TextField confirmPasswordTextFeild;
-    protected final Label errorLable;
+    protected final PasswordField passwordTextFeild;
+    protected final PasswordField confirmPasswordTextFeild;
+    protected static Label errorLable;
     protected final Button signUpButton;
     protected final HBox hBox;
     protected final Label label;
@@ -30,14 +37,17 @@ public class SignUp extends BorderPane {
     protected final FlowPane flowPane0;
     protected final Button backButton;
     protected final ImageView imageView;
+    protected final ValidationUseCase validator;
+    protected static Stage stage;
 
     public SignUp(Stage stage) {
+        SignUp.stage=stage;
         this.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         flowPane = new FlowPane();
         userNameTextField = new TextField();
         emailTextFeild = new TextField();
-        passwordTextFeild = new TextField();
-        confirmPasswordTextFeild = new TextField();
+        passwordTextFeild = new PasswordField();
+        confirmPasswordTextFeild = new PasswordField();
         errorLable = new Label();
         signUpButton = new Button();
         hBox = new HBox();
@@ -46,6 +56,7 @@ public class SignUp extends BorderPane {
         flowPane0 = new FlowPane();
         backButton = new Button();
         imageView = new ImageView();
+        validator = new ValidationUseCase();
 
         setMaxHeight(600.0);
         setMaxWidth(USE_PREF_SIZE);
@@ -58,7 +69,7 @@ public class SignUp extends BorderPane {
         flowPane.setColumnHalignment(javafx.geometry.HPos.CENTER);
         flowPane.setOrientation(javafx.geometry.Orientation.VERTICAL);
         flowPane.setPrefWidth(200.0);
-        
+
         userNameTextField.setPrefHeight(60.0);
         userNameTextField.setPrefWidth(480.0);
         userNameTextField.setPromptText("Username");
@@ -94,11 +105,25 @@ public class SignUp extends BorderPane {
         FlowPane.setMargin(signUpButton, new Insets(20.0, 0.0, 0.0, 0.0));
         signUpButton.setCursor(Cursor.HAND);
         signUpButton.setOnAction((ActionEvent event) -> {
-            Scene scene = new Scene(new LogInBase(stage), 800, 600);
-            stage.setScene(scene);
-            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+            String validationError = validator.validateFields(userNameTextField, emailTextFeild, passwordTextFeild, confirmPasswordTextFeild);
+            if (validationError == null) {
+                String hashPassword = HashingUseCase.hashPassword(passwordTextFeild.getText());
+                System.out.println(hashPassword);
+                JsonObject jsonObject = Json.createObjectBuilder()
+                        .add("action", 1)
+                        .add("username", userNameTextField.getText())
+                        .add("email", emailTextFeild.getText())
+                        .add("password", hashPassword)
+                        .build();
+                String json = jsonObject.toString();
+                Repo repo = new Repo();
+                if (!repo.signUp(json)) {
+                    errorLable.setText("Disconnection, Please try again.");
+                }
+            } else {
+                errorLable.setText(validationError);
+            }
         });
-        
 
         hBox.setAlignment(javafx.geometry.Pos.CENTER);
         hBox.setMaxHeight(94.0);
@@ -108,7 +133,7 @@ public class SignUp extends BorderPane {
 
         label.setText("Already Have An Account?");
         label.setTextFill(javafx.scene.paint.Color.WHITE);
-        
+
         LogInButton.setText(" LOGIN");
         LogInButton.setTextFill(javafx.scene.paint.Color.valueOf("#062D68"));
         LogInButton.setCursor(Cursor.HAND);
@@ -145,7 +170,7 @@ public class SignUp extends BorderPane {
         FlowPane.setMargin(imageView, new Insets(20.0, 0.0, 0.0, 144.0));
         imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
         setTop(flowPane0);
-        
+
         userNameTextField.setId("username");
         emailTextFeild.setId("email");
         passwordTextFeild.setId("password");
@@ -166,5 +191,21 @@ public class SignUp extends BorderPane {
         flowPane0.getChildren().add(backButton);
         flowPane0.getChildren().add(imageView);
 
+    }
+
+    public static void passtoLogin(JsonObject json) {
+        String status = json.getString("status");
+        Platform.runLater(() -> {
+            if ("success".equals(status)) {
+                System.err.println(json);
+                errorLable.setText(json.getString("message"));
+                errorLable.setStyle("-fx-text-fill: green;");
+                Scene scene = new Scene(new LogInBase(stage), 800, 600);
+                stage.setScene(scene);
+            } else {
+                errorLable.setText(json.getString("message"));
+                errorLable.setStyle("-fx-text-fill: red;");
+            }
+        });
     }
 }

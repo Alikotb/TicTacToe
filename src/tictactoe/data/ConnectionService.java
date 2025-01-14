@@ -11,6 +11,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import tictactoe.ui.alert.IncomingRequestDialog;
 import tictactoe.ui.screens.LogInBase;
+import tictactoe.ui.screens.SignUp;
 
 public class ConnectionService {
 
@@ -112,7 +113,7 @@ public class ConnectionService {
             switch (action) {
 
                 case ACTION_SIGN_UP: {
-                    // TODO Sign Up 
+                    SignUp.passtoLogin(jsonObj);
                     break;
                 }
 
@@ -151,7 +152,6 @@ public class ConnectionService {
             System.err.println("couldn't read from json: " + ex.getMessage());
             th.stop();
         }
-        
-         
+
     }
 }
