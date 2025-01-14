@@ -25,6 +25,23 @@ public class ValidationUseCase {
 
         return null; 
     }
+    
+    public String validateFields( TextField emailField, TextField passwordField) {
+       
+        String emailError = validateEmail(emailField.getText());
+        if (emailError != null) {
+            return emailError;
+        }
+
+        String passwordError = validatePasswords(passwordField.getText());
+        if (passwordError != null) {
+            return passwordError;
+        }
+
+        return null; 
+    }
+    
+    
 
     private String validateUserName(String userName) {
         if (userName == null || userName.isEmpty()) {
@@ -57,6 +74,13 @@ public class ValidationUseCase {
         }
         if (!password.equals(confirmPassword)) {
             return "Passwords do not match.";
+        }
+        return null; 
+    }
+    
+     private String validatePasswords(String password) {
+        if (password == null || password.isEmpty()) {
+            return "Password cannot be empty.";
         }
         return null; 
     }
