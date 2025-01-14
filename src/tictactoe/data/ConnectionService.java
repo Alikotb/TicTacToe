@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javax.json.Json;
 import javax.json.JsonObject;
 import tictactoe.ui.alert.IncomingRequestDialog;
+import tictactoe.ui.screens.LogInBase;
 
 public class ConnectionService {
 
@@ -45,6 +46,7 @@ public class ConnectionService {
                 server = new Socket(LOCAL_HOST, PORT);
                 dis = new DataInputStream(server.getInputStream());
                 dos = new DataOutputStream(server.getOutputStream());
+                System.out.print("connected to server");
                 startListening();
                 return true;
 
@@ -71,6 +73,7 @@ public class ConnectionService {
         } catch (IOException ex) {
             System.out.println("Error desconnecting from server" + ex.getMessage());
         }
+         th.stop();
     }
 
     public boolean isConnected() {
@@ -102,6 +105,7 @@ public class ConnectionService {
         try {
             int action = 0;
             String json = dis.readUTF();
+            System.out.println(json);
             JsonObject jsonObj = Json.createReader(new StringReader(json)).readObject();
             action = jsonObj.getInt("action");
 
@@ -113,7 +117,7 @@ public class ConnectionService {
                 }
 
                 case ACTION_LOGIN: {
-                    // TODO Login 
+                    LogInBase.navigateToNewGame(jsonObj);
                     break;
                 }
 
@@ -122,12 +126,12 @@ public class ConnectionService {
                     break;
                 }
                 case ACTION_SEND_REQUEST: {
-                    String opponentName = jsonObj.getString("player1");
-                    String score = jsonObj.getString("score");
-                    Platform.runLater(() -> new IncomingRequestDialog().showRequestDialog(
-                            new Stage(), opponentName, score)
-                    );
-                    break;
+//                    String opponentName = jsonObj.getString("player1");
+//                    String score = jsonObj.getString("score");
+//                    Platform.runLater(() -> new IncomingRequestDialog().showRequestDialog(
+//                            new Stage(), opponentName, score)
+//                    );
+//                    break;
                 }
 
                 case ACTION_SEND_MOVE: {
@@ -144,6 +148,9 @@ public class ConnectionService {
 
         } catch (IOException ex) {
             System.err.println("couldn't read from json: " + ex.getMessage());
+            th.stop();
         }
+        
+         
     }
 }

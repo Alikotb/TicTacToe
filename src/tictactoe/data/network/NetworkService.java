@@ -15,12 +15,8 @@ public class NetworkService {
         return true;
     }
 
-    public boolean login(String username) {
-        if (!server.connect()) {
-            return false;
-        }
-
-        return true;
+    public boolean login(String json) {
+       return sendRequest(json);
     }
 
     public boolean getOnlineUsers(String json) {
@@ -38,6 +34,7 @@ public class NetworkService {
 
         try {
             server.getDos().writeUTF(json);
+            System.err.println("request send");
         } catch (IOException ex) {
             System.err.println("couldn't write to output stream : " + ex.getMessage());
         }

@@ -1,11 +1,12 @@
 package tictactoe.ui.screens;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +16,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javax.json.JsonObject;
+import tictactoe.data.repository.Repo;
+import tictactoe.domain.usecases.ToJesonUseCase;
 
 public class LogInBase extends BorderPane {
 
@@ -28,14 +32,17 @@ public class LogInBase extends BorderPane {
     protected final ImageView imageView;
     protected final Button back;
     protected final TextField Username;
-    protected final TextField Password;
+    protected final PasswordField Password;
+    protected static Label errorLabel;
     protected final Button Login;
     protected final Label label;
     protected final Button Login2;
-    protected Stage mystage;
+    protected static Stage mystage;
+    protected Repo repo;
 
     public LogInBase(Stage mystage) {
-        this.mystage = mystage;
+        LogInBase.mystage = mystage;
+        this.repo = new Repo();
         gridPane = new GridPane();
         columnConstraints = new ColumnConstraints();
         rowConstraints = new RowConstraints();
@@ -46,7 +53,8 @@ public class LogInBase extends BorderPane {
         imageView = new ImageView();
         back = new Button();
         Username = new TextField();
-        Password = new TextField();
+        Password = new PasswordField();
+        errorLabel = new Label();
         Login = new Button();
         label = new Label();
         Login2 = new Button();
@@ -129,29 +137,45 @@ public class LogInBase extends BorderPane {
         Password.setId("PasswordTxt");
         GridPane.setMargin(Password, new Insets(0.0, 0.0, 0.0, 160.0));
         Password.setFont(new Font(25.0));
+        
+        GridPane.setRowIndex(errorLabel, 3);
+        errorLabel.setText("");
+        errorLabel.setStyle("-fx-text-fill: red;");
+        errorLabel.setId("errorLabel");
+        GridPane.setMargin(errorLabel, new Insets(5.0, 0.0, 0.0, 160.0));
+        
 
-        GridPane.setRowIndex(Login, 3);
+        GridPane.setRowIndex(Login, 4);
         Login.setMaxHeight(80.0);
         Login.setMaxWidth(200.0);
         Login.setMnemonicParsing(false);
         Login.setText("LOGIN");
         Login.setId("Login");
         Login.setOnAction((ActionEvent event) -> {
-            Scene scene = new Scene(new NewGame1Base(mystage), 800, 600);
-            mystage.setScene(scene);
-            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
-
+            String username = Username.getText();
+            String password = Password.getText();
+            
+            if (username.isEmpty() || password.isEmpty()) {
+                errorLabel.setText("Please fill both username and password");
+                return;
+            }
+            
+            String loginRequest = ToJesonUseCase.toJson(username, password);
+            boolean isConnected = repo.login(loginRequest);
+            if (!isConnected) {
+                errorLabel.setText("Connection faild");
+            }
         });
         GridPane.setMargin(Login, new Insets(0.0, 0.0, 0.0, 300.0));
 
-        GridPane.setRowIndex(label, 4);
+        GridPane.setRowIndex(label, 5);
         label.setPrefHeight(31.0);
         label.setPrefWidth(290.0);
         label.setText("Don't Have Account?");
         label.setId("label");
         GridPane.setMargin(label, new Insets(0.0, 0.0, 0.0, 225.0));
 
-        GridPane.setRowIndex(Login2, 4);
+        GridPane.setRowIndex(Login2, 5);
         Login2.setMnemonicParsing(false);
         Login2.setPrefHeight(31.0);
         Login2.setPrefWidth(125.0);
@@ -177,9 +201,25 @@ public class LogInBase extends BorderPane {
         gridPane.getChildren().add(back);
         gridPane.getChildren().add(Username);
         gridPane.getChildren().add(Password);
+        gridPane.getChildren().add(errorLabel);
         gridPane.getChildren().add(Login);
         gridPane.getChildren().add(label);
         gridPane.getChildren().add(Login2);
 
+    }
+    
+    public static void navigateToNewGame(JsonObject jsonObj) {
+        String status = jsonObj.getString("status");
+        Platform.runLater(() -> {
+            if ("success".equals(status)) {
+                Scene scene = new Scene(new NewGame1Base(mystage, jsonObj.getString("username"),
+                        jsonObj.getInt("score")), 800, 600);
+                mystage.setScene(scene);
+                // scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+            } else { //data doesnot exist -> if ("failure".equals(status))
+                errorLabel.setText("Invalid username or password");
+            }
+        });
+        
     }
 }

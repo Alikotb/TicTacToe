@@ -30,7 +30,7 @@ public class NewGame1Base extends BorderPane {
     protected final Button History;
     protected Stage mystage;
 
-    public NewGame1Base(Stage mystage) {
+    public NewGame1Base(Stage mystage,String username, int score) {
         this.mystage = mystage;
         gridPane = new GridPane();
         columnConstraints = new ColumnConstraints();
@@ -101,11 +101,11 @@ public class NewGame1Base extends BorderPane {
         Avater.setImage(new Image(getClass().getResource("/resources/images/hacker.png").toExternalForm()));
         GridPane.setMargin(Avater, new Insets(0.0, 0.0, 0.0, 25.0));
 
-        label.setText("Ali Kotb");
+        label.setText(username);
         label.setId("UserName");
         GridPane.setMargin(label, new Insets(0.0, 0.0, 25.0, 125.0));
 
-        label0.setText("777");
+         label0.setText(String.valueOf(score));
         label0.setId("score");
         GridPane.setMargin(label0, new Insets(50.0, 0.0, 0.0, 125.0));
 
