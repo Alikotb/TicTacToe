@@ -5,12 +5,17 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
+import tictactoe.domain.model.User;
 import tictactoe.ui.alert.IncomingRequestDialog;
 import tictactoe.ui.screens.LogInBase;
+import tictactoe.ui.screens.OnlineUsers;
 import tictactoe.ui.screens.SignUp;
 
 public class ConnectionService {
@@ -106,7 +111,6 @@ public class ConnectionService {
         try {
             int action = 0;
             String json = dis.readUTF();
-            System.out.println(json);
             JsonObject jsonObj = Json.createReader(new StringReader(json)).readObject();
             action = jsonObj.getInt("action");
 
@@ -123,7 +127,13 @@ public class ConnectionService {
                 }
 
                 case ACTION_ONLINE_USERS: {
-                    // TODO Online Users 
+                    JsonArray AvailableUsers= jsonObj.getJsonArray("items");
+                    ArrayList <User> users=new ArrayList();
+                    for(int i=0;i<AvailableUsers.size();i++){
+                        User u=new User(AvailableUsers.getJsonObject(i).getString("username"),AvailableUsers.getJsonObject(i).getInt("score"));
+                    users.add(u);
+                    }
+                        OnlineUsers.setUsers(users);
                     break;
                 }
 

@@ -372,7 +372,7 @@ public class Board extends BorderPane {
             setPlayer2Score(player2ScoreValue);
             if(isRecording){
                                 System.out.println("=="+userNamePlayer1.getText());
-                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer1.getText(), this.TheWinner);
+                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), this.TheWinner);
             }
             new EndGameAlert('l', stage, this).show();
             
