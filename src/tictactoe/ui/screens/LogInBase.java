@@ -18,7 +18,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javax.json.JsonObject;
 import tictactoe.data.repository.Repo;
+import tictactoe.domain.usecases.HashingUseCase;
 import tictactoe.domain.usecases.ToJesonUseCase;
+import tictactoe.domain.usecases.ValidationUseCase;
 
 public class LogInBase extends BorderPane {
 
@@ -31,14 +33,15 @@ public class LogInBase extends BorderPane {
     protected final RowConstraints rowConstraints3;
     protected final ImageView imageView;
     protected final Button back;
-    protected final TextField Username;
-    protected final PasswordField Password;
+    protected final TextField emailTextField;
+    protected final PasswordField passwordTextField;
     protected static Label errorLabel;
     protected final Button Login;
     protected final Label label;
     protected final Button Login2;
     protected static Stage mystage;
     protected Repo repo;
+    protected ValidationUseCase validator ;
 
     public LogInBase(Stage mystage) {
         LogInBase.mystage = mystage;
@@ -52,8 +55,8 @@ public class LogInBase extends BorderPane {
         rowConstraints3 = new RowConstraints();
         imageView = new ImageView();
         back = new Button();
-        Username = new TextField();
-        Password = new PasswordField();
+        emailTextField = new TextField();
+        passwordTextField = new PasswordField();
         errorLabel = new Label();
         Login = new Button();
         label = new Label();
@@ -120,23 +123,23 @@ public class LogInBase extends BorderPane {
 
         GridPane.setMargin(back, new Insets(0.0, 0.0, 75.0, 37.0));
 
-        GridPane.setRowIndex(Username, 1);
-        Username.setMaxHeight(60.0);
-        Username.setMaxWidth(480.0);
-        Username.setPrefHeight(60.0);
-        Username.setPrefWidth(480.0);
-        Username.setPromptText("Username");
-        Username.setId("UsernameTxt");
-        GridPane.setMargin(Username, new Insets(50.0, 0.0, 0.0, 160.0));
-        Username.setFont(new Font(25.0));
+        GridPane.setRowIndex(emailTextField, 1);
+        emailTextField.setMaxHeight(60.0);
+        emailTextField.setMaxWidth(480.0);
+        emailTextField.setPrefHeight(60.0);
+        emailTextField.setPrefWidth(480.0);
+        emailTextField.setPromptText("Username");
+        emailTextField.setId("UsernameTxt");
+        GridPane.setMargin(emailTextField, new Insets(50.0, 0.0, 0.0, 160.0));
+        emailTextField.setFont(new Font(25.0));
 
-        GridPane.setRowIndex(Password, 2);
-        Password.setMaxHeight(60.0);
-        Password.setMaxWidth(480.0);
-        Password.setPromptText("Password");
-        Password.setId("PasswordTxt");
-        GridPane.setMargin(Password, new Insets(0.0, 0.0, 0.0, 160.0));
-        Password.setFont(new Font(25.0));
+        GridPane.setRowIndex(passwordTextField, 2);
+        passwordTextField.setMaxHeight(60.0);
+        passwordTextField.setMaxWidth(480.0);
+        passwordTextField.setPromptText("Password");
+        passwordTextField.setId("PasswordTxt");
+        GridPane.setMargin(passwordTextField, new Insets(0.0, 0.0, 0.0, 160.0));
+        passwordTextField.setFont(new Font(25.0));
         
         GridPane.setRowIndex(errorLabel, 3);
         errorLabel.setText("");
@@ -152,15 +155,17 @@ public class LogInBase extends BorderPane {
         Login.setText("LOGIN");
         Login.setId("Login");
         Login.setOnAction((ActionEvent event) -> {
-            String username = Username.getText();
-            String password = Password.getText();
-            
-            if (username.isEmpty() || password.isEmpty()) {
-                errorLabel.setText("Please fill both username and password");
+            validator = new ValidationUseCase();
+            String email = emailTextField.getText();
+            String hashPassword = HashingUseCase.hashPassword(passwordTextField.getText());
+             String validationError = validator.validateFields(emailTextField ,passwordTextField);
+             System.err.println(validationError);
+            if (validationError!=null){
+                errorLabel.setText(validationError);
                 return;
             }
             
-            String loginRequest = ToJesonUseCase.toJson(username, password);
+            String loginRequest = ToJesonUseCase.toJson(email, hashPassword);
             boolean isConnected = repo.login(loginRequest);
             if (!isConnected) {
                 errorLabel.setText("Connection faild");
@@ -199,8 +204,8 @@ public class LogInBase extends BorderPane {
         gridPane.getRowConstraints().add(rowConstraints3);
         gridPane.getChildren().add(imageView);
         gridPane.getChildren().add(back);
-        gridPane.getChildren().add(Username);
-        gridPane.getChildren().add(Password);
+        gridPane.getChildren().add(emailTextField);
+        gridPane.getChildren().add(passwordTextField);
         gridPane.getChildren().add(errorLabel);
         gridPane.getChildren().add(Login);
         gridPane.getChildren().add(label);
@@ -215,7 +220,6 @@ public class LogInBase extends BorderPane {
                 Scene scene = new Scene(new NewGame1Base(mystage, jsonObj.getString("username"),
                         jsonObj.getInt("score")), 800, 600);
                 mystage.setScene(scene);
-                // scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
             } else { //data doesnot exist -> if ("failure".equals(status))
                 errorLabel.setText("Invalid username or password");
             }
