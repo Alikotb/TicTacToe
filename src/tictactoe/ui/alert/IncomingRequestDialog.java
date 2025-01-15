@@ -7,19 +7,26 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.Optional;
 import javafx.scene.Scene;
+import javax.json.Json;
+import javax.json.JsonObject;
+import tictactoe.data.repository.Repo;
 import tictactoe.ui.screens.Board;
 
 public class IncomingRequestDialog {
 
-    public Optional<Boolean> showRequestDialog(Stage stage, String opponentName, String score) {
-      
+    private static Stage stage;
+    private static Repo repo;
+
+    public Optional<Boolean> showRequestDialog(Stage stage, JsonObject jsonObj) {
+        this.stage = stage;
+        repo = new Repo();
+
         Dialog<Boolean> dialog = new Dialog<>();
         dialog.setTitle("Game Challenge");
-        dialog.setHeaderText(null); 
+        dialog.setHeaderText(null);
 
-     
         dialog.getDialogPane().getStyleClass().add("dialog-pane");
-    
+
         Label titleLabel = new Label("You have received a game challenge!");
         titleLabel.getStyleClass().add("dialog-title");
 
@@ -28,10 +35,10 @@ public class IncomingRequestDialog {
         avatarImage.setFitHeight(60);
         avatarImage.getStyleClass().add("avatar-image");
 
-        Label opponentLabel = new Label("userName: " + opponentName);
+        Label opponentLabel = new Label("userName: " + jsonObj.getString("username-player1"));
         opponentLabel.getStyleClass().add("opponent-label");
 
-        Label scoreLabel = new Label("score: " + score);
+        Label scoreLabel = new Label("score: " + jsonObj.getInt("score-player1"));
         scoreLabel.getStyleClass().add("score-label");
 
         VBox labelsContainer = new VBox(3, opponentLabel, scoreLabel);
@@ -54,8 +61,30 @@ public class IncomingRequestDialog {
         Button acceptButton = (Button) dialog.getDialogPane().lookupButton(acceptButtonType);
         acceptButton.getStyleClass().add("accept-button");
 
+        acceptButton.setOnAction((e) -> {
+            String json = Json.createObjectBuilder()
+                    .add("action", 4)
+                    .add("status", 2) // accepted status
+                    .add("username-player1", jsonObj.getString("username-player1"))
+                    .add("username-player2", jsonObj.getString("username-player2"))
+                    .add("score-player1", jsonObj.getInt("score-player1"))
+                    .add("score-player2", jsonObj.getInt("score-player2"))
+                    .build().toString();
+            repo.sendInvitation(json);
+        });
+
         Button declineButton = (Button) dialog.getDialogPane().lookupButton(declineButtonType);
         declineButton.getStyleClass().add("decline-button");
+        declineButton.setOnAction((e) -> {
+            // TODO
+            String json = Json.createObjectBuilder()
+                    .add("action", 4)
+                    .add("status", 3) // declined status
+                    .add("username-player1", jsonObj.getString("username-player1"))
+                    .add("username-player2", jsonObj.getString("username-player2"))
+                    .build().toString();
+            repo.sendInvitation(json);
+        });
 
         HBox buttonContainer = new HBox(10, acceptButton, declineButton);
         buttonContainer.setAlignment(Pos.CENTER);
@@ -76,7 +105,6 @@ public class IncomingRequestDialog {
         });
 
         //dialog.getDialogPane().getStylesheets().add(this.getClass().getResource("/CSS/homeStyle.css").toExternalForm());
-
         return dialog.showAndWait();
     }
 }

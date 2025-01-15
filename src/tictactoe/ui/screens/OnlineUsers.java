@@ -17,6 +17,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import javax.json.Json;
+import tictactoe.data.repository.Repo;
 import tictactoe.domain.model.User;
 import tictactoe.ui.alert.IncomingRequestDialog;
 
@@ -27,11 +29,11 @@ public class OnlineUsers extends BorderPane {
     private final Random random;
     private static ArrayList<User> users = new ArrayList();
     private String username;
-    private int Score;
+    private int score;
 
     public OnlineUsers(Stage stage, String name, int sc) {
         username = name;
-        Score = sc;
+        score = sc;
         random = new Random();
         avatarImages = loadAvatars();
 
@@ -61,10 +63,29 @@ public class OnlineUsers extends BorderPane {
                     VBox userInfo = (VBox) selectedUser.getChildren().get(1);
                     Label userNameLabel = (Label) userInfo.getChildren().get(0);
                     Label scoreLabel = (Label) userInfo.getChildren().get(1);
-                    String username = userNameLabel.getText();
-                    String score = scoreLabel.getText();
-                    IncomingRequestDialog incomingRequestDialog = new IncomingRequestDialog();
-                    incomingRequestDialog.showRequestDialog(stage, username, score);
+                    String player2 = userNameLabel.getText();
+
+                    String json = Json.createObjectBuilder()
+                            .add("action", 4)
+                            .add("username-player1", username)
+                            .add("username-player2", player2)
+                            .add("score-player1", score)
+                            .add("score-player2", Integer.valueOf(scoreLabel.getText()))
+                            .add("status", 1) // invite
+                            .build().toString();
+//                    String json = Json.createObjectBuilder()
+//                            .add("action", 4)
+//                            .add("username-sender", username)
+//                            .add("username-receiver", receiver)
+//                            .add("score-sender", score)
+//                            .add("score-receiver", Integer.valueOf(scoreLabel.getText()))
+//                            .add("status", 1)
+//                            .build().toString();
+                    if (new Repo().sendInvitation(json)) {
+                        System.out.println("request sent successfully");
+                    } else {
+                        System.out.println("request not sent");
+                    }
                 }
             }
         });

@@ -1,5 +1,6 @@
 package tictactoe.ui.screens;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+import javax.json.JsonObject;
 
 public class NewGame1Base extends BorderPane {
 
@@ -28,9 +30,9 @@ public class NewGame1Base extends BorderPane {
     protected final ImageView imageView;
     protected final Button NEWGAME;
     protected final Button History;
-    protected Stage mystage;
+    protected static Stage mystage;
 
-    public NewGame1Base(Stage mystage,String username, int score) {
+    public NewGame1Base(Stage mystage, String username, int score) {
         this.mystage = mystage;
         gridPane = new GridPane();
         columnConstraints = new ColumnConstraints();
@@ -95,7 +97,6 @@ public class NewGame1Base extends BorderPane {
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         });
 
-        
         GridPane.setMargin(LogOut, new Insets(0.0, 20.0, 0.0, 680.0));
 
         Avater.setImage(new Image(getClass().getResource("/resources/images/hacker.png").toExternalForm()));
@@ -105,7 +106,7 @@ public class NewGame1Base extends BorderPane {
         this.username.setId("UserName");
         GridPane.setMargin(this.username, new Insets(0.0, 0.0, 25.0, 125.0));
 
-         this.score.setText(String.valueOf(score));
+        this.score.setText(String.valueOf(score));
         this.score.setId("score");
         GridPane.setMargin(this.score, new Insets(50.0, 0.0, 0.0, 125.0));
 
@@ -124,7 +125,7 @@ public class NewGame1Base extends BorderPane {
 
         NEWGAME.setOnAction(e -> {
             OnlineUsers onlineUsers = new OnlineUsers(mystage,
-            this.username.getText(),Integer.valueOf(this.score.getText())
+                    this.username.getText(), Integer.valueOf(this.score.getText())
             );
             Stage stage = new Stage();
             stage.setScene(new Scene(onlineUsers, 350, 500));
@@ -163,4 +164,11 @@ public class NewGame1Base extends BorderPane {
         gridPane.getChildren().add(History);
 
     }
+
+    public static void navigateToOnlineBoard(JsonObject json, boolean isX) {
+        Platform.runLater(() -> {
+            mystage.setScene(new Scene(new OnlineBoard(mystage, json, isX)));
+        });
+    }
+
 }
