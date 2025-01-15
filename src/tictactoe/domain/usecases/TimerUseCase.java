@@ -15,7 +15,8 @@ public class TimerUseCase {
     OnTimeStopped onTimeStopped;
     Label playerOneTimer, playerTwoTimer;
 
-    public TimerUseCase() {}
+    public TimerUseCase() {
+    }
 
     public TimerUseCase(Label playerOneTimer, Label playerTwoTimer) {
         this.playerOneTimer = playerOneTimer;
@@ -55,7 +56,7 @@ public class TimerUseCase {
                     seconds--;
                     Platform.runLater(() -> {
 
-                        if (!isPc) { // Player Two
+                        if (!isPc) {
                             if (isX) { //X
                                 playerOneTimer.setText("Time: " + seconds + " seconds");
                             } else { //O
@@ -68,7 +69,7 @@ public class TimerUseCase {
 
                     Platform.runLater(() -> {
 
-                        if (!isPc) { // Player Two
+                        if (!isPc) {
                             isX = !isX; // reverseXO
                             startTimer(5, isX); // TODO
                             playerOneTimer.setText("");
@@ -85,7 +86,9 @@ public class TimerUseCase {
     }
 
     public void cancel() {
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
         playerOneTimer.setText("");
         playerTwoTimer.setText("");
     }

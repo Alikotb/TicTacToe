@@ -64,7 +64,8 @@ public class ConnectionService {
                 return true;
 
             } catch (IOException ex) {
-                System.out.println("error connecting to server" + ex.getMessage()); // TODO show Message to User
+                // TODO show Message
+                disconnect();
                 return false;
             }
         }
@@ -150,7 +151,7 @@ public class ConnectionService {
                 }
 
                 case ACTION_SEND_MOVE: {
-                    // TODO Send Move 
+                    handleSendMove(json, jsonObj);
                     break;
                 }
 
@@ -198,5 +199,15 @@ public class ConnectionService {
             }
 
         }
+    }
+
+    private void handleSendMove(String json, JsonObject jsonObj) {
+        if (board == null) {
+            board = OnlineBoard.board;
+        }
+
+        System.out.println("Player 2 got his turn : \n" + json);
+        board.nextTurn(jsonObj);
+
     }
 }
