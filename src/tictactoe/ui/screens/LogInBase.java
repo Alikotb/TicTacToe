@@ -154,6 +154,7 @@ public class LogInBase extends BorderPane {
         Login.setMnemonicParsing(false);
         Login.setText("LOGIN");
         Login.setId("Login");
+        Login.setDefaultButton(true);
         Login.setOnAction((ActionEvent event) -> {
             validator = new ValidationUseCase();
             String email = emailTextField.getText();
@@ -213,17 +214,30 @@ public class LogInBase extends BorderPane {
 
     }
     
-    public static void navigateToNewGame(JsonObject jsonObj) {
-        String status = jsonObj.getString("status");
-        Platform.runLater(() -> {
-            if ("success".equals(status)) {
-                Scene scene = new Scene(new NewGame1Base(mystage, jsonObj.getString("username"),
-                        jsonObj.getInt("score")), 800, 600);
-                mystage.setScene(scene);
-            } else { //data doesnot exist -> if ("failure".equals(status))
-                errorLabel.setText("Invalid username or password");
+   public static void navigateToNewGame(JsonObject jsonObj) {
+    String status = jsonObj.getString("status");
+    String message = jsonObj.getString("message");
+    Platform.runLater(() -> {
+        if ("success".equals(status)) {
+            errorLabel.setText("");
+            Scene scene = new Scene(new NewGame1Base(mystage, jsonObj.getString("username"), 
+                    jsonObj.getInt("score")), 800, 600);
+            mystage.setScene(scene);
+            
+        } else if ("failure".equals(status)) {
+            switch (message) {
+                case "Invalid email address":
+                    errorLabel.setText("The provided email does not exist. Please register or try again");
+                    break;
+                case "Invalid password":
+                    errorLabel.setText("The password is incorrect. Please check your credentials");
+                    break;
+                default:
+                    errorLabel.setText("An unexpected error");
+                    break;
             }
-        });
-        
-    }
+        }
+    });
+}
+
 }
