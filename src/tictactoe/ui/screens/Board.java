@@ -58,7 +58,7 @@ public class Board extends BorderPane {
 
     char TheWinner;
     boolean isRecording;
-    ArrayList<Tile> tiles;
+    protected ArrayList<Tile> tiles;
     protected RecordPositionUseCase recordPositionsUseCase;
     protected PlaySoundUseCase playSound;
     protected IsWinnerUseCase winnerCkeck;
@@ -68,6 +68,7 @@ public class Board extends BorderPane {
     Stage stage;
     private int player1ScoreValue;
     private int player2ScoreValue;
+    static boolean isPlaying;
 
     public Board(Stage stage) {
         isRecording = false;
