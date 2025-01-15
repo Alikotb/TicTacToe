@@ -157,7 +157,7 @@ public class NewGame1Base extends BorderPane {
         History.setId("HISTORY");
         History.setOnAction(e -> {
             Stage historyStage = new Stage();
-            historyStage.setScene(new Scene(new History()));
+            historyStage.setScene(new Scene(new History(historyStage,mystage)));
             historyStage.show();
         });
 
