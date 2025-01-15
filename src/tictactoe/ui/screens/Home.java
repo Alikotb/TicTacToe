@@ -18,21 +18,12 @@ import javafx.stage.Stage;
 
 public class Home extends BorderPane {
 
-    //  protected final GridPane gridPane;
-//    protected final ColumnConstraints columnConstraints;
-//    protected final RowConstraints rowConstraints;
-//    protected final RowConstraints rowConstraints0;
     protected final Button offlineButton;
     protected final Button onlineButton;
     protected final FlowPane flowPane;
     protected final ImageView imageView;
 
     public Home(Stage stage) {
-
-        //  gridPane = new GridPane();
-//        columnConstraints = new ColumnConstraints();
-//        rowConstraints = new RowConstraints();
-//        rowConstraints0 = new RowConstraints();
         offlineButton = new Button();
         onlineButton = new Button();
         flowPane = new FlowPane();
