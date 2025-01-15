@@ -12,6 +12,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import tictactoe.domain.usecases.RecordingUseCase;
 import tictactoe.ui.screens.Board;
 import tictactoe.ui.screens.OfflineBase;
 
@@ -91,6 +92,7 @@ public class EndGameAlert {
             alertStage.setResizable(false);
 
             alertStage.setOnCloseRequest(e -> {
+                RecordingUseCase.Pos = "";
                 e.consume();
             });
 

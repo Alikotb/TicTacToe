@@ -165,7 +165,6 @@ public class LogInBase extends BorderPane {
                 errorLabel.setText(validationError);
                 return;
             }
-            
             String loginRequest = ToJesonUseCase.toJson(email, hashPassword);
             boolean isConnected = repo.login(loginRequest);
             if (!isConnected) {

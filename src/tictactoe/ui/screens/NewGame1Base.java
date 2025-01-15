@@ -1,5 +1,6 @@
 package tictactoe.ui.screens;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -12,6 +13,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+import javax.json.Json;
+import javax.json.JsonObject;
+import tictactoe.data.repository.Repo;
+import static tictactoe.ui.screens.LogInBase.mystage;
+import static tictactoe.ui.screens.SignUp.errorLable;
 
 public class NewGame1Base extends BorderPane {
 
@@ -23,14 +29,14 @@ public class NewGame1Base extends BorderPane {
     protected final RowConstraints rowConstraints2;
     protected final Button LogOut;
     protected final ImageView Avater;
-    protected final Label label;
-    protected final Label label0;
+    protected final Label username;
+    protected final Label score;
     protected final ImageView imageView;
     protected final Button NEWGAME;
     protected final Button History;
-    protected Stage mystage;
+    protected static Stage mystage;
 
-    public NewGame1Base(Stage mystage,String username, int score) {
+    public NewGame1Base(Stage mystage, String username, int score) {
         this.mystage = mystage;
         gridPane = new GridPane();
         columnConstraints = new ColumnConstraints();
@@ -40,8 +46,8 @@ public class NewGame1Base extends BorderPane {
         rowConstraints2 = new RowConstraints();
         LogOut = new Button();
         Avater = new ImageView();
-        label = new Label();
-        label0 = new Label();
+        this.username = new Label();
+        this.score = new Label();
         imageView = new ImageView();
         NEWGAME = new Button();
         History = new Button();
@@ -90,24 +96,33 @@ public class NewGame1Base extends BorderPane {
         LogOut.setGraphic(imageView0);
         LogOut.setId("LogOut");
         LogOut.setOnAction((ActionEvent event) -> {
+            JsonObject jsonObject = Json.createObjectBuilder()
+                        .add("action", 6)
+                        .add("username", this.username.getText())
+                        .build();
+                String json = jsonObject.toString();
+                Repo repo = new Repo();
+                if (!repo.logout(json)) {
+                    errorLable.setText("Disconnection, Please try again.");
+                }
+            
             Scene scene = new Scene(new LogInBase(mystage), 800, 600);
             mystage.setScene(scene);
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         });
 
-        
         GridPane.setMargin(LogOut, new Insets(0.0, 20.0, 0.0, 680.0));
 
         Avater.setImage(new Image(getClass().getResource("/resources/images/hacker.png").toExternalForm()));
         GridPane.setMargin(Avater, new Insets(0.0, 0.0, 0.0, 25.0));
 
-        label.setText(username);
-        label.setId("UserName");
-        GridPane.setMargin(label, new Insets(0.0, 0.0, 25.0, 125.0));
+        this.username.setText(username);
+        this.username.setId("UserName");
+        GridPane.setMargin(this.username, new Insets(0.0, 0.0, 25.0, 125.0));
 
-         label0.setText(String.valueOf(score));
-        label0.setId("score");
-        GridPane.setMargin(label0, new Insets(50.0, 0.0, 0.0, 125.0));
+        this.score.setText(String.valueOf(score));
+        this.score.setId("score");
+        GridPane.setMargin(this.score, new Insets(50.0, 0.0, 0.0, 125.0));
 
         GridPane.setRowIndex(imageView, 1);
         imageView.setFitHeight(118.0);
@@ -123,7 +138,9 @@ public class NewGame1Base extends BorderPane {
         NEWGAME.setId("NEWGAME");
 
         NEWGAME.setOnAction(e -> {
-            OnlineUsers onlineUsers = new OnlineUsers(mystage);
+            OnlineUsers onlineUsers = new OnlineUsers(mystage,
+                    this.username.getText(), Integer.valueOf(this.score.getText())
+            );
             Stage stage = new Stage();
             stage.setScene(new Scene(onlineUsers, 350, 500));
             stage.show();
@@ -154,11 +171,28 @@ public class NewGame1Base extends BorderPane {
         gridPane.getRowConstraints().add(rowConstraints2);
         gridPane.getChildren().add(LogOut);
         gridPane.getChildren().add(Avater);
-        gridPane.getChildren().add(label);
-        gridPane.getChildren().add(label0);
+        gridPane.getChildren().add(this.username);
+        gridPane.getChildren().add(this.score);
         gridPane.getChildren().add(imageView);
         gridPane.getChildren().add(NEWGAME);
         gridPane.getChildren().add(History);
 
     }
+
+    public static void navigateToOnlineBoard(JsonObject json, boolean isX) {
+        Platform.runLater(() -> {
+            mystage.setScene(new Scene(new OnlineBoard(mystage, json, isX)));
+        });
+    }
+    public static void navigateToHome(JsonObject jsonObj) {
+        String status = jsonObj.getString("status");
+        Platform.runLater(() -> {
+            if ("success".equals(status)) {
+                Scene scene = new Scene(new Home(mystage), 800, 600);
+                mystage.setScene(scene);
+            } 
+        });
+        
+    }
+
 }
