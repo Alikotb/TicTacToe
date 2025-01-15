@@ -156,7 +156,7 @@ public class ConnectionService {
                 }
 
                 case ACTION_LOGOUT: {
-                    // TODO Logout
+                    NewGame1Base.navigateToHome(jsonObj);
                     break;
                 }
 

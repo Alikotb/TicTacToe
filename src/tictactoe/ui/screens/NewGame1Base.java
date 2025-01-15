@@ -13,7 +13,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+import javax.json.Json;
 import javax.json.JsonObject;
+import tictactoe.data.repository.Repo;
+import static tictactoe.ui.screens.LogInBase.mystage;
+import static tictactoe.ui.screens.SignUp.errorLable;
 
 public class NewGame1Base extends BorderPane {
 
@@ -92,6 +96,16 @@ public class NewGame1Base extends BorderPane {
         LogOut.setGraphic(imageView0);
         LogOut.setId("LogOut");
         LogOut.setOnAction((ActionEvent event) -> {
+            JsonObject jsonObject = Json.createObjectBuilder()
+                        .add("action", 6)
+                        .add("username", this.username.getText())
+                        .build();
+                String json = jsonObject.toString();
+                Repo repo = new Repo();
+                if (!repo.logout(json)) {
+                    errorLable.setText("Disconnection, Please try again.");
+                }
+            
             Scene scene = new Scene(new LogInBase(mystage), 800, 600);
             mystage.setScene(scene);
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
@@ -169,6 +183,16 @@ public class NewGame1Base extends BorderPane {
         Platform.runLater(() -> {
             mystage.setScene(new Scene(new OnlineBoard(mystage, json, isX)));
         });
+    }
+    public static void navigateToHome(JsonObject jsonObj) {
+        String status = jsonObj.getString("status");
+        Platform.runLater(() -> {
+            if ("success".equals(status)) {
+                Scene scene = new Scene(new Home(mystage), 800, 600);
+                mystage.setScene(scene);
+            } 
+        });
+        
     }
 
 }
