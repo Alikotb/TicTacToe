@@ -150,12 +150,12 @@ public class ConnectionService {
                 }
 
                 case ACTION_SEND_MOVE: {
-                    // TODO Send Move 
+                    LogInBase.navigateToNewGame(jsonObj);
                     break;
                 }
 
                 case ACTION_LOGOUT: {
-                    // TODO Logout
+                    NewGame1Base.navigateToHome(jsonObj);
                     break;
                 }
 
