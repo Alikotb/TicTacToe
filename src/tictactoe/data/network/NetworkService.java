@@ -30,7 +30,6 @@ public class NetworkService {
 
         try {
             server.getDos().writeUTF(json);
-            System.err.println("request send");
         } catch (IOException ex) {
             System.err.println("couldn't write to output stream : " + ex.getMessage());
         }

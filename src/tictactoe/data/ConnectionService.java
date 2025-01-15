@@ -17,12 +17,16 @@ import tictactoe.ui.alert.IncomingRequestDialog;
 import tictactoe.ui.screens.LogInBase;
 import tictactoe.ui.screens.OnlineUsers;
 import tictactoe.ui.screens.SignUp;
+import tictactoe.ui.screens.LogInBase;
+import tictactoe.ui.screens.NewGame1Base;
+import tictactoe.ui.screens.OnlineBoard;
 
 public class ConnectionService {
 
     private Socket server;
     private DataInputStream dis;
     private DataOutputStream dos;
+    private OnlineBoard board;
 
     private static final String LOCAL_HOST = "127.0.0.1";
     private static final int PORT = 55555;
@@ -32,9 +36,13 @@ public class ConnectionService {
     private static final int ACTION_SEND_INVITATION = 4;
     private static final int ACTION_SEND_MOVE = 5;
     private static final int ACTION_LOGOUT = 6;
+    private static final int RESPONSE_INCOMING_INVITATION = 1;
+    private static final int RESPONSE_ACCEPTED = 2;
+    private static final int RESPONSE_DECLINED = 3;
+    private static final int RESPONSE_ACCEPT_INVITATION = 4;
 
     private static volatile ConnectionService instance;
-    private static Thread th;
+    private Thread th;
 
     public static boolean running;
 
@@ -52,7 +60,6 @@ public class ConnectionService {
                 server = new Socket(LOCAL_HOST, PORT);
                 dis = new DataInputStream(server.getInputStream());
                 dos = new DataOutputStream(server.getOutputStream());
-                System.out.print("connected to server");
                 startListening();
                 return true;
 
@@ -127,22 +134,18 @@ public class ConnectionService {
                 }
 
                 case ACTION_ONLINE_USERS: {
-                    JsonArray AvailableUsers= jsonObj.getJsonArray("items");
-                    ArrayList <User> users=new ArrayList();
-                    for(int i=0;i<AvailableUsers.size();i++){
-                        User u=new User(AvailableUsers.getJsonObject(i).getString("username"),AvailableUsers.getJsonObject(i).getInt("score"));
-                    users.add(u);
+                    JsonArray AvailableUsers = jsonObj.getJsonArray("items");
+                    ArrayList<User> users = new ArrayList();
+                    for (int i = 0; i < AvailableUsers.size(); i++) {
+                        User u = new User(AvailableUsers.getJsonObject(i).getString("username"), AvailableUsers.getJsonObject(i).getInt("score"));
+                        users.add(u);
                     }
-                        OnlineUsers.setUsers(users);
+                    OnlineUsers.setUsers(users);
                     break;
                 }
 
                 case ACTION_SEND_INVITATION: {
-                    String opponentName = jsonObj.getString("player1");
-                    String score = jsonObj.getString("score");
-                    Platform.runLater(() -> new IncomingRequestDialog().showRequestDialog(
-                            new Stage(), opponentName, score)
-                    );
+                    handleSendInvitationResponse(jsonObj, json);
                     break;
                 }
 
@@ -159,9 +162,41 @@ public class ConnectionService {
             }
 
         } catch (IOException ex) {
-            System.err.println("couldn't read from json: " + ex.getMessage());
+            System.err.println("IOException   the stream has been closed: " + ex.getMessage());
             th.stop();
         }
 
+    }
+
+    private void handleSendInvitationResponse(JsonObject jsonObj, String json) {
+        // 4
+        String player1 = jsonObj.getString("username-player1");
+        int status = jsonObj.getInt("status");
+
+        switch (status) {
+            case RESPONSE_INCOMING_INVITATION: { // player2 receive invitation
+                Platform.runLater(() -> {
+                    new IncomingRequestDialog().showRequestDialog(new Stage(), jsonObj);
+                });
+
+                break;
+            }
+            case RESPONSE_ACCEPTED: { // player2 accepted invitation
+                System.out.println("player2 accepted invitation \n" + json);
+                NewGame1Base.navigateToOnlineBoard(jsonObj, true);
+                break;
+            }
+
+            case RESPONSE_ACCEPT_INVITATION: { // player1 got invitation accepted
+                System.out.println("player1 got invitation accepted \n" + json);
+                NewGame1Base.navigateToOnlineBoard(jsonObj, false);
+                break;
+            }
+            case RESPONSE_DECLINED: { // 3
+                System.out.println(jsonObj.getString("username-player2") + " has Declined the Game!");
+                break;
+            }
+
+        }
     }
 }

@@ -14,7 +14,7 @@ public class Repo {
         return service.login(json);
     }
 
-    public boolean sendRequest(String json) {
+    public boolean sendInvitation(String json) {
         return service.sendInvitation(json);
     }
 
