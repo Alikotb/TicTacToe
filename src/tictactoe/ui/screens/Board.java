@@ -70,7 +70,7 @@ public class Board extends BorderPane {
     private int player2ScoreValue;
 
     public Board(Stage stage) {
-        isRecording=false;
+        isRecording = false;
         PlayBackgroundMusicUseCase.getInstance().stopBackgroundMusic();
 
         imageView = new ImageView(new Image("/resources/images/logo.png"));
@@ -337,7 +337,6 @@ public class Board extends BorderPane {
         tiles.add(tile7);
         tiles.add(tile8);
         tiles.add(tile9);
-
         setListeners();
     }
 
@@ -354,13 +353,12 @@ public class Board extends BorderPane {
             highlightWinningTiles(winnerCkeck.getWinningPositions());
             player1ScoreValue += 100;
             setPlayer1Score(player1ScoreValue);
-              if(isRecording){
-                                                 // System.out.println("=="+userNamePlayer1.getText());
-                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer1.getText(), this.TheWinner);
+            if (isRecording) {
+                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), this.TheWinner);
+                isRecording = false;
+                RecordingUseCase.Pos = "";
             }
             new EndGameAlert('w', stage, this).show();
-            
-
         } else if (result == 2) {
             TheWinner = 'L';
             timer.cancel();
@@ -370,27 +368,26 @@ public class Board extends BorderPane {
 
             player2ScoreValue += 100;
             setPlayer2Score(player2ScoreValue);
-            if(isRecording){
-                                System.out.println("=="+userNamePlayer1.getText());
+            if (isRecording) {
                 RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), this.TheWinner);
+                isRecording = false;
+                RecordingUseCase.Pos = "";
             }
             new EndGameAlert('l', stage, this).show();
-            
-
         } else if (result == 3) {
             TheWinner = 'E';
             timer.cancel();
             isFinished = true;
-              if(isRecording){
-                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer1.getText(), this.TheWinner);
-
+            if (isRecording) {
+                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), this.TheWinner);
+                isRecording = false;
+                RecordingUseCase.Pos = "";
             }
             playSound();
 
         } else {
             playSound();
         }
-
     }
 
     protected void highlightWinningTiles(List<Integer> winningPositions) {
@@ -401,7 +398,6 @@ public class Board extends BorderPane {
             }
         }
     }
-
     private Tile getTileByPosition(int position) {
         for (Tile tile : tiles) {
             if (tile.getPosition() == position) {
@@ -424,19 +420,14 @@ public class Board extends BorderPane {
             tile.getBtn().setOnAction((e) -> {
                 printXO(tile);
             });
-
         }
         recordBtn.setOnAction(e -> {
-            //if (isFinished==true) {
-            isRecording=true;
-//                RecordingUseCase.saveToFile(RecordingUseCase.Pos, userNamePlayer1.toString(), userNamePlayer1.toString(), this.TheWinner);
-//                this.recordBtn.setDisable(false);
-           // }
+            isRecording = true;
             recordBtn.setText("Recording...");
             recordBtn.setDisable(true);
         });
-
         forfeitBtn.setOnAction(e -> {
+            RecordingUseCase.Pos = "";
             playSound.playSound(5);
             stage.setScene(new Scene(new Home(stage)));
         });
@@ -448,7 +439,6 @@ public class Board extends BorderPane {
         } else {
             playSound.playSound(1);
         }
-
     }
 
     public void setUserNamePlayer2(String userNamePlayer2) {
@@ -476,9 +466,8 @@ public class Board extends BorderPane {
     }
 
     protected void printXO() {
-
         if (isGameFinished()) {
-            return; // Game Finished Alert
+            return;
         }
         int randomPosition = GetRandomPositionUseCase.getRandomPosition(recordPositionsUseCase.getPositions());
         Tile tile = GetTileUseCase.getTile(tiles, randomPosition);
@@ -489,15 +478,14 @@ public class Board extends BorderPane {
     }
 
     public void restartGame() {
-        // Reset all tiles, positions, and other game states
+        RecordingUseCase.Pos = "";
         for (Tile tile : tiles) {
-            tile.getBtn().setGraphic(null); // Remove the XO marks
+            tile.getBtn().setGraphic(null);
             tile.getBtn().setStyle("");
         }
         recordPositionsUseCase = new RecordPositionUseCase();
         isX = true;
         isFinished = false;
-
         recordBtn.setText("Recourd");
         recordBtn.setDisable(false);
     }
