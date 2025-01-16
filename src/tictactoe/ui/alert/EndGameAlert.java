@@ -12,6 +12,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.stage.StageStyle;
 import tictactoe.domain.usecases.RecordingUseCase;
 import tictactoe.ui.screens.Board;
 import tictactoe.ui.screens.OfflineBase;
@@ -29,6 +30,7 @@ public class EndGameAlert {
     public EndGameAlert(char status, Stage stage, Board board) {
         this.stage = stage;
         this.board = board;
+        
         if (status == 'w') {
             file = new File("src/resources/videos/win.mp4");
         }
@@ -88,7 +90,7 @@ public class EndGameAlert {
             alertStage = new Stage();
 
             alertStage.setScene(alertScene);
-
+            alertStage.initStyle(StageStyle.UNDECORATED);
             alertStage.setResizable(false);
 
             alertStage.setOnCloseRequest(e -> {
