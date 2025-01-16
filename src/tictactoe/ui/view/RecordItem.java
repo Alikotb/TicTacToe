@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
+import tictactoe.domain.model.Record;
 
 public class RecordItem extends HBox {
 
@@ -14,9 +15,10 @@ public class RecordItem extends HBox {
     public Label userName;
     protected final Region region;
     protected final Label winStatus;
+    protected Record record;
 
-    public RecordItem(String username, boolean isWon) {
-
+    public RecordItem(Record gameRecord) {
+        this.record = gameRecord;
         userImage = new ImageView();
         userName = new Label();
         region = new Region();
@@ -33,27 +35,30 @@ public class RecordItem extends HBox {
         userImage.setImage(new Image("/resources/images/player1.png"));
         HBox.setMargin(userImage, new Insets(0.0, 8.0, 0.0, 8.0));
 
-        userName.setText(username);
+        Font font = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/MyCustomFont.ttf"), 25.0);
+        
+        userName.setText(record.getUser2());
         userName.setTextFill(javafx.scene.paint.Color.valueOf("#1f509a"));
-        userName.setFont(new Font(24.0));
+        userName.setFont(font);
 
         HBox.setHgrow(region, javafx.scene.layout.Priority.ALWAYS);
         region.setPrefHeight(85.0);
         region.setPrefWidth(10.0);
 
         winStatus.setAlignment(javafx.geometry.Pos.TOP_RIGHT);
-
-        if (isWon) {
+        
+        if (record.getWinner() == 'W') {
             winStatus.setText("VICTORY");
             winStatus.setTextFill(javafx.scene.paint.Color.valueOf("#28a745"));
+
+        } else if (record.getWinner() == 'E') {
+            winStatus.setText("DRAW");
+            winStatus.setTextFill(javafx.scene.paint.Color.valueOf("#ffa500"));
         } else {
             winStatus.setText("DEFEAT");
             winStatus.setTextFill(javafx.scene.paint.Color.valueOf("#FF4C4C"));
         }
-        Font font = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/MyCustomFont.ttf"), 25.0);  // 16px size
-
         winStatus.setFont(font);
-
         winStatus.setPadding(new Insets(0.0, 8.0, 0.0, 0.0));
         HBox.setMargin(winStatus, new Insets(0.0, 8.0, 0.0, 0.0));
 
@@ -62,5 +67,9 @@ public class RecordItem extends HBox {
         getChildren().add(region);
         getChildren().add(winStatus);
 
+    }
+
+    public Record getRecord() {
+        return record;
     }
 }
