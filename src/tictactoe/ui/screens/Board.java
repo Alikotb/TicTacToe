@@ -385,6 +385,7 @@ public class Board extends BorderPane {
                 RecordingUseCase.Pos = "";
             }
             playSound();
+            new EndGameAlert('e', stage, this).show();
 
         } else {
             playSound();
