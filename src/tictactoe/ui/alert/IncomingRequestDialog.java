@@ -16,6 +16,8 @@ public class IncomingRequestDialog {
 
     private static Stage stage;
     private static Repo repo;
+    private final int ACCEPTED = 2;
+    private final int DECLINED = 3;
 
     public Optional<Boolean> showRequestDialog(Stage stage, JsonObject jsonObj) {
         this.stage = stage;
@@ -64,7 +66,7 @@ public class IncomingRequestDialog {
         acceptButton.setOnAction((e) -> {
             String json = Json.createObjectBuilder()
                     .add("action", 4)
-                    .add("status", 2) // accepted status
+                    .add("status", ACCEPTED)
                     .add("username-player1", jsonObj.getString("username-player1"))
                     .add("username-player2", jsonObj.getString("username-player2"))
                     .add("score-player1", jsonObj.getInt("score-player1"))
@@ -79,7 +81,7 @@ public class IncomingRequestDialog {
             // TODO
             String json = Json.createObjectBuilder()
                     .add("action", 4)
-                    .add("status", 3) // declined status
+                    .add("status", DECLINED) // declined status
                     .add("username-player1", jsonObj.getString("username-player1"))
                     .add("username-player2", jsonObj.getString("username-player2"))
                     .build().toString();

@@ -73,14 +73,6 @@ public class OnlineUsers extends BorderPane {
                             .add("score-player2", Integer.valueOf(scoreLabel.getText()))
                             .add("status", 1) // invite
                             .build().toString();
-//                    String json = Json.createObjectBuilder()
-//                            .add("action", 4)
-//                            .add("username-sender", username)
-//                            .add("username-receiver", receiver)
-//                            .add("score-sender", score)
-//                            .add("score-receiver", Integer.valueOf(scoreLabel.getText()))
-//                            .add("status", 1)
-//                            .build().toString();
                     if (new Repo().sendInvitation(json)) {
                         System.out.println("request sent successfully");
                     } else {

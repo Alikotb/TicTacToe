@@ -87,8 +87,10 @@ public class ConnectionService {
         } catch (IOException ex) {
             System.out.println("Error desconnecting from server" + ex.getMessage());
         }
+        if (th != null && th.isAlive()) {
+            th.stop();
+        }
 
-        th.stop();
     }
 
     public boolean isConnected() {
@@ -170,34 +172,45 @@ public class ConnectionService {
     }
 
     private void handleSendInvitationResponse(JsonObject jsonObj, String json) {
-        // 4
-        String player1 = jsonObj.getString("username-player1");
         int status = jsonObj.getInt("status");
 
         switch (status) {
-            case RESPONSE_INCOMING_INVITATION: { // player2 receive invitation
+            case RESPONSE_INCOMING_INVITATION: {    // 1
                 Platform.runLater(() -> {
                     new IncomingRequestDialog().showRequestDialog(new Stage(), jsonObj);
                 });
 
                 break;
             }
-            case RESPONSE_ACCEPTED: { // player2 accepted invitation
-                System.out.println("player2 accepted invitation \n" + json);
+            case RESPONSE_ACCEPTED: {
+                System.out.println("Player 2 Accepted , Navigate Player 1 to Board");
                 NewGame1Base.navigateToOnlineBoard(jsonObj, true);
                 break;
             }
 
-            case RESPONSE_ACCEPT_INVITATION: { // player1 got invitation accepted
-                System.out.println("player1 got invitation accepted \n" + json);
-                NewGame1Base.navigateToOnlineBoard(jsonObj, false);
+            case RESPONSE_ACCEPT_INVITATION: {
+                System.out.println("Player 2 Accepted , Navigate Player 2 to Board");
+                handleAcceptResponse(jsonObj);
                 break;
             }
-            case RESPONSE_DECLINED: { // 3
-                System.out.println(jsonObj.getString("username-player2") + " has Declined the Game!");
+            case RESPONSE_DECLINED: {
+                System.out.println("Player 2 has Declined the Game!");
                 break;
             }
 
+        }
+    }
+
+    private void handleAcceptResponse(JsonObject jsonObj) {
+        // player1 got invitation accepted
+        int code = jsonObj.getInt("code");
+
+        if (code == 1) {
+            NewGame1Base.navigateToOnlineBoard(jsonObj, false);
+        } else if (code == 2) {
+            System.out.println("isOnline but not available Show Popup");
+        } else {
+            System.out.println("Lost Connection Show Popup");
         }
     }
 

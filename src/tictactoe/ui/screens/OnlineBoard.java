@@ -19,7 +19,8 @@ public class OnlineBoard extends Board {
 
     public OnlineBoard(Stage owner, JsonObject json, boolean isX) {
         super(owner);
-        this.isX = isX;
+        this.isX = isX; 
+        System.out.println("isX from OnlineBoard constructor ->  " + isX);
 
         if (isX) {
             isPlaying = true;
