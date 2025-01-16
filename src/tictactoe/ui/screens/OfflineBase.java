@@ -140,10 +140,9 @@ public class OfflineBase extends BorderPane {
         History.setText(" History");
         History.setId("History");
         History.setOnAction(e -> {
-            Stage stage = new Stage();
-            stage.setTitle("History");
-            stage.setScene(new Scene(new History(), 355, 500));
-            stage.show();
+            Stage historyStage = new Stage();
+            historyStage.setScene(new Scene(new History(historyStage,mystage), 355, 500));
+            historyStage.show();
         });
 
         GridPane.setMargin(History, new Insets(0.0, 0.0, 0.0, 160.0));
