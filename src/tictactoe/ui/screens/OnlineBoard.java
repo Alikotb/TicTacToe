@@ -61,7 +61,7 @@ public class OnlineBoard extends Board {
 
         timer.cancel();
         timer.startTimer(5, !isX);
-//        checkWinner();
+        checkWinner();
         sendRequest(tile.getPosition());
     }
 
