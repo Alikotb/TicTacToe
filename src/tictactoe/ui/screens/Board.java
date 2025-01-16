@@ -64,7 +64,7 @@ public class Board extends BorderPane {
     protected IsWinnerUseCase winnerCkeck;
     protected TimerUseCase timer;
 
-    boolean isX, isFinished;
+    public boolean isX, isFinished;
     Stage stage;
     private int player1ScoreValue;
     private int player2ScoreValue;

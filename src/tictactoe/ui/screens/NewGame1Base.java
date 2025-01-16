@@ -180,6 +180,7 @@ public class NewGame1Base extends BorderPane {
     }
 
     public static void navigateToOnlineBoard(JsonObject json, boolean isX) {
+        System.out.println("isX in navigateToOnlineBoard -> " + isX);
         Platform.runLater(() -> {
             mystage.setScene(new Scene(new OnlineBoard(mystage, json, isX)));
         });
