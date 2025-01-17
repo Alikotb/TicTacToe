@@ -34,6 +34,7 @@ public class EndGameAlert {
     public EndGameAlert(char status, Stage stage, Board board) {
         this.stage = stage;
         this.board = board;
+        
         if (status == 'w') {
             file = new File("src/resources/videos/win.mp4");
         } else if (status == 'l') {
@@ -100,7 +101,7 @@ public class EndGameAlert {
             alertStage = new Stage();
 
             alertStage.setScene(alertScene);
-
+            alertStage.initStyle(StageStyle.UNDECORATED);
             alertStage.setResizable(false);
             alertStage.initOwner(stage);
             alertStage.initStyle(StageStyle.UNDECORATED);
