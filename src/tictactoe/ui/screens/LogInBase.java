@@ -71,7 +71,8 @@ public class LogInBase extends BorderPane {
         setPrefWidth(800.0);
 
         BorderPane.setAlignment(gridPane, javafx.geometry.Pos.CENTER);
-        this.getStyleClass().add("border-pane");
+        //this.getStyleClass().add("border-pane");
+        this.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
 
         columnConstraints.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
         columnConstraints.setMinWidth(10.0);

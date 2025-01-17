@@ -53,9 +53,8 @@ public class NewGame1Base extends BorderPane {
         imageView = new ImageView();
         NEWGAME = new Button();
         History = new Button();
-        this.getStyleClass().add("border-pane");
 
-        System.out.println("hi       : "+RecordingUseCase.getAllFilesoLINE(username).length);
+        this.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
