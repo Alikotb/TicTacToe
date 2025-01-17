@@ -23,18 +23,24 @@ import tictactoe.domain.model.Record;
 public class RecordingUseCase {
 
     public static String Pos = "";
-    private static final String directoryPath = System.getenv("LOCALAPPDATA") + File.separator + "XOGame";
+    //the path in windows   C:\Users\pc"user"\AppData\Local\XOGame
+    //the path in MAC   /Users/username/Library/Application Support/XOGame
+    private static String pathDir;
+    private static final String PATH_WINDOWS = System.getenv("LOCALAPPDATA") + File.separator + "XOGame";
+    ;
+    private static final String PATH_MAC = System.getProperty("user.home") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "XOGame";
 
     public static void saveToFile(String actions, String userName1, String userName2, char win) {
+        setPath();
         //System.getenv("APPDATA");
-        File directory = new File(directoryPath);
+        File directory = new File(setPath());
         Date date = new Date();
-        String filePath = directoryPath + File.separator + date.getTime() + ".json";
+        String filePath = setPath() + File.separator + date.getTime() + ".json";
         if (!directory.exists()) {
             if (directory.mkdirs()) {
-                System.out.println("Directory created: " + directoryPath);
+                System.out.println("Directory created: " + setPath());
             } else {
-                System.err.println("Failed to create directory: " + directoryPath);
+                System.err.println("Failed to create directory: " + setPath());
                 return;
             }
         }
@@ -59,7 +65,7 @@ public class RecordingUseCase {
 
     public static File[] getAllFiles() {
         File[] txtFiles = null;
-        File dir = new File(directoryPath);
+        File dir = new File(setPath());
         if (dir.exists() && dir.isDirectory()) {
             FilenameFilter txtFilter = (file, name) -> name.toLowerCase().endsWith(".json");
             txtFiles = dir.listFiles(txtFilter);
@@ -72,7 +78,7 @@ public class RecordingUseCase {
     ////////for online  game
     public static void saveToFileOnline(String user, String actions, String userName1, String userName2, char win) {
         //System.getenv("APPDATA");
-        String onlineDir = directoryPath + File.separator + user;
+        String onlineDir = setPath() + File.separator + user;
         File directory = new File(onlineDir);
         Date date = new Date();
         String filePath = onlineDir + File.separator + date.getTime() + ".json";
@@ -103,8 +109,7 @@ public class RecordingUseCase {
     }
 
     public static File[] getAllFilesoLINE(String username) {
-        String onlineDir = directoryPath + File.separator + username;
-
+        String onlineDir = setPath() + File.separator + username;
         File[] txtFiles = null;
 
         File dir = new File(onlineDir);
@@ -115,6 +120,17 @@ public class RecordingUseCase {
             System.out.println("The specified path is not a valid directory.");
         }
         return txtFiles;
+    }
+
+    private static String setPath() {
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            pathDir = PATH_WINDOWS;
+        } else if (System.getProperty("os.name").startsWith("Mac")) {
+            pathDir = PATH_MAC;
+        } else {
+            pathDir = null;
+        }
+        return pathDir;
     }
 
 }
