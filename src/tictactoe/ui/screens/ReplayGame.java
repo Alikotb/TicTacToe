@@ -4,53 +4,46 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import tictactoe.domain.model.Record;
 import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetXOImageUseCase;
+import tictactoe.ui.alert.EndReplayGameAlert;
 
 public class ReplayGame extends Board {
-
+    
     private Record gameRecord;
     private boolean isX;
     private Tile tile;
     private Timeline timeline;
+    private String  winnerName;
 
     public ReplayGame(Stage stage, Record gameRecord) {
         super(stage);
         this.gameRecord = gameRecord;
-        selectWineerPlayer();
+        selectWinnerPlayer();
         recordBtn.setDisable(true);
         forfeitBtn.setDisable(true);
         replayMoves();
     }
 
-    private void selectWineerPlayer() {
+    private void selectWinnerPlayer() {
         userNamePlayer1.setText(gameRecord.getUser1());
         userNamePlayer2.setText(gameRecord.getUser2());
+        player1Score.setText(null);
+        player2Score.setText(null);
 
         switch (gameRecord.getWinner()) {
             case 'W': {
-                player1Score.setText("Wineer");
-                player2Score.setText(null);
-                player1Score.setTextFill(javafx.scene.paint.Color.valueOf("#28a745")); //green
+                winnerName  = gameRecord.getUser1();
                 break;
             }
             case 'L': {
-                player2Score.setText("Wineer");
-                player1Score.setText(null);
-                player2Score.setTextFill(javafx.scene.paint.Color.valueOf("#28a745")); //red
-                break;
-            }
-            case 'E': {
-                player1Score.setText("Draw");
-                player2Score.setText("Draw");
-                player1Score.setTextFill(javafx.scene.paint.Color.valueOf("#ffa500")); //orange
-                player2Score.setTextFill(javafx.scene.paint.Color.valueOf("#ffa500"));
+                winnerName  = gameRecord.getUser2();
                 break;
             }
         }
-
     }
 
     private void replayMoves() {
@@ -74,13 +67,14 @@ public class ReplayGame extends Board {
             timeline.getKeyFrames().add(keyFrame);
         }
         timeline.play();
-        timeline.setOnFinished(delay -> {
+        timeline.setOnFinished(event -> {
             new Timeline(new KeyFrame(
                     Duration.seconds(2),
-                    move -> loadNextPage()
+                    e -> {
+                        showAlert();
+                    }
             )).play();
         });
-
     }
 
     private int[] getPositionsArray() {
@@ -98,4 +92,12 @@ public class ReplayGame extends Board {
         scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
     }
 
+    private void showAlert() {
+        Stage alertStage = new Stage();        
+        Scene alertScene = new EndReplayGameAlert().showAlert(stage,alertStage, this::loadNextPage,gameRecord.getWinner(),winnerName);
+        alertStage.setScene(alertScene);
+        alertStage.initOwner(stage); 
+        alertStage.initStyle(StageStyle.UNDECORATED);
+        alertStage.show();
+    }
 }
