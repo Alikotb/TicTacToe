@@ -36,12 +36,7 @@ public class IsWinnerUseCase {
                 return 1;
             }
 
-        }
-
-        for (int i = 0; i < possibleWinningCombinations.length; i++) { // if playerTwo has the winning combination
-            int position1 = possibleWinningCombinations[i][0];
-            int position2 = possibleWinningCombinations[i][1];
-            int position3 = possibleWinningCombinations[i][2];
+        
 
             if (playerTwoPositions.contains(position1)
                     && playerTwoPositions.contains(position2)
@@ -54,11 +49,11 @@ public class IsWinnerUseCase {
             }
 
         }
-        winningPositions.clear();
-        if (allPositionOfGame.isEmpty()) {
-            return 3;
+        if (playerOnePositions.size() + playerTwoPositions.size() == 9) {
+            winningPositions.clear(); 
+            return 3; 
         }
-        return 0; // no one win
+        return 0; 
     }
 
     public List<Integer> getWinningPositions() {
