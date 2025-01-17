@@ -17,12 +17,12 @@ import javafx.stage.StageStyle;
 import tictactoe.domain.usecases.PlayBackgroundMusicUseCase;
 import tictactoe.domain.usecases.RecordingUseCase;
 import tictactoe.ui.screens.Board;
+import tictactoe.ui.screens.LogInBase;
 import tictactoe.ui.screens.NewGame1Base;
 import tictactoe.ui.screens.OfflineBase;
 import tictactoe.ui.screens.OnlineBoard;
 
 public class EndGameAlert {
-
     protected File file;
     private Media video;
     private MediaPlayer mediaPlayer;
@@ -30,7 +30,12 @@ public class EndGameAlert {
     private Stage stage;
     private Stage alertStage;
     private Board board;
-
+    int score;
+    
+    public EndGameAlert(char status, Stage stage, Board board,int score) {
+    this(status,stage,board);    
+    this.score = score;
+    }
     public EndGameAlert(char status, Stage stage, Board board) {
         this.stage = stage;
         this.board = board;
@@ -78,7 +83,7 @@ public class EndGameAlert {
                 PlayBackgroundMusicUseCase.getInstance().startBackgroundMusic();
                 Parent root = stage.getScene().getRoot();
                 if (root instanceof OnlineBoard) {
-                    Scene newgameScene = new Scene(new NewGame1Base(stage,"",1), 800, 600);
+                    Scene newgameScene = new Scene(new NewGame1Base(stage,LogInBase.theUserName,score), 800, 600);
                     stage.setScene(newgameScene);
                     newgameScene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
                 } else {
@@ -101,11 +106,11 @@ public class EndGameAlert {
             alertStage = new Stage();
 
             alertStage.setScene(alertScene);
-            alertStage.initStyle(StageStyle.UNDECORATED);
+           // alertStage.initStyle(StageStyle.UNDECORATED);
             alertStage.setResizable(false);
             alertStage.initOwner(stage);
-            alertStage.initStyle(StageStyle.UNDECORATED);
-
+            alertStage.setX(stage.getX() + (stage.getWidth() / 2) - 350);
+            alertStage.setY(stage.getY() + (stage.getHeight() / 2) - 250);
             alertStage.setOnCloseRequest(e -> {
                 RecordingUseCase.Pos = "";
                 e.consume();

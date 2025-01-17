@@ -43,4 +43,8 @@ public class NetworkService {
     public boolean logout(String json) {
         return sendRequest(json);
     }
+    
+     public boolean updateScore(String json) {
+        return sendRequest(json);
+    }
 }
