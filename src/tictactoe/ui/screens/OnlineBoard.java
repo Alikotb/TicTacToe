@@ -24,6 +24,7 @@ public class OnlineBoard extends Board {
     public OnlineBoard(Stage owner, JsonObject json, boolean isX) {
         super(owner);
         this.isX = isX;
+        isRecording = false;
         winnerCkeck = new IsWinnerUseCase();
         System.out.println("isX from OnlineBoard constructor ->  " + isX);
 
@@ -44,6 +45,11 @@ public class OnlineBoard extends Board {
         timer.startTimer(5, true);
         timer.setOnTimeStopped(() -> {
             printXO();
+        });
+        recordBtn.setOnAction(e -> {
+            isRecording = true;
+            recordBtn.setText("Recording...");
+            recordBtn.setDisable(true);
         });
 
     }
@@ -69,6 +75,7 @@ public class OnlineBoard extends Board {
         timer.startTimer(5, !isX);
         checkWinner();
         sendRequest(tile.getPosition());
+
     }
 
     @Override
@@ -115,6 +122,7 @@ public class OnlineBoard extends Board {
         Tile tile = GetTileUseCase.getTile(tiles, position);
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(!isX));
         recordPositionsUseCase.recordPositions(tile, !isX);
+        // RecordingUseCase.Pos += tile.getPosition();
         checkWinner();
     }
 
@@ -132,39 +140,60 @@ public class OnlineBoard extends Board {
         });
 
     }
-     @Override
+
+    @Override
     protected void checkWinner() {
         int winner = winnerCkeck.isWinner(recordPositionsUseCase);
-        if (winner != 0) { 
+        if (winner != 0) {
             isFinished = true;
-            isPlaying = false; 
-            timer.cancel(); 
+            isPlaying = false;
+            timer.cancel();
 
-            if (winner == 1) { 
-                highlightWinningTiles(winnerCkeck.getWinningPositions()); 
+            if (winner == 1) {
+                highlightWinningTiles(winnerCkeck.getWinningPositions());
+                if (isRecording) {
+                    if(isX)
+                        RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'W');
+                    else if (!isX)
+                         RecordingUseCase.saveToFileOnline(userNamePlayer2.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'W');
+                    recordHansel();
+                }
                 if (isX) {
-                    displayEndGameAlert('w'); 
+                    displayEndGameAlert('w');
                 } else {
-                    displayEndGameAlert('l'); 
+                    displayEndGameAlert('l');
                 }
-                player1ScoreValue += 100; 
+                player1ScoreValue += 100;
                 setPlayer1Score(player1ScoreValue);
-            } else if (winner == 2) { 
-                highlightWinningTiles(winnerCkeck.getWinningPositions()); 
-                if (!isX) {
-                    displayEndGameAlert('w'); 
-                } else {
-                    displayEndGameAlert('l'); 
+            } else if (winner == 2) {
+                if (isRecording) {
+                    if(isX)
+                        RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'L');
+                    else if (!isX)
+                         RecordingUseCase.saveToFileOnline(userNamePlayer2.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'L');
+                    recordHansel();
                 }
-                player2ScoreValue += 100; 
+                highlightWinningTiles(winnerCkeck.getWinningPositions());
+                if (!isX) {
+                    displayEndGameAlert('w');
+                } else {
+                    displayEndGameAlert('l');
+                }
+                player2ScoreValue += 100;
                 setPlayer2Score(player2ScoreValue);
-            } else if (winner == 3) { 
-                displayEndGameAlert('e'); 
+            } else if (winner == 3) {
+                if (isRecording) {
+                    if(isX)
+                        RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'E');
+                    else if (!isX)
+                         RecordingUseCase.saveToFileOnline(userNamePlayer2.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'E');
+                    recordHansel();
+                }
+                displayEndGameAlert('e');
             }
-
-            return; 
+            return;
         }
-        timer.cancel(); 
+        timer.cancel();
         timer.startTimer(5, isX);
     }
 
@@ -172,5 +201,8 @@ public class OnlineBoard extends Board {
         new EndGameAlert(result, stage, this).show();
     }
 
-
+    private void recordHansel() {
+        isRecording = false;
+        RecordingUseCase.Pos = "";
+    }
 }

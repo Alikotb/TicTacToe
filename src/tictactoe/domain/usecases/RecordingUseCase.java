@@ -24,8 +24,9 @@ public class RecordingUseCase {
 
     public static String Pos = "";
     private static final String directoryPath = System.getenv("LOCALAPPDATA") + File.separator + "XOGame";
- public static void saveToFile(String actions, String userName1, String userName2, char win) {
-     //System.getenv("APPDATA");
+
+    public static void saveToFile(String actions, String userName1, String userName2, char win) {
+        //System.getenv("APPDATA");
         File directory = new File(directoryPath);
         Date date = new Date();
         String filePath = directoryPath + File.separator + date.getTime() + ".json";
@@ -49,16 +50,64 @@ public class RecordingUseCase {
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(gson.toJson(r));
             writer.close();
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(RecordingUseCase.class.getName()).log(Level.SEVERE, null, ex);
-        }        finally{
-            RecordingUseCase.Pos="";
+        } finally {
+            RecordingUseCase.Pos = "";
         }
     }
+
     public static File[] getAllFiles() {
         File[] txtFiles = null;
         File dir = new File(directoryPath);
+        if (dir.exists() && dir.isDirectory()) {
+            FilenameFilter txtFilter = (file, name) -> name.toLowerCase().endsWith(".json");
+            txtFiles = dir.listFiles(txtFilter);
+        } else {
+            System.out.println("The specified path is not a valid directory.");
+        }
+        return txtFiles;
+    }
+
+    ////////for online  game
+    public static void saveToFileOnline(String user, String actions, String userName1, String userName2, char win) {
+        //System.getenv("APPDATA");
+        String onlineDir = directoryPath + File.separator + user;
+        File directory = new File(onlineDir);
+        Date date = new Date();
+        String filePath = onlineDir + File.separator + date.getTime() + ".json";
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Directory created: " + onlineDir);
+            } else {
+                System.err.println("Failed to create directory: " + onlineDir);
+                return;
+            }
+        }
+        Record r = new Record();
+        r.setPsitions(actions);
+        r.setUser1(userName1);
+        r.setUser2(userName2);
+        r.setWinner(win);
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        try (FileWriter writer = new FileWriter(filePath)) {
+            writer.write(gson.toJson(r));
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(RecordingUseCase.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            RecordingUseCase.Pos = "";
+        }
+    }
+
+    public static File[] getAllFilesoLINE(String username) {
+        String onlineDir = directoryPath + File.separator + username;
+
+        File[] txtFiles = null;
+
+        File dir = new File(onlineDir);
         if (dir.exists() && dir.isDirectory()) {
             FilenameFilter txtFilter = (file, name) -> name.toLowerCase().endsWith(".json");
             txtFiles = dir.listFiles(txtFilter);

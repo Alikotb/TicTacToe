@@ -12,20 +12,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/data/ConnectionService.java</file>
-            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/PlayBackgroundMusicUseCase.java</file>
-            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/ui/screens/Board.java</file>
-            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/ui/alert/EndGameAlert.java</file>
-            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/ui/screens/Splash.java</file>
-            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/ui/screens/NewGame1Base.java</file>
-            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/ui/screens/OnlineBoard.java</file>
-            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/IsWinnerUseCase.java</file>
-
-            <file>file:/C:/Users/youss/Desktop/Youssef/iti-9%20months/Java/Project/TicTacToe/src/tictactoe/ui/screens/ReplayGame.java</file>
-            <file>file:/C:/Users/youss/Desktop/Youssef/iti-9%20months/Java/Project/TicTacToe/src/tictactoe/ui/alert/EndReplayGameAlert.java</file>
-            <file>file:/C:/Users/youss/Desktop/Youssef/iti-9%20months/Java/Project/TicTacToe/src/tictactoe/ui/screens/History.java</file>
-            <file>file:/C:/Users/youss/Desktop/Youssef/iti-9%20months/Java/Project/TicTacToe/src/tictactoe/ui/screens/NewGame1Base.java</file>
-
+            <file>file:/D:/ITI/Java/project/TIC%20TAC%20TOC/Development/TicTacToe/src/tictactoe/data/ConnectionService.java</file>
+            <file>file:/D:/ITI/Java/project/TIC%20TAC%20TOC/Development/TicTacToe/src/tictactoe/ui/screens/Board.java</file>
+            <file>file:/D:/ITI/Java/project/TIC%20TAC%20TOC/Development/TicTacToe/src/tictactoe/domain/usecases/RecordingUseCase.java</file>
+            <file>file:/D:/ITI/Java/project/TIC%20TAC%20TOC/Development/TicTacToe/src/tictactoe/ui/screens/OnlineBoard.java</file>
+            <file>file:/D:/ITI/Java/project/TIC%20TAC%20TOC/Development/TicTacToe/src/tictactoe/ui/screens/OnlineUsers.java</file>
         </group>
     </open-files>
 </project-private>
