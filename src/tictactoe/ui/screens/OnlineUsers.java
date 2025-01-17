@@ -19,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.json.Json;
@@ -41,7 +42,7 @@ public class OnlineUsers extends BorderPane {
         score = sc;
         random = new Random();
         avatarImages = loadAvatars();
-
+        
         userList = FXCollections.observableArrayList();
         ListView<HBox> listView = new ListView<>(userList);
         Rectangle clip = new Rectangle(0, 0, 480, 520);
@@ -55,8 +56,9 @@ public class OnlineUsers extends BorderPane {
                 super.updateItem(item, empty);
                 if (item != null && !empty) {
                     VBox container = new VBox();
+                    container.setPrefWidth(150.0);
                     container.getChildren().add(item);
-                    container.setStyle("-fx-padding: 10px; -fx-background-color: #fff; -fx-background-radius: 25;");
+                    container.setStyle("-fx-padding: 5; -fx-background-color: #fff; -fx-background-radius: 25;");
                     setGraphic(container);
                 } else {
                     setStyle("-fx-background-color: #1F509A;");
@@ -103,12 +105,12 @@ public class OnlineUsers extends BorderPane {
         
         this.setCenter(listView);
         
-        mainStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (isNowFocused) {
-                onlineStage.close();
-            }
-        });
-        onlineStage.initStyle(StageStyle.UNDECORATED);
+        onlineStage.setResizable(false);
+        onlineStage.initStyle(StageStyle.UTILITY);
+        onlineStage.initModality(Modality.APPLICATION_MODAL);
+        onlineStage.initOwner(mainStage);
+        onlineStage.setX(mainStage.getX() + (mainStage.getWidth() / 2) - 250);
+        onlineStage.setY(mainStage.getY() + (mainStage.getHeight() / 2) - 250);
     }
 
     private void addUser(String username, int score, String status) {
