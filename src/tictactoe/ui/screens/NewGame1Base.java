@@ -36,7 +36,7 @@ public class NewGame1Base extends BorderPane {
     protected final Button History;
     protected static Stage mystage;
 
-    public NewGame1Base(Stage mystage, String username, int score) {
+     public NewGame1Base(Stage mystage, String username, int score) {
         this.mystage = mystage;
         gridPane = new GridPane();
         columnConstraints = new ColumnConstraints();

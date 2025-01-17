@@ -42,6 +42,8 @@ public class LogInBase extends BorderPane {
     protected static Stage mystage;
     protected Repo repo;
     protected ValidationUseCase validator ;
+    public static String theUserName;
+    public static int theScore;
 
     public LogInBase(Stage mystage) {
         LogInBase.mystage = mystage;
@@ -157,7 +159,7 @@ public class LogInBase extends BorderPane {
         Login.setDefaultButton(true);
         Login.setOnAction((ActionEvent event) -> {
             validator = new ValidationUseCase();
-            String email = emailTextField.getText();
+             String email = emailTextField.getText();
             String hashPassword = HashingUseCase.hashPassword(passwordTextField.getText());
              String validationError = validator.validateFields(emailTextField ,passwordTextField);
              System.err.println(validationError);
@@ -216,11 +218,13 @@ public class LogInBase extends BorderPane {
    public static void navigateToNewGame(JsonObject jsonObj) {
     String status = jsonObj.getString("status");
     String message = jsonObj.getString("message");
+    theUserName = jsonObj.getString("username");
+    theScore = jsonObj.getInt("score");
     Platform.runLater(() -> {
         if ("success".equals(status)) {
             errorLabel.setText("");
-            Scene scene = new Scene(new NewGame1Base(mystage, jsonObj.getString("username"), 
-                    jsonObj.getInt("score")), 800, 600);
+            Scene scene = new Scene(new NewGame1Base(mystage, theUserName, 
+                   theScore), 800, 600);
             mystage.setScene(scene);
             
         } else if ("failure".equals(status)) {

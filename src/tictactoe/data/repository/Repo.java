@@ -25,4 +25,8 @@ public class Repo {
     public boolean logout(String json) {
         return service.logout(json);
     }
+    
+     public boolean updateScore(String json) {
+        return service.updateScore(json);
+    }
 }

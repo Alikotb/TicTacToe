@@ -161,6 +161,7 @@ public class ConnectionService {
                     NewGame1Base.navigateToHome(jsonObj);
                     break;
                 }
+                
 
             }
 

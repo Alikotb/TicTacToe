@@ -11,6 +11,7 @@ import tictactoe.domain.usecases.GetTileUseCase;
 import tictactoe.domain.usecases.GetXOImageUseCase;
 import tictactoe.domain.usecases.IsWinnerUseCase;
 import tictactoe.domain.usecases.RecordingUseCase;
+import tictactoe.domain.usecases.ToJesonUseCase;
 import tictactoe.ui.alert.EndGameAlert;
 import static tictactoe.ui.screens.Board.isPlaying;
 
@@ -46,6 +47,18 @@ public class OnlineBoard extends Board {
             printXO();
         });
 
+        forfeitBtn.setOnAction(e -> {
+            timer.cancel();
+            isFinished = true;
+            sendRequest(0);
+            if (isX) {
+                displayEndGameAlertLoseP1('l');
+                System.out.println("player 1 lose");
+            } else {
+                displayEndGameAlertLoseP2('l');
+            }
+        });
+
     }
 
     @Override
@@ -62,9 +75,7 @@ public class OnlineBoard extends Board {
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
         playSound();
         recordPositionsUseCase.recordPositions(tile, isX);
-
         isPlaying = false;
-
         timer.cancel();
         timer.startTimer(5, !isX);
         checkWinner();
@@ -121,6 +132,22 @@ public class OnlineBoard extends Board {
     public void nextTurn(JsonObject json) {
         Platform.runLater(() -> {
             position = json.getInt("position");
+            if (position == 0) {
+                timer.cancel();
+                if (isX) {
+                    player1ScoreValue = Integer.parseInt(player2Score.getText()) + 100;
+                    setPlayer2Score(player1ScoreValue);
+                    updateScoreInDatabase(userNamePlayer2.getText(), player1ScoreValue);
+                    displayEndGameAlertWinP1('w');
+
+                } else {
+                    player2ScoreValue = Integer.parseInt(player2Score.getText()) + 100;
+                    setPlayer2Score(player2ScoreValue);
+                    updateScoreInDatabase(userNamePlayer2.getText(), player2ScoreValue);
+                    displayEndGameAlertWinP2('w');
+
+                }
+            }
             isPlaying = true;
             printXOOpponent();
 
@@ -132,45 +159,72 @@ public class OnlineBoard extends Board {
         });
 
     }
-     @Override
-    protected void checkWinner() {
-        int winner = winnerCkeck.isWinner(recordPositionsUseCase);
-        if (winner != 0) { 
-            isFinished = true;
-            isPlaying = false; 
-            timer.cancel(); 
 
-            if (winner == 1) { 
-                highlightWinningTiles(winnerCkeck.getWinningPositions()); 
-                if (isX) {
-                    displayEndGameAlert('w'); 
-                } else {
-                    displayEndGameAlert('l'); 
-                }
-                player1ScoreValue += 100; 
+    @Override
+    protected void checkWinner() {
+        player1ScoreValue = Integer.parseInt(player1Score.getText());
+        player2ScoreValue = Integer.parseInt(player2Score.getText());
+
+        int winner = winnerCkeck.isWinner(recordPositionsUseCase);
+        if (winner != 0) {
+            isFinished = true;
+            isPlaying = false;
+            timer.cancel();
+
+            if (winner == 1) {
+                highlightWinningTiles(winnerCkeck.getWinningPositions());
+                player1ScoreValue = Integer.parseInt(player1Score.getText()) + 100;
                 setPlayer1Score(player1ScoreValue);
-            } else if (winner == 2) { 
-                highlightWinningTiles(winnerCkeck.getWinningPositions()); 
-                if (!isX) {
-                    displayEndGameAlert('w'); 
+                updateScoreInDatabase(userNamePlayer1.getText(), player1ScoreValue);
+
+                if (isX) {
+                    displayEndGameAlertWinP1('w');
                 } else {
-                    displayEndGameAlert('l'); 
+                    displayEndGameAlertLoseP2('l');
                 }
-                player2ScoreValue += 100; 
+
+            } else if (winner == 2) {
+                highlightWinningTiles(winnerCkeck.getWinningPositions());
+                player2ScoreValue = Integer.parseInt(player2Score.getText()) + 100;
                 setPlayer2Score(player2ScoreValue);
-            } else if (winner == 3) { 
-                displayEndGameAlert('e'); 
+                updateScoreInDatabase(userNamePlayer2.getText(), player2ScoreValue);
+
+                if (!isX) {
+                    displayEndGameAlertWinP2('w');
+                } else {
+                    displayEndGameAlertLoseP2('l');
+                }
+
+            } else if (winner == 3) {
+                new EndGameAlert('e', stage, this).show();
             }
 
-            return; 
+            return;
         }
-        timer.cancel(); 
+        timer.cancel();
         timer.startTimer(5, isX);
     }
 
-    private void displayEndGameAlert(char result) {
-        new EndGameAlert(result, stage, this).show();
+    private void displayEndGameAlertWinP1(char result) {
+        new EndGameAlert(result, stage, this, player1ScoreValue).show();
     }
 
+    private void displayEndGameAlertLoseP1(char result) {
+        new EndGameAlert(result, stage, this, player1ScoreValue).show();
+    }
 
+    private void displayEndGameAlertWinP2(char result) {
+        new EndGameAlert(result, stage, this, player2ScoreValue).show();
+    }
+
+    private void displayEndGameAlertLoseP2(char result) {
+        new EndGameAlert(result, stage, this, player2ScoreValue).show();
+    }
+
+    private void updateScoreInDatabase(String playerName, int score) {
+        String updateScoreRequest = ToJesonUseCase.toJsonScoreUpdate(playerName, score);
+        if (!repo.updateScore(updateScoreRequest)) {
+            System.err.println("Failed to update " + playerName + "score");
+        }
+    }
 }
