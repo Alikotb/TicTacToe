@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -97,15 +98,15 @@ public class NewGame1Base extends BorderPane {
         LogOut.setId("LogOut");
         LogOut.setOnAction((ActionEvent event) -> {
             JsonObject jsonObject = Json.createObjectBuilder()
-                        .add("action", 6)
-                        .add("username", this.username.getText())
-                        .build();
-                String json = jsonObject.toString();
-                Repo repo = new Repo();
-                if (!repo.logout(json)) {
-                    errorLable.setText("Disconnection, Please try again.");
-                }
-            
+                    .add("action", 6)
+                    .add("username", this.username.getText())
+                    .build();
+            String json = jsonObject.toString();
+            Repo repo = new Repo();
+            if (!repo.logout(json)) {
+                errorLable.setText("Disconnection, Please try again.");
+            }
+
             Scene scene = new Scene(new LogInBase(mystage), 800, 600);
             mystage.setScene(scene);
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
@@ -142,9 +143,10 @@ public class NewGame1Base extends BorderPane {
             OnlineUsers onlineUsers = new OnlineUsers(onlineStage, mystage,
                     this.username.getText(), Integer.valueOf(this.score.getText())
             );
+            
             onlineStage.setScene(new Scene(onlineUsers, 480, 520));
             onlineStage.show();
-
+            
         });
 
         GridPane.setMargin(NEWGAME, new Insets(0.0, 0.0, 0.0, 160.0));
@@ -157,7 +159,7 @@ public class NewGame1Base extends BorderPane {
         History.setId("HISTORY");
         History.setOnAction(e -> {
             Stage historyStage = new Stage();
-            historyStage.setScene(new Scene(new History(historyStage,mystage)));
+            historyStage.setScene(new Scene(new History(historyStage, mystage)));
             historyStage.show();
         });
 
@@ -191,9 +193,9 @@ public class NewGame1Base extends BorderPane {
             if ("success".equals(status)) {
                 Scene scene = new Scene(new Home(mystage), 800, 600);
                 mystage.setScene(scene);
-            } 
+            }
         });
-        
+
     }
 
 }
