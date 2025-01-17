@@ -138,12 +138,12 @@ public class NewGame1Base extends BorderPane {
         NEWGAME.setId("NEWGAME");
 
         NEWGAME.setOnAction(e -> {
-            OnlineUsers onlineUsers = new OnlineUsers(mystage,
+            Stage onlineStage = new Stage();
+            OnlineUsers onlineUsers = new OnlineUsers(onlineStage, mystage,
                     this.username.getText(), Integer.valueOf(this.score.getText())
             );
-            Stage stage = new Stage();
-            stage.setScene(new Scene(onlineUsers, 350, 500));
-            stage.show();
+            onlineStage.setScene(new Scene(onlineUsers, 480, 520));
+            onlineStage.show();
 
         });
 
