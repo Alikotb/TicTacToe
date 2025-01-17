@@ -66,8 +66,8 @@ public class Board extends BorderPane {
 
     public boolean isX, isFinished;
     Stage stage;
-    private int player1ScoreValue;
-    private int player2ScoreValue;
+    int player1ScoreValue;
+    int player2ScoreValue;
     static boolean isPlaying;
 
     public Board(Stage stage) {
@@ -400,6 +400,7 @@ public class Board extends BorderPane {
             }
         }
     }
+
     private Tile getTileByPosition(int position) {
         for (Tile tile : tiles) {
             if (tile.getPosition() == position) {
@@ -488,7 +489,11 @@ public class Board extends BorderPane {
         recordPositionsUseCase = new RecordPositionUseCase();
         isX = true;
         isFinished = false;
-        recordBtn.setText("Recourd");
+        timer.cancel();
+        playerOneTimer.setText("00:00");
+        playerTwoTimer.setText("00:00");
+        startTimer();
+        recordBtn.setText("Record");
         recordBtn.setDisable(false);
     }
 }

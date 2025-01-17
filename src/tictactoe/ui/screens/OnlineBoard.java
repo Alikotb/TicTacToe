@@ -9,6 +9,9 @@ import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetRandomPositionUseCase;
 import tictactoe.domain.usecases.GetTileUseCase;
 import tictactoe.domain.usecases.GetXOImageUseCase;
+import tictactoe.domain.usecases.IsWinnerUseCase;
+import tictactoe.domain.usecases.RecordingUseCase;
+import tictactoe.ui.alert.EndGameAlert;
 import static tictactoe.ui.screens.Board.isPlaying;
 
 public class OnlineBoard extends Board {
@@ -16,10 +19,12 @@ public class OnlineBoard extends Board {
     Repo repo = new Repo();
     static int position;
     public static OnlineBoard board;
+    protected IsWinnerUseCase winnerCkeck;
 
     public OnlineBoard(Stage owner, JsonObject json, boolean isX) {
         super(owner);
-        this.isX = isX; 
+        this.isX = isX;
+        winnerCkeck = new IsWinnerUseCase();
         System.out.println("isX from OnlineBoard constructor ->  " + isX);
 
         if (isX) {
@@ -107,18 +112,10 @@ public class OnlineBoard extends Board {
     }
 
     protected void printXOOpponent() {
-
         Tile tile = GetTileUseCase.getTile(tiles, position);
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(!isX));
-        recordPositionsUseCase.recordPositions(tile, isX);
-        if (isX && isPlaying) {
-            timer.cancel();
-            timer.startTimer(5, isX);
-        } else if (!isX && isPlaying) {
-            timer.cancel();
-            timer.startTimer(5, isX);
-        }
-
+        recordPositionsUseCase.recordPositions(tile, !isX);
+        checkWinner();
     }
 
     public void nextTurn(JsonObject json) {
@@ -135,5 +132,45 @@ public class OnlineBoard extends Board {
         });
 
     }
+     @Override
+    protected void checkWinner() {
+        int winner = winnerCkeck.isWinner(recordPositionsUseCase);
+        if (winner != 0) { 
+            isFinished = true;
+            isPlaying = false; 
+            timer.cancel(); 
+
+            if (winner == 1) { 
+                highlightWinningTiles(winnerCkeck.getWinningPositions()); 
+                if (isX) {
+                    displayEndGameAlert('w'); 
+                } else {
+                    displayEndGameAlert('l'); 
+                }
+                player1ScoreValue += 100; 
+                setPlayer1Score(player1ScoreValue);
+            } else if (winner == 2) { 
+                highlightWinningTiles(winnerCkeck.getWinningPositions()); 
+                if (!isX) {
+                    displayEndGameAlert('w'); 
+                } else {
+                    displayEndGameAlert('l'); 
+                }
+                player2ScoreValue += 100; 
+                setPlayer2Score(player2ScoreValue);
+            } else if (winner == 3) { 
+                displayEndGameAlert('e'); 
+            }
+
+            return; 
+        }
+        timer.cancel(); 
+        timer.startTimer(5, isX);
+    }
+
+    private void displayEndGameAlert(char result) {
+        new EndGameAlert(result, stage, this).show();
+    }
+
 
 }

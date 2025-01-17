@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -13,9 +14,12 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.StageStyle;
+import tictactoe.domain.usecases.PlayBackgroundMusicUseCase;
 import tictactoe.domain.usecases.RecordingUseCase;
 import tictactoe.ui.screens.Board;
+import tictactoe.ui.screens.NewGame1Base;
 import tictactoe.ui.screens.OfflineBase;
+import tictactoe.ui.screens.OnlineBoard;
 
 public class EndGameAlert {
 
@@ -33,11 +37,9 @@ public class EndGameAlert {
         
         if (status == 'w') {
             file = new File("src/resources/videos/win.mp4");
-        }
-        if (status == 'l') {
+        } else if (status == 'l') {
             file = new File("src/resources/videos/lose.mp4");
-        }
-        if (status == 'e') {
+        } else {
             file = new File("src/resources/videos/draw.mp4");
         }
     }
@@ -73,9 +75,18 @@ public class EndGameAlert {
             exitButton.setOnAction(e -> {
                 mediaPlayer.stop();
                 alertStage.close();
-                Scene offlineScene = new Scene(new OfflineBase(stage), 800, 600);
-                stage.setScene(offlineScene);
-                offlineScene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+                PlayBackgroundMusicUseCase.getInstance().startBackgroundMusic();
+                Parent root = stage.getScene().getRoot();
+                if (root instanceof OnlineBoard) {
+                    Scene newgameScene = new Scene(new NewGame1Base(stage,"",1), 800, 600);
+                    stage.setScene(newgameScene);
+                    newgameScene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+                } else {
+                    Scene offlineScene = new Scene(new OfflineBase(stage), 800, 600);
+                    stage.setScene(offlineScene);
+                    offlineScene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+                }
+
             });
 
             FlowPane buttonPane = new FlowPane();
@@ -92,6 +103,8 @@ public class EndGameAlert {
             alertStage.setScene(alertScene);
             alertStage.initStyle(StageStyle.UNDECORATED);
             alertStage.setResizable(false);
+            alertStage.initOwner(stage);
+            alertStage.initStyle(StageStyle.UNDECORATED);
 
             alertStage.setOnCloseRequest(e -> {
                 RecordingUseCase.Pos = "";
