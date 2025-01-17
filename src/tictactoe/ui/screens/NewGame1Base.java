@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javax.json.Json;
 import javax.json.JsonObject;
 import tictactoe.data.repository.Repo;
+import tictactoe.domain.usecases.RecordingUseCase;
 import static tictactoe.ui.screens.LogInBase.mystage;
 import static tictactoe.ui.screens.SignUp.errorLable;
 
@@ -54,6 +55,8 @@ public class NewGame1Base extends BorderPane {
         History = new Button();
         this.getStyleClass().add("border-pane");
 
+        System.out.println("hi       : "+RecordingUseCase.getAllFilesoLINE(username).length);
+        
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);

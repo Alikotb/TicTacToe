@@ -56,8 +56,8 @@ public class Board extends BorderPane {
     protected Label playerTwoTimer;
     protected Button recordBtn, forfeitBtn;
 
-    char TheWinner;
-    boolean isRecording;
+    protected char TheWinner;
+    protected boolean isRecording;
     protected ArrayList<Tile> tiles;
     protected RecordPositionUseCase recordPositionsUseCase;
     protected PlaySoundUseCase playSound;
