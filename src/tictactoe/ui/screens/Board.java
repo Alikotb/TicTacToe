@@ -246,6 +246,27 @@ public class Board extends BorderPane {
         tile9.getBtn().setCursor(Cursor.HAND);
         tile9.getBtn().setBackground(null);
         setCenter(flowPaneCenter);
+        
+        recordBtn.setText("Record");
+        recordBtn.setPrefHeight(60);
+        recordBtn.setPrefWidth(120);
+
+        recordBtn.setStyle("-fx-background-color:linear-gradient(to bottom, #FF6B6B, #D32F2F, #B71C1C); "
+                + "-fx-background-radius: 50px; "
+                + "-fx-font-family: 'Black Han Sans'; "
+                + "-fx-text-fill: white; "
+                + "-fx-font-size: 20px; "
+                + "-fx-cursor: hand;");
+
+        forfeitBtn.setText("Forfeit");
+        forfeitBtn.setPrefHeight(60);
+        forfeitBtn.setPrefWidth(120);
+        forfeitBtn.setStyle("-fx-background-color:linear-gradient(to bottom, #FFD54F, #FFA726, #F57C00); "
+                + "-fx-background-radius: 50px; "
+                + "-fx-font-family: 'Black Han Sans'; "
+                + "-fx-text-fill: white; "
+                + "-fx-font-size: 20px; "
+                + "-fx-cursor: hand;");
 
         BorderPane.setAlignment(playerTwoContainer, javafx.geometry.Pos.CENTER);
         playerTwoContainer.setAlignment(javafx.geometry.Pos.TOP_CENTER);
