@@ -54,7 +54,7 @@ public class History extends ListView {
     public History(Stage historyStage,Stage stage, String username, int socre) {
         setStyle("-fx-background-color: #1F509A; -fx-background-radius: 15;");
 
-        File[] gameFiles = RecordingUseCase.getAllFiles();
+        File[] gameFiles = RecordingUseCase.getAllFilesoLINE(username);
         ObservableList<RecordItem> records = FXCollections.observableArrayList();
 
         if (gameFiles != null && gameFiles.length > 0) {
