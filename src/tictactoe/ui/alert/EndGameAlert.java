@@ -31,10 +31,12 @@ public class EndGameAlert {
     private Stage alertStage;
     private Board board;
     int score;
+    String username;
     
-    public EndGameAlert(char status, Stage stage, Board board,int score) {
+    public EndGameAlert(char status, Stage stage, Board board,int score,String username ) {
     this(status,stage,board);    
     this.score = score;
+    this.username= username;
     }
     public EndGameAlert(char status, Stage stage, Board board) {
         this.stage = stage;
@@ -83,7 +85,7 @@ public class EndGameAlert {
                 PlayBackgroundMusicUseCase.getInstance().startBackgroundMusic();
                 Parent root = stage.getScene().getRoot();
                 if (root instanceof OnlineBoard) {
-                    Scene newgameScene = new Scene(new NewGame1Base(stage,LogInBase.theUserName,score), 800, 600);
+                    Scene newgameScene = new Scene(new NewGame1Base(stage,username,score), 800, 600);
                     stage.setScene(newgameScene);
                     newgameScene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
                 } else {

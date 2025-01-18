@@ -262,10 +262,10 @@ public class OnlineBoard extends Board {
                     recordHansel();
                 }
                 if (isX) {
-                    new EndGameAlert('e', stage, this, player1ScoreValue).show();
+                    new EndGameAlert('e', stage, this, player1ScoreValue,userNamePlayer1.getText()).show();
                 }
                 if (!isX) {
-                    new EndGameAlert('e', stage, this, player2ScoreValue).show();
+                    new EndGameAlert('e', stage, this, player2ScoreValue,userNamePlayer2.getText()).show();
                 }
             }
             recordPositionsUseCase.clear();
@@ -275,19 +275,19 @@ public class OnlineBoard extends Board {
     }
 
     private void displayEndGameAlertWinP1(char result) {
-        new EndGameAlert(result, stage, this, player1ScoreValue).show();
+        new EndGameAlert(result, stage, this, player1ScoreValue,userNamePlayer1.getText()).show();
     }
 
     private void displayEndGameAlertLoseP1(char result) {
-        new EndGameAlert(result, stage, this, player1ScoreValue).show();
+        new EndGameAlert(result, stage, this, player1ScoreValue,userNamePlayer1.getText()).show();
     }
 
     private void displayEndGameAlertWinP2(char result) {
-        new EndGameAlert(result, stage, this, player2ScoreValue).show();
+        new EndGameAlert(result, stage, this, player2ScoreValue,userNamePlayer2.getText()).show();
     }
 
     private void displayEndGameAlertLoseP2(char result) {
-        new EndGameAlert(result, stage, this, player2ScoreValue).show();
+        new EndGameAlert(result, stage, this, player2ScoreValue,userNamePlayer2.getText()).show();
     }
 
     private void updateScoreInDatabase(String playerName, int score) {

@@ -218,8 +218,7 @@ public class LogInBase extends BorderPane {
    public static void navigateToNewGame(JsonObject jsonObj) {
     String status = jsonObj.getString("status");
     String message = jsonObj.getString("message");
-    
-      
+   
 
     Platform.runLater(() -> {
         if ("success".equals(status)) {
