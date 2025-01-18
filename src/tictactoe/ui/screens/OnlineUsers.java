@@ -16,7 +16,12 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Region;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.json.Json;
 import tictactoe.data.repository.Repo;
 import tictactoe.domain.model.User;
@@ -30,23 +35,31 @@ public class OnlineUsers extends BorderPane {
     private static ArrayList<User> users = new ArrayList();
     private String username;
     private int score;
+    private final Font font = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/MyCustomFont.ttf"), 25.0);
 
-    public OnlineUsers(Stage stage, String name, int sc) {
+    public OnlineUsers(Stage onlineStage, Stage mainStage, String name, int sc) {
         username = name;
         score = sc;
         random = new Random();
         avatarImages = loadAvatars();
-
+        
         userList = FXCollections.observableArrayList();
         ListView<HBox> listView = new ListView<>(userList);
-        listView.setPrefWidth(350);
+        Rectangle clip = new Rectangle(0, 0, 480, 520);
+        clip.setArcWidth(25);
+        clip.setArcHeight(25);
+        listView.setClip(clip);
 
+        
         listView.setCellFactory(param -> new ListCell<HBox>() {
             protected void updateItem(HBox item, boolean empty) {
                 super.updateItem(item, empty);
                 if (item != null && !empty) {
-                    setStyle("-fx-background-color: #EBF8FF;");
-                    setGraphic(item);
+                    VBox container = new VBox();
+                    container.setPrefWidth(150.0);
+                    container.getChildren().add(item);
+                    container.setStyle("-fx-padding: 5; -fx-background-color: #fff; -fx-background-radius: 25;");
+                    setGraphic(container);
                 } else {
                     setStyle("-fx-background-color: #1F509A;");
                     setGraphic(null);
@@ -81,9 +94,23 @@ public class OnlineUsers extends BorderPane {
                 }
             }
         });
+        this.setStyle("-fx-background-color: #1F509A; -fx-border-color: #1F509A; -fx-border-width: 7; -fx-background-radius: 25;");
 
-        this.setMaxSize(350, 500);
+        Rectangle borderPaneClip = new Rectangle();
+        borderPaneClip.setWidth(480);
+        borderPaneClip.setHeight(520);
+        borderPaneClip.setArcWidth(25);
+        borderPaneClip.setArcHeight(25);
+        this.setClip(borderPaneClip);
+        
         this.setCenter(listView);
+        
+        onlineStage.setResizable(false);
+        onlineStage.initStyle(StageStyle.UTILITY);
+        onlineStage.initModality(Modality.APPLICATION_MODAL);
+        onlineStage.initOwner(mainStage);
+        onlineStage.setX(mainStage.getX() + (mainStage.getWidth() / 2) - 250);
+        onlineStage.setY(mainStage.getY() + (mainStage.getHeight() / 2) - 250);
     }
 
     private void addUser(String username, int score, String status) {
@@ -107,18 +134,24 @@ public class OnlineUsers extends BorderPane {
         avatar.setClip(mask);
 
         VBox userInfo = new VBox(2);
+        userInfo.setPrefWidth(150);
         Label userNameLabel = new Label(username);
-        userNameLabel.setStyle("-fx-font-size: 24px; -fx-padding: 5; -fx-text-fill: #1F509A;");
+        userNameLabel.setFont(font);
+        userNameLabel.setStyle("-fx-padding: 5; -fx-text-fill: #1F509A;");
 
         Label scoreLabel = new Label("" + score);
-        scoreLabel.setStyle("-fx-font-size: 24px; -fx-padding: 5; -fx-text-fill: #1F509A;");
+        scoreLabel.setFont(font);
+        scoreLabel.setStyle("-fx-padding: 5; -fx-text-fill: #1F509A;");
         userInfo.getChildren().addAll(userNameLabel, scoreLabel);
 
         Label statusLabel = new Label(status);
+        statusLabel.setFont(font);
+        statusLabel.setStyle("-fx-alignment: center-right; -fx-padding: 0 0 0 10;");
+
         if ("in-game".equals(status)) {
-            statusLabel.setStyle("-fx-font-size: 24px; -fx-padding: 5; -fx-text-fill: red;");
+            statusLabel.setStyle(statusLabel.getStyle()+"-fx-text-fill: red;");
         } else {
-            statusLabel.setStyle("-fx-font-size: 24px; -fx-padding: 5; -fx-text-fill: green;");
+            statusLabel.setStyle(statusLabel.getStyle()+"-fx-text-fill: green;");
         }
 
         HBox userBox = new HBox(25, avatar, userInfo, statusLabel);

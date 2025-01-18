@@ -17,9 +17,11 @@
     -fx-font-size: 50px;
     -fx-text-fill: white;
     -fx-alignment: center;
+    -fx-cursor: hand;
 }
 .homeBtn:hover {
     -fx-background-color: #16427D;
+    -fx-cursor: hand;
 }
   
   #username, #email, #password, #confirmPassword {
@@ -35,11 +37,12 @@
       -fx-font-family: "Black Han Sans";
       -fx-text-fill: white;
       -fx-font-size: 25px;
-      
+      -fx-cursor: hand;
   }
   #theLable,#LogInButton {
     -fx-font-family: 'Black Han Sans';
     -fx-font-size: 22px;
+    -fx-cursor: hand;
 }
 
 .dialog-pane {
@@ -84,6 +87,7 @@
     -fx-text-fill: white;
     -fx-font-size: 12px;
     -fx-background-radius: 20;
+    -fx-cursor: hand;
 }
 
 .decline-button {
@@ -92,6 +96,7 @@
     -fx-text-fill: white;
     -fx-font-size: 12px;
     -fx-background-radius: 20;
+    -fx-cursor: hand;
 }
 
 .content-pane {
@@ -115,6 +120,7 @@
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-alignment: center;
+    -fx-cursor: hand;
 }
 #label{ 
     -fx-font-size: 25px;
@@ -132,11 +138,11 @@
 
 #back,#Login2,#LogOut{
     -fx-background-color: rgba(31, 80, 154, 0.0); 
-
+-fx-cursor: hand;
 }
 #PlayWithFriend:hover, #PlayVsComp:hover, #History:hover,#Login:hover,#HISTORY:hover,#NEWGAME:hover{
     -fx-background-color: #16427D;
-
+-fx-cursor: hand;
 }
 #UsernameTxt,#PasswordTxt{
     -fx-border-radius: 50px; 

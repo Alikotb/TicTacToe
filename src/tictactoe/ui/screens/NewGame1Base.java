@@ -21,6 +21,7 @@ import javax.json.JsonObject;
 import tictactoe.data.repository.Repo;
 import tictactoe.domain.usecases.ShowPopupUseCase;
 import tictactoe.ui.alert.ConnectionLostPopup;
+import tictactoe.domain.usecases.RecordingUseCase;
 import static tictactoe.ui.screens.LogInBase.mystage;
 import static tictactoe.ui.screens.SignUp.errorLable;
 
@@ -41,7 +42,7 @@ public class NewGame1Base extends BorderPane {
     protected final Button History;
     protected static Stage mystage;
 
-    public NewGame1Base(Stage mystage, String username, int score) {
+     public NewGame1Base(Stage mystage, String username, int score) {
         this.mystage = mystage;
         gridPane = new GridPane();
         columnConstraints = new ColumnConstraints();
@@ -56,8 +57,9 @@ public class NewGame1Base extends BorderPane {
         imageView = new ImageView();
         NEWGAME = new Button();
         History = new Button();
-        this.getStyleClass().add("border-pane");
 
+        this.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+        
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -143,13 +145,14 @@ public class NewGame1Base extends BorderPane {
         NEWGAME.setId("NEWGAME");
 
         NEWGAME.setOnAction(e -> {
-            OnlineUsers onlineUsers = new OnlineUsers(mystage,
+            Stage onlineStage = new Stage();
+            OnlineUsers onlineUsers = new OnlineUsers(onlineStage, mystage,
                     this.username.getText(), Integer.valueOf(this.score.getText())
             );
-            Stage stage = new Stage();
-            stage.setScene(new Scene(onlineUsers, 350, 500));
-            stage.show();
-
+            
+            onlineStage.setScene(new Scene(onlineUsers, 480, 520));
+            onlineStage.show();
+            
         });
 
         GridPane.setMargin(NEWGAME, new Insets(0.0, 0.0, 0.0, 160.0));
@@ -162,7 +165,7 @@ public class NewGame1Base extends BorderPane {
         History.setId("HISTORY");
         History.setOnAction(e -> {
             Stage historyStage = new Stage();
-            historyStage.setScene(new Scene(new History()));
+            historyStage.setScene(new Scene(new History(historyStage, mystage)));
             historyStage.show();
         });
 
