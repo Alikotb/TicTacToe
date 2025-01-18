@@ -43,7 +43,6 @@ public class LogInBase extends BorderPane {
     protected Repo repo;
     protected ValidationUseCase validator ;
     public static String theUserName;
-    public static int theScore;
 
     public LogInBase(Stage mystage) {
         LogInBase.mystage = mystage;
@@ -146,9 +145,9 @@ public class LogInBase extends BorderPane {
         
         GridPane.setRowIndex(errorLabel, 3);
         errorLabel.setText("");
-        errorLabel.setStyle("-fx-text-fill: red;");
+        errorLabel.setStyle("-fx-text-fill: red;-fx-font-size: 20px;-fx-font-weight: bold; ");
         errorLabel.setId("errorLabel");
-        GridPane.setMargin(errorLabel, new Insets(5.0, 0.0, 0.0, 160.0));
+        GridPane.setMargin(errorLabel, new Insets(20.0, 0.0, 50.0, 280.0));
         
 
         GridPane.setRowIndex(Login, 4);
@@ -174,14 +173,14 @@ public class LogInBase extends BorderPane {
                 errorLabel.setText("Connection faild");
             }
         });
-        GridPane.setMargin(Login, new Insets(0.0, 0.0, 0.0, 300.0));
+        GridPane.setMargin(Login, new Insets(0.0, 0.0, 50.0, 300.0));
 
         GridPane.setRowIndex(label, 5);
         label.setPrefHeight(31.0);
         label.setPrefWidth(290.0);
         label.setText("Don't Have Account?");
         label.setId("label");
-        GridPane.setMargin(label, new Insets(0.0, 0.0, 0.0, 225.0));
+        GridPane.setMargin(label, new Insets(0.0, 0.0, 50.0, 225.0));
 
         GridPane.setRowIndex(Login2, 5);
         Login2.setMnemonicParsing(false);
@@ -195,7 +194,7 @@ public class LogInBase extends BorderPane {
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         });
 
-        GridPane.setMargin(Login2, new Insets(0.0, 0.0, 0.0, 530.0));
+        GridPane.setMargin(Login2, new Insets(0.0, 0.0, 50.0, 530.0));
         Login2.setPadding(new Insets(0.0, 15.0, 0.0, 0.0));
         setCenter(gridPane);
 
@@ -219,14 +218,16 @@ public class LogInBase extends BorderPane {
    public static void navigateToNewGame(JsonObject jsonObj) {
     String status = jsonObj.getString("status");
     String message = jsonObj.getString("message");
-    theUserName = jsonObj.getString("username");
-    theScore = jsonObj.getInt("score");
+    
+      
+
     Platform.runLater(() -> {
         if ("success".equals(status)) {
             errorLabel.setText("");
-            Scene scene = new Scene(new NewGame1Base(mystage, theUserName, 
-                   theScore), 800, 600);
+            Scene scene = new Scene(new NewGame1Base(mystage, jsonObj.getString("username"), 
+                   jsonObj.getInt("score")), 800, 600);
             mystage.setScene(scene);
+            theUserName = jsonObj.getString("username");
             
         } else if ("failure".equals(status)) {
             switch (message) {

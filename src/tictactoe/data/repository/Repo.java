@@ -29,4 +29,7 @@ public class Repo {
      public boolean updateScore(String json) {
         return service.updateScore(json);
     }
+     public boolean updateIsAvailable(String json) {
+        return service.updateIsAvailable(json);
+    }
 }
