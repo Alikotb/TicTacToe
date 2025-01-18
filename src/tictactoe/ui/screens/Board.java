@@ -55,6 +55,7 @@ public class Board extends BorderPane {
     protected Label playerOneTimer;
     protected Label playerTwoTimer;
     protected Button recordBtn, forfeitBtn;
+    protected ImageView xImageView, oImageView;
 
     protected char TheWinner;
     protected boolean isRecording;
@@ -97,7 +98,9 @@ public class Board extends BorderPane {
         line8 = new Line();
         tile9 = new Tile(9);
         playerTwoContainer = new VBox();
-        playerTwoImage = new ImageView(new Image("/resources/images/player1.png"));
+
+        playerTwoImage = new ImageView(new Image("/resources/images/player2.png"));
+
         userNamePlayer2 = new Label();
         playerOneContainer = new VBox();
         playerOneImage = new ImageView(new Image("/resources/images/player1.png"));
@@ -106,6 +109,8 @@ public class Board extends BorderPane {
         player2Score = new Label();
         playerOneTimer = new Label();
         playerTwoTimer = new Label();
+        xImageView = new ImageView();
+        oImageView = new ImageView();
 
         recordBtn = new Button();
         forfeitBtn = new Button();
@@ -136,6 +141,11 @@ public class Board extends BorderPane {
         BorderPane.setMargin(imageView, new Insets(70.0, 0.0, 0.0, 0.0));
         imageView.setImage(new Image(getClass().getResource("/resources/images/logo.png").toExternalForm()));
         setTop(imageView);
+
+        xImageView.setImage(new Image("/resources/images/X.png"));
+        oImageView.setImage(new Image("/resources/images/O.png"));
+        VBox.setMargin(xImageView, new Insets(0.0, 0.0, 15.0, 0.0));
+        VBox.setMargin(oImageView, new Insets(0.0, 0.0, 15.0, 0.0));
 
         BorderPane.setAlignment(flowPaneCenter, javafx.geometry.Pos.CENTER);
         flowPaneCenter.setAlignment(javafx.geometry.Pos.CENTER);
@@ -246,7 +256,7 @@ public class Board extends BorderPane {
         tile9.getBtn().setCursor(Cursor.HAND);
         tile9.getBtn().setBackground(null);
         setCenter(flowPaneCenter);
-        
+
         recordBtn.setText("Record");
         recordBtn.setPrefHeight(60);
         recordBtn.setPrefWidth(120);
@@ -278,7 +288,7 @@ public class Board extends BorderPane {
         playerTwoImage.setFitWidth(120.0);
         playerTwoImage.setPickOnBounds(true);
         playerTwoImage.setPreserveRatio(true);
-        playerTwoImage.setImage(new Image(getClass().getResource("/resources/images/player2.png").toExternalForm()));
+//        playerTwoImage.setImage(new Image(getClass().getResource("/resources/images/player2.png").toExternalForm()));
         VBox.setMargin(playerTwoImage, new Insets(0.0, 0.0, 15.0, 0.0));
 
         Font font = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/MyCustomFont.ttf"), 25.0);  // 16px size
@@ -311,7 +321,7 @@ public class Board extends BorderPane {
         playerOneImage.setFitWidth(120.0);
         playerOneImage.setPickOnBounds(true);
         playerOneImage.setPreserveRatio(true);
-        playerOneImage.setImage(new Image(getClass().getResource("/resources/images/player1.png").toExternalForm()));
+//        playerOneImage.setImage(new Image(getClass().getResource("/resources/images/player1.png").toExternalForm()));
         VBox.setMargin(playerOneImage, new Insets(0.0, 0.0, 15.0, 0.0));
 
         userNamePlayer1.setTextFill(javafx.scene.paint.Color.WHITE);
@@ -339,10 +349,12 @@ public class Board extends BorderPane {
         flowPaneRow3.getChildren().add(line8);
         flowPaneRow3.getChildren().add(tile9.getBtn());
         flowPaneCenter.getChildren().add(flowPaneRow3);
+        playerTwoContainer.getChildren().add(oImageView);
         playerTwoContainer.getChildren().add(playerTwoImage);
         playerTwoContainer.getChildren().add(userNamePlayer2);
         playerTwoContainer.getChildren().add(player2Score);
         playerTwoContainer.getChildren().add(playerTwoTimer);
+        playerOneContainer.getChildren().add(xImageView);
         playerOneContainer.getChildren().add(playerOneImage);
         playerOneContainer.getChildren().add(userNamePlayer1);
         playerOneContainer.getChildren().add(player1Score);
@@ -450,11 +462,7 @@ public class Board extends BorderPane {
             recordBtn.setText("Recording...");
             recordBtn.setDisable(true);
         });
-        forfeitBtn.setOnAction(e -> {
-            RecordingUseCase.Pos = "";
-            playSound.playSound(5);
-            stage.setScene(new Scene(new Home(stage)));
-        });
+        
     }
 
     protected void playSound() {
@@ -512,11 +520,13 @@ public class Board extends BorderPane {
         isX = true;
         isFinished = false;
         timer.cancel();
-        if (!isPc) timer.startTimer(5, isX);
+        if (!isPc) {
+            timer.startTimer(5, isX);
+        }
         playerOneTimer.setText("");
         playerTwoTimer.setText("");
         recordBtn.setText("Record");
         recordBtn.setDisable(false);
-        isPlaying=true;
+        isPlaying = true;
     }
 }
