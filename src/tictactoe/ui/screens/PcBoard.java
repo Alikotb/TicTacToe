@@ -1,12 +1,14 @@
 package tictactoe.ui.screens;
 
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetRandomPositionUseCase;
 import tictactoe.domain.usecases.GetXOImageUseCase;
 import tictactoe.domain.usecases.GetTileUseCase;
+import tictactoe.domain.usecases.RecordingUseCase;
 import tictactoe.ui.alert.PromptUserName;
 
 public class PcBoard extends Board {
@@ -25,7 +27,14 @@ public class PcBoard extends Board {
 
         isPc = true;
         isPlaying = true;
-
+        playerTwoImage.setImage(new Image("/resources/images/robot.png"));
+        
+        forfeitBtn.setOnAction(e -> {
+            timer.cancel();
+            RecordingUseCase.Pos = "";
+            playSound.playSound(5);
+            owner.setScene(new Scene(new Home(owner)));
+        });
     }
 
     @Override
