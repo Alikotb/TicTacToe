@@ -180,7 +180,6 @@ public class OnlineBoard extends Board {
             timer.cancel();
             if (winner == 1) {
                 highlightWinningTiles(winnerCkeck.getWinningPositions());
-
                 if (isRecording) {
                     if (isX) {
                         RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'W');
@@ -195,10 +194,8 @@ public class OnlineBoard extends Board {
                     updateScoreInDatabase(userNamePlayer1.getText(), player1ScoreValue);
                     displayEndGameAlertWinP1('w');
                 } else {
-                    player2ScoreValue = Integer.parseInt(player2Score.getText()) + 100;
-                    setPlayer2Score(player2ScoreValue);
-                    updateScoreInDatabase(userNamePlayer2.getText(), player2ScoreValue);
-                    displayEndGameAlertWinP2('w');
+
+                    displayEndGameAlertLoseP2('l');
                 }
 
             } else if (winner == 2) {
@@ -211,10 +208,13 @@ public class OnlineBoard extends Board {
                     }
                     recordHansel();
                 }
-                if (isX) {
-                    displayEndGameAlertLoseP1('l');
+                if (!isX) {
+                    player2ScoreValue = Integer.parseInt(player2Score.getText()) + 100;
+                    setPlayer2Score(player2ScoreValue);
+                    updateScoreInDatabase(userNamePlayer2.getText(), player2ScoreValue);
+                    displayEndGameAlertWinP2('w');
                 } else {
-                    displayEndGameAlertLoseP2('l');
+                    displayEndGameAlertLoseP1('l');
                 }
 
             } else if (winner == 3) {
