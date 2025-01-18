@@ -64,7 +64,7 @@ public class Board extends BorderPane {
     protected IsWinnerUseCase winnerCkeck;
     protected TimerUseCase timer;
 
-    public boolean isX, isFinished;
+    public boolean isX, isFinished, isPc;
     Stage stage;
     int player1ScoreValue;
     int player2ScoreValue;
@@ -478,6 +478,7 @@ public class Board extends BorderPane {
         recordPositionsUseCase.recordPositions(tile, isX);
         checkWinner();
         reverseXO();
+        isPlaying = true;
     }
 
     public void restartGame() {
@@ -490,10 +491,11 @@ public class Board extends BorderPane {
         isX = true;
         isFinished = false;
         timer.cancel();
-        playerOneTimer.setText("00:00");
-        playerTwoTimer.setText("00:00");
-        startTimer();
+        if (!isPc) timer.startTimer(5, isX);
+        playerOneTimer.setText("");
+        playerTwoTimer.setText("");
         recordBtn.setText("Record");
         recordBtn.setDisable(false);
+        isPlaying=true;
     }
 }

@@ -22,15 +22,24 @@ public class PcBoard extends Board {
         timer.setOnTimeStopped(() -> {
             printXO();
         });
+
+        isPc = true;
+        isPlaying = true;
+
     }
 
     @Override
     protected void printXO(Tile tile) {
-        if (!recordPositionsUseCase.getPositions().contains(tile.getPosition())||isFinished) {
+        if (!isPlaying) {
+            return;
+        }
+
+        if (!recordPositionsUseCase.getPositions().contains(tile.getPosition()) || isFinished) {
             return;
         }
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
         recordPositionsUseCase.recordPositions(tile, isX);
+        isPlaying = false;
         checkWinner();
         reverseXO();
         timer.startTimer(1);
