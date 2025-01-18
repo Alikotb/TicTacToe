@@ -1,5 +1,6 @@
 package tictactoe.ui.screens;
 
+import tictactoe.ui.alert.MessagePopup;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -14,9 +15,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.json.Json;
 import javax.json.JsonObject;
 import tictactoe.data.repository.Repo;
+import tictactoe.domain.usecases.ShowPopupUseCase;
+import tictactoe.ui.alert.ConnectionLostPopup;
 import tictactoe.domain.usecases.RecordingUseCase;
 import static tictactoe.ui.screens.LogInBase.mystage;
 import static tictactoe.ui.screens.SignUp.errorLable;
@@ -189,6 +193,7 @@ public class NewGame1Base extends BorderPane {
             mystage.setScene(new Scene(new OnlineBoard(mystage, json, isX)));
         });
     }
+
     public static void navigateToHome(JsonObject jsonObj) {
         String status = jsonObj.getString("status");
         Platform.runLater(() -> {
@@ -200,4 +205,29 @@ public class NewGame1Base extends BorderPane {
 
     }
 
+    public static void showConnectionLost() {
+        if (mystage != null) {
+            Platform.runLater(() -> {
+                Stage connectionLostStage = new Stage();
+                connectionLostStage.setScene(new Scene(new ConnectionLostPopup(mystage, connectionLostStage), 300, 300));
+                ShowPopupUseCase.showPopup(mystage, connectionLostStage, 150);
+            });
+        }
+    }
+
+    public static void showMessagePopup(String username, String message) {
+        if (mystage != null) {
+            Platform.runLater(() -> {
+                Stage messageStage = new Stage();
+                messageStage.setScene(new Scene(new MessagePopup(username, message)));
+                messageStage.initModality(Modality.APPLICATION_MODAL);
+                messageStage.initOwner(mystage);
+                messageStage.setX(mystage.getX() + (mystage.getWidth() / 2) - 225);
+                messageStage.setY(mystage.getY() + (mystage.getHeight() / 2));
+                messageStage.initStyle(StageStyle.UTILITY);
+                messageStage.setResizable(false);
+                messageStage.show();
+            });
+        }
+    }
 }

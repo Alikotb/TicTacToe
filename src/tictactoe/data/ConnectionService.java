@@ -6,18 +6,18 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import tictactoe.domain.model.User;
 import tictactoe.ui.alert.IncomingRequestDialog;
-import tictactoe.ui.screens.LogInBase;
 import tictactoe.ui.screens.OnlineUsers;
 import tictactoe.ui.screens.SignUp;
 import tictactoe.ui.screens.LogInBase;
+import tictactoe.ui.alert.MessagePopup;
 import tictactoe.ui.screens.NewGame1Base;
 import tictactoe.ui.screens.OnlineBoard;
 
@@ -64,8 +64,6 @@ public class ConnectionService {
                 return true;
 
             } catch (IOException ex) {
-                // TODO show Message
-                disconnect();
                 return false;
             }
         }
@@ -73,6 +71,8 @@ public class ConnectionService {
     }
 
     public void disconnect() {
+        NewGame1Base.showConnectionLost();
+
         try {
             if (server != null) {
                 server.close();
@@ -83,12 +83,11 @@ public class ConnectionService {
             if (dos != null) {
                 dos.close();
             }
-            System.out.println("disconnected from server");
         } catch (IOException ex) {
-            System.out.println("Error desconnecting from server" + ex.getMessage());
+            ex.printStackTrace();
         }
         if (th != null && th.isAlive()) {
-            th.stop();
+            th.interrupt();
         }
 
     }
@@ -108,7 +107,7 @@ public class ConnectionService {
     public void startListening() {
         th = new Thread(() -> {
 
-            while (true) {
+            while (!Thread.interrupted()) {
                 handleAction();
             }
         });
@@ -117,7 +116,6 @@ public class ConnectionService {
     }
 
     private void handleAction() {
-
         try {
             int action = 0;
             String json = dis.readUTF();
@@ -166,8 +164,8 @@ public class ConnectionService {
             }
 
         } catch (IOException ex) {
-            System.err.println("IOException   the stream has been closed: " + ex.getMessage());
-            th.stop();
+            disconnect();
+
         }
 
     }
@@ -184,18 +182,19 @@ public class ConnectionService {
                 break;
             }
             case RESPONSE_ACCEPTED: {
-                System.out.println("Player 2 Accepted , Navigate Player 1 to Board");
                 NewGame1Base.navigateToOnlineBoard(jsonObj, true);
                 break;
             }
 
             case RESPONSE_ACCEPT_INVITATION: {
-                System.out.println("Player 2 Accepted , Navigate Player 2 to Board");
                 handleAcceptResponse(jsonObj);
                 break;
             }
             case RESPONSE_DECLINED: {
-                System.out.println("Player 2 has Declined the Game!");
+                Platform.runLater(() -> {
+                    NewGame1Base.showMessagePopup(jsonObj.getString("username-player2"), " Declined Your Invitation!");
+                });
+
                 break;
             }
 
@@ -203,15 +202,17 @@ public class ConnectionService {
     }
 
     private void handleAcceptResponse(JsonObject jsonObj) {
-        // player1 got invitation accepted
         int code = jsonObj.getInt("code");
 
         if (code == 1) {
             NewGame1Base.navigateToOnlineBoard(jsonObj, false);
         } else if (code == 2) {
-            System.out.println("isOnline but not available Show Popup");
+            NewGame1Base.showMessagePopup(jsonObj.getString("username-player1"), " Already in a Game!");
         } else {
-            System.out.println("Lost Connection Show Popup");
+            Platform.runLater(() -> {
+                NewGame1Base.showMessagePopup(jsonObj.getString("username-player1"), " Has No Connection!");
+            });
+
         }
     }
 
@@ -220,8 +221,6 @@ public class ConnectionService {
             board = OnlineBoard.board;
         }
 
-        System.out.println("Player 2 got his turn : \n" + json);
         board.nextTurn(jsonObj);
-
     }
 }
