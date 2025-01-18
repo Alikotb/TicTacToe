@@ -12,9 +12,33 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/PlayBackgroundMusicUseCase.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/ui/alert/EndReplayGameAlert.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/OnTimeStopped.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/PlaySoundUseCase.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/ui/screens/Board.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/GetRandomPositionUseCase.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/data/network/NetworkService.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/data/ConnectionService.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/GetXOImageUseCase.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/RecordingUseCase.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/RecordPositionUseCase.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/ui/screens/ReplayGame.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/ui/screens/LogInBase.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/data/repository/Repo.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/ToJesonUseCase.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/ui/screens/PlayerTwoBoard.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/GetTileUseCase.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/ui/screens/NewGame1Base.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/ui/screens/OnlineBoard.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/IsWinnerUseCase.java</file>
+            <file>file:/C:/Users/Mohamed/OneDrive/Desktop/TicTacToeGame/TicTacToe/src/tictactoe/domain/usecases/TimerUseCase.java</file>
+
             <file>file:/C:/Users/youss/Desktop/Youssef/iti-9%20months/Java/Project/TicTacToe/src/tictactoe/ui/screens/ReplayGame.java</file>
             <file>file:/C:/Users/youss/Desktop/Youssef/iti-9%20months/Java/Project/TicTacToe/src/tictactoe/domain/usecases/RecordingUseCase.java</file>
             <file>file:/C:/Users/youss/Desktop/Youssef/iti-9%20months/Java/Project/TicTacToe/src/tictactoe/ui/screens/History.java</file>
+
         </group>
     </open-files>
 </project-private>
