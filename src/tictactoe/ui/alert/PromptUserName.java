@@ -24,6 +24,8 @@ public class PromptUserName extends FlowPane {
         userNameTextField = new TextField();
         OkBtn = new Button();
         buttonsFlowPane = new FlowPane();
+        
+        this.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
 
         setAlignment(javafx.geometry.Pos.CENTER);
         setMaxHeight(USE_PREF_SIZE);
@@ -52,11 +54,12 @@ public class PromptUserName extends FlowPane {
         userNameTextField.setPrefWidth(380.0);
         userNameTextField.setPromptText("Enter Your Name");
         userNameTextField.setFont(new Font(20.0));
+        userNameTextField.setId("userPrombet");
         FlowPane.setMargin(userNameTextField, new Insets(8.0, 16.0, 16.0, 16.0));
 
         buttonsFlowPane.setAlignment(javafx.geometry.Pos.CENTER);
         buttonsFlowPane.setHgap(100.0);
-        buttonsFlowPane.setPrefWidth(200.0);
+        buttonsFlowPane.setPrefWidth(350.0);
 
         OkBtn.setMnemonicParsing(false);
         OkBtn.setText("OK");
@@ -64,12 +67,29 @@ public class PromptUserName extends FlowPane {
             String userName = userNameTextField.getText().trim();
             board.setUserNamePlayer1(userName.isEmpty() ? "Player1" : userName);
             board.setUserNamePlayer2("Pc");
-//            board.setPlayer1Score("0");
-//            board.setPlayer2Score("0");
             stage.close();
         });
         FlowPane.setMargin(OkBtn, new Insets(0.0, 0.0, 0.0, 0.0));
         FlowPane.setMargin(buttonsFlowPane, new Insets(8.0, 0.0, 0.0, 0.0));
+
+        OkBtn.setStyle("-fx-background-color:linear-gradient(to bottom, #FF6B6B, #D32F2F, #B71C1C); "
+                + "-fx-background-radius: 50px; "
+                + "-fx-font-family: 'Black Han Sans'; "
+                + "-fx-text-fill: white; "
+                + "-fx-font-size: 20px; "
+                + "-fx-cursor: hand;");
+
+        closeBtn.setStyle("-fx-background-color:linear-gradient(to bottom, #FF6B6B, #D32F2F, #B71C1C); "
+                + "-fx-background-radius: 50px; "
+                + "-fx-font-family: 'Black Han Sans'; "
+                + "-fx-text-fill: white; "
+                + "-fx-font-size: 20px; "
+                + "-fx-cursor: hand;");
+//        
+        OkBtn.setPrefHeight(50);
+        OkBtn.setPrefWidth(90);
+        closeBtn.setPrefHeight(50);
+        closeBtn.setPrefWidth(100);
 
         getChildren().add(label);
         getChildren().add(userNameTextField);

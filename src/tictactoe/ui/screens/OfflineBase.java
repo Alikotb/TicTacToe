@@ -106,7 +106,6 @@ public class OfflineBase extends BorderPane {
             scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         });
 
-        // back.setBackground(null);
         GridPane.setMargin(back, new Insets(40.0, 0.0, 0.0, 37.0));
 
         GridPane.setRowIndex(PlayVsComp, 2);
@@ -160,7 +159,5 @@ public class OfflineBase extends BorderPane {
         gridPane.getChildren().add(PlayWithFriend);
         gridPane.getChildren().add(History);
         gridPane.setAlignment(Pos.CENTER);
-        //.setAlignment(Pos.CENTER);
-
     }
 }

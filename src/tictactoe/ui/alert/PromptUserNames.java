@@ -29,6 +29,8 @@ public class PromptUserNames extends FlowPane {
         OkBtn = new Button();
         closeBtn = new Button();
 
+        this.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+
         setAlignment(javafx.geometry.Pos.CENTER);
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -57,10 +59,12 @@ public class PromptUserNames extends FlowPane {
         userName2TextField.setPromptText("Player2");
         userName2TextField.setFont(new Font(20.0));
         FlowPane.setMargin(userName2TextField, new Insets(8.0, 16.0, 0.0, 16.0));
+        userName1TextField.setId("userPrombet");
+        userName2TextField.setId("userPrombet");
 
         buttonsFlowPane.setAlignment(javafx.geometry.Pos.CENTER);
         buttonsFlowPane.setHgap(100.0);
-        buttonsFlowPane.setPrefWidth(200.0);
+        buttonsFlowPane.setPrefWidth(350.0);
 
         OkBtn.setMnemonicParsing(false);
         OkBtn.setText("OK");
@@ -70,8 +74,6 @@ public class PromptUserNames extends FlowPane {
 
             board.setUserNamePlayer1(userName1.isEmpty() ? "Player1" : userName1);
             board.setUserNamePlayer2(userName2.isEmpty() ? "Player2" : userName2);
-//            board.setPlayer1Score("0");
-//            board.setPlayer2Score("0");
             board.startTimer();
             stage.close();
         });
@@ -85,6 +87,19 @@ public class PromptUserNames extends FlowPane {
             board.startTimer();
             stage.close();
         });
+        OkBtn.setStyle("-fx-background-color:linear-gradient(to bottom, #FF6B6B, #D32F2F, #B71C1C); "
+                + "-fx-background-radius: 50px; "
+                + "-fx-font-family: 'Black Han Sans'; "
+                + "-fx-text-fill: white; "
+                + "-fx-font-size: 20px; "
+                + "-fx-cursor: hand;");
+
+        closeBtn.setStyle("-fx-background-color:linear-gradient(to bottom, #FF6B6B, #D32F2F, #B71C1C); "
+                + "-fx-background-radius: 50px; "
+                + "-fx-font-family: 'Black Han Sans'; "
+                + "-fx-text-fill: white; "
+                + "-fx-font-size: 20px; "
+                + "-fx-cursor: hand;");
         FlowPane.setMargin(closeBtn, new Insets(0.0));
         FlowPane.setMargin(buttonsFlowPane, new Insets(8.0, 0.0, 0.0, 0.0));
 
