@@ -91,6 +91,7 @@ public class EndGameAlert {
                     stage.setScene(offlineScene);
                     offlineScene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
                 }
+                
 
             });
 

@@ -47,4 +47,7 @@ public class NetworkService {
      public boolean updateScore(String json) {
         return sendRequest(json);
     }
+      public boolean updateIsAvailable(String json) {
+        return sendRequest(json);
+    }
 }
