@@ -41,7 +41,7 @@ public class EndGameAlert {
         this.board = board;
         
         if (status == 'w') {
-            file = new File("src/resources/videos/win.mp4");
+            file = new File("src/resources/videos/win2.mp4");
         } else if (status == 'l') {
             file = new File("src/resources/videos/lose.mp4");
         } else {
