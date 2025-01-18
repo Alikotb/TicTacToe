@@ -47,5 +47,11 @@ public class RecordPositionUseCase {
     public ArrayList<Integer> getPositions() {
         return positions;
     }
+    
+    public void clear() {
+        positions.clear();
+        playerOnePositions.clear();
+        playerTwoPositions.clear();
+    }
 
 }

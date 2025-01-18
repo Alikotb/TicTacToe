@@ -134,6 +134,13 @@ public class OnlineBoard extends Board {
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(!isX));
         recordPositionsUseCase.recordPositions(tile, !isX);
         // RecordingUseCase.Pos += tile.getPosition();
+        if (isX && isPlaying) {
+            timer.cancel();
+            timer.startTimer(5, isX);
+        } else if (!isX && isPlaying) {
+            timer.cancel();
+            timer.startTimer(5, isX);
+        }
         checkWinner();
     }
 
@@ -178,8 +185,13 @@ public class OnlineBoard extends Board {
             isFinished = true;
             isPlaying = false;
             timer.cancel();
+            
             if (winner == 1) {
                 highlightWinningTiles(winnerCkeck.getWinningPositions());
+                player1ScoreValue = Integer.parseInt(player1Score.getText()) + 100;
+                setPlayer1Score(player1ScoreValue);
+                updateScoreInDatabase(userNamePlayer1.getText(), player1ScoreValue);
+
                 if (isRecording) {
                     if (isX) {
                         RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'W');
@@ -228,10 +240,11 @@ public class OnlineBoard extends Board {
                 }
                 new EndGameAlert('e', stage, this).show();
             }
+            recordPositionsUseCase.clear();
             return;
         }
-        timer.cancel();
-        timer.startTimer(5, isX);
+//        timer.cancel();
+//        timer.startTimer(5, isX);
     }
 
     private void displayEndGameAlertWinP1(char result) {

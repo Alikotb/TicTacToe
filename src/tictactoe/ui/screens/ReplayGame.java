@@ -12,21 +12,38 @@ import tictactoe.domain.usecases.GetXOImageUseCase;
 import tictactoe.ui.alert.EndReplayGameAlert;
 
 public class ReplayGame extends Board {
-    
+
     private Record gameRecord;
     private boolean isX;
     private Tile tile;
     private Timeline timeline;
-    private String  winnerName;
+    private String winnerName;
+    private char mode;
+    private String username;
+    private int score;
 
     public ReplayGame(Stage stage, Record gameRecord) {
         super(stage);
         this.gameRecord = gameRecord;
+        this.mode='f';
         selectWinnerPlayer();
         recordBtn.setDisable(true);
         forfeitBtn.setDisable(true);
         replayMoves();
     }
+    
+    public ReplayGame(Stage stage, Record gameRecord,String name,int socre) {
+        super(stage);
+        this.gameRecord = gameRecord;
+        this.mode='o';
+        this.username=username;
+        this.score=socre;
+        selectWinnerPlayer();
+        recordBtn.setDisable(true);
+        forfeitBtn.setDisable(true);
+        replayMoves();
+    }
+
 
     private void selectWinnerPlayer() {
         userNamePlayer1.setText(gameRecord.getUser1());
@@ -36,11 +53,11 @@ public class ReplayGame extends Board {
 
         switch (gameRecord.getWinner()) {
             case 'W': {
-                winnerName  = gameRecord.getUser1();
+                winnerName = gameRecord.getUser1();
                 break;
             }
             case 'L': {
-                winnerName  = gameRecord.getUser2();
+                winnerName = gameRecord.getUser2();
                 break;
             }
         }
@@ -87,16 +104,24 @@ public class ReplayGame extends Board {
     }
 
     private void loadNextPage() {
-        Scene scene = new Scene(new OfflineBase(stage), 800, 600);
-        stage.setScene(scene);
-        scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+        if (mode == 'o') {
+            Scene scene = new Scene(new NewGame1Base(stage,username,score), 800, 600);
+            stage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+        }
+        if (mode == 'f') {
+            Scene scene = new Scene(new OfflineBase(stage), 800, 600);
+            stage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+        }
+
     }
 
     private void showAlert() {
-        Stage alertStage = new Stage();        
-        Scene alertScene = new EndReplayGameAlert().showAlert(stage,alertStage, this::loadNextPage,gameRecord.getWinner(),winnerName);
+        Stage alertStage = new Stage();
+        Scene alertScene = new EndReplayGameAlert().showAlert(stage, alertStage, this::loadNextPage, gameRecord.getWinner(), winnerName);
         alertStage.setScene(alertScene);
-        alertStage.initOwner(stage); 
+        alertStage.initOwner(stage);
         alertStage.initStyle(StageStyle.UNDECORATED);
         alertStage.show();
     }
