@@ -180,46 +180,50 @@ public class OnlineBoard extends Board {
             timer.cancel();
             if (winner == 1) {
                 highlightWinningTiles(winnerCkeck.getWinningPositions());
-                player1ScoreValue = Integer.parseInt(player1Score.getText()) + 100;
-                setPlayer1Score(player1ScoreValue);
-                updateScoreInDatabase(userNamePlayer1.getText(), player1ScoreValue);
-                   if (isRecording) {
-                    if(isX)
+
+                if (isRecording) {
+                    if (isX) {
                         RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'W');
-                    else if (!isX)
-                         RecordingUseCase.saveToFileOnline(userNamePlayer2.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'W');
+                    } else if (!isX) {
+                        RecordingUseCase.saveToFileOnline(userNamePlayer2.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'W');
+                    }
                     recordHansel();
                 }
                 if (isX) {
+                    player1ScoreValue = Integer.parseInt(player1Score.getText()) + 100;
+                    setPlayer1Score(player1ScoreValue);
+                    updateScoreInDatabase(userNamePlayer1.getText(), player1ScoreValue);
                     displayEndGameAlertWinP1('w');
                 } else {
-                    displayEndGameAlertLoseP2('l');
+                    player2ScoreValue = Integer.parseInt(player2Score.getText()) + 100;
+                    setPlayer2Score(player2ScoreValue);
+                    updateScoreInDatabase(userNamePlayer2.getText(), player2ScoreValue);
+                    displayEndGameAlertWinP2('w');
                 }
 
             } else if (winner == 2) {
                 highlightWinningTiles(winnerCkeck.getWinningPositions());
-                player2ScoreValue = Integer.parseInt(player2Score.getText()) + 100;
-                setPlayer2Score(player2ScoreValue);
-                updateScoreInDatabase(userNamePlayer2.getText(), player2ScoreValue);
                 if (isRecording) {
-                    if(isX)
+                    if (isX) {
                         RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'L');
-                    else if (!isX)
-                         RecordingUseCase.saveToFileOnline(userNamePlayer2.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'L');
+                    } else if (!isX) {
+                        RecordingUseCase.saveToFileOnline(userNamePlayer2.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'L');
+                    }
                     recordHansel();
                 }
-                if (!isX) {
-                    displayEndGameAlertWinP2('w');
+                if (isX) {
+                    displayEndGameAlertLoseP1('l');
                 } else {
                     displayEndGameAlertLoseP2('l');
                 }
 
             } else if (winner == 3) {
-                  if (isRecording) {
-                    if(isX)
+                if (isRecording) {
+                    if (isX) {
                         RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'E');
-                    else if (!isX)
-                         RecordingUseCase.saveToFileOnline(userNamePlayer2.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'E');
+                    } else if (!isX) {
+                        RecordingUseCase.saveToFileOnline(userNamePlayer2.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'E');
+                    }
                     recordHansel();
                 }
                 new EndGameAlert('e', stage, this).show();
@@ -233,7 +237,6 @@ public class OnlineBoard extends Board {
     private void displayEndGameAlertWinP1(char result) {
         new EndGameAlert(result, stage, this, player1ScoreValue).show();
     }
-
 
     private void displayEndGameAlertLoseP1(char result) {
         new EndGameAlert(result, stage, this, player1ScoreValue).show();
