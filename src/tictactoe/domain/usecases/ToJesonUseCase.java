@@ -22,5 +22,12 @@ public class ToJesonUseCase {
             .build()
             .toString();
 }
+    public static String updateIsAvailable(String playerName) {
+        return Json.createObjectBuilder()
+                .add("action", 8)
+                .add("username", playerName)
+                .build()
+                .toString();
+    }
 
 }

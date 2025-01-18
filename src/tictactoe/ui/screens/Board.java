@@ -339,6 +339,8 @@ public class Board extends BorderPane {
         tiles.add(tile8);
         tiles.add(tile9);
         setListeners();
+        
+        System.out.println("hello from constructor");
     }
 
     protected void printXO(Tile tile) {
@@ -496,6 +498,11 @@ public class Board extends BorderPane {
         playerTwoTimer.setText("");
         recordBtn.setText("Record");
         recordBtn.setDisable(false);
-        isPlaying=true;
+        if(isPc){
+         isPlaying=true;
+        }else{
+        isPlaying=false;
+        }
+       
     }
 }

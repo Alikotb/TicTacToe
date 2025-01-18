@@ -10,6 +10,7 @@ import tictactoe.domain.usecases.GetRandomPositionUseCase;
 import tictactoe.domain.usecases.GetTileUseCase;
 import tictactoe.domain.usecases.GetXOImageUseCase;
 import tictactoe.domain.usecases.IsWinnerUseCase;
+import tictactoe.domain.usecases.RecordPositionUseCase;
 import tictactoe.domain.usecases.RecordingUseCase;
 import tictactoe.domain.usecases.ToJesonUseCase;
 import tictactoe.ui.alert.EndGameAlert;
@@ -63,6 +64,9 @@ public class OnlineBoard extends Board {
             } else {
                 displayEndGameAlertLoseP2('l');
             }
+             updateIsAvailableInDatabase(userNamePlayer1.getText());
+            updateIsAvailableInDatabase(userNamePlayer2.getText());
+
         });
 
     }
@@ -182,16 +186,15 @@ public class OnlineBoard extends Board {
 
         int winner = winnerCkeck.isWinner(recordPositionsUseCase);
         if (winner != 0) {
+            
             isFinished = true;
             isPlaying = false;
             timer.cancel();
-            
             if (winner == 1) {
+                reset();
                 highlightWinningTiles(winnerCkeck.getWinningPositions());
-                player1ScoreValue = Integer.parseInt(player1Score.getText()) + 100;
-                setPlayer1Score(player1ScoreValue);
-                updateScoreInDatabase(userNamePlayer1.getText(), player1ScoreValue);
-
+                 updateIsAvailableInDatabase(userNamePlayer1.getText());
+                  updateIsAvailableInDatabase(userNamePlayer2.getText());
                 if (isRecording) {
                     if (isX) {
                         RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'W');
@@ -211,7 +214,10 @@ public class OnlineBoard extends Board {
                 }
 
             } else if (winner == 2) {
+                reset();
                 highlightWinningTiles(winnerCkeck.getWinningPositions());
+                 updateIsAvailableInDatabase(userNamePlayer1.getText());
+                  updateIsAvailableInDatabase(userNamePlayer2.getText());
                 if (isRecording) {
                     if (isX) {
                         RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'L');
@@ -230,6 +236,9 @@ public class OnlineBoard extends Board {
                 }
 
             } else if (winner == 3) {
+                reset();
+                 updateIsAvailableInDatabase(userNamePlayer1.getText());
+                  updateIsAvailableInDatabase(userNamePlayer2.getText());
                 if (isRecording) {
                     if (isX) {
                         RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'E');
@@ -238,13 +247,17 @@ public class OnlineBoard extends Board {
                     }
                     recordHansel();
                 }
-                new EndGameAlert('e', stage, this).show();
+                if(isX){
+                new EndGameAlert('e', stage, this,player1ScoreValue).show();
+               }
+               if(!isX){
+                new EndGameAlert('e', stage, this,player2ScoreValue).show();
+               }  
             }
             recordPositionsUseCase.clear();
             return;
         }
-//        timer.cancel();
-//        timer.startTimer(5, isX);
+
     }
 
     private void displayEndGameAlertWinP1(char result) {
@@ -269,10 +282,21 @@ public class OnlineBoard extends Board {
             System.err.println("Failed to update " + playerName + "score");
         }
     }
+    
+    private void updateIsAvailableInDatabase(String playerName) {
+        String updateIsAvailableRequest = ToJesonUseCase.updateIsAvailable(playerName);
+        if (!repo.updateIsAvailable(updateIsAvailableRequest)) {
+            System.err.println("Failed to update " + playerName + "isAvailable");
+        }
+    }
 
     private void recordHansel() {
         isRecording = false;
         RecordingUseCase.Pos = "";
 
+    }
+    
+    private void reset(){
+    recordPositionsUseCase = new RecordPositionUseCase();
     }
 }

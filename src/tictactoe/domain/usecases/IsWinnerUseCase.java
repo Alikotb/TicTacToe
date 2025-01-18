@@ -36,8 +36,6 @@ public class IsWinnerUseCase {
                 return 1;
             }
 
-        
-
             if (playerTwoPositions.contains(position1)
                     && playerTwoPositions.contains(position2)
                     && playerTwoPositions.contains(position3)) {
