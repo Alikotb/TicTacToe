@@ -36,7 +36,7 @@ public class ReplayGame extends Board {
         super(stage);
         this.gameRecord = gameRecord;
         this.mode='o';
-        this.username=username;
+        this.username=name;
         this.score=socre;
         selectWinnerPlayer();
         recordBtn.setDisable(true);
