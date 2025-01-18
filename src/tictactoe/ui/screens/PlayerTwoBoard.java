@@ -3,6 +3,7 @@ package tictactoe.ui.screens;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetXOImageUseCase;
 import tictactoe.domain.usecases.IsWinnerUseCase;
@@ -17,6 +18,8 @@ public class PlayerTwoBoard extends Board {
         stage.setScene(new Scene(new PromptUserNames(stage, this)));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(owner);
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 
         forfeitBtn.setOnAction(e -> {
@@ -35,6 +38,12 @@ public class PlayerTwoBoard extends Board {
         if (!recordPositionsUseCase.getPositions().contains(tile.getPosition()) || isFinished) {
             return;
         }
+        
+        if (isFirst) {
+            isFirst=false;
+            recordBtn.setDisable(true);
+        }
+        
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
         recordPositionsUseCase.recordPositions(tile, isX);
 

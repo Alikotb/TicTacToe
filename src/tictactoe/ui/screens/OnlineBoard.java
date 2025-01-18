@@ -82,6 +82,11 @@ public class OnlineBoard extends Board {
         if (!recordPositionsUseCase.getPositions().contains(tile.getPosition())) {
             return;
         }
+
+        if (isFirst) {
+            isFirst = false;
+            recordBtn.setDisable(true);
+        }
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
         playSound();
         recordPositionsUseCase.recordPositions(tile, isX);
@@ -98,6 +103,11 @@ public class OnlineBoard extends Board {
 
         if (isGameFinished()) {
             return;
+        }
+
+        if (isFirst) {
+            isFirst = false;
+            recordBtn.setDisable(true);
         }
 
         int randomPosition = GetRandomPositionUseCase.getRandomPosition(recordPositionsUseCase.getPositions());
@@ -137,13 +147,17 @@ public class OnlineBoard extends Board {
         Tile tile = GetTileUseCase.getTile(tiles, position);
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(!isX));
         recordPositionsUseCase.recordPositions(tile, !isX);
-        // RecordingUseCase.Pos += tile.getPosition();
         if (isX && isPlaying) {
             timer.cancel();
             timer.startTimer(5, isX);
         } else if (!isX && isPlaying) {
             timer.cancel();
             timer.startTimer(5, isX);
+        }
+
+        if (isFirst) {
+            isFirst = false;
+            recordBtn.setDisable(true);
         }
         checkWinner();
     }

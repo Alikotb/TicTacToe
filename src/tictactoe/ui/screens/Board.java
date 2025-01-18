@@ -65,7 +65,7 @@ public class Board extends BorderPane {
     protected IsWinnerUseCase winnerCkeck;
     protected TimerUseCase timer;
 
-    public boolean isX, isFinished, isPc;
+    public boolean isX, isFinished, isPc, isFirst = true;
     Stage stage;
     int player1ScoreValue;
     int player2ScoreValue;
@@ -372,7 +372,7 @@ public class Board extends BorderPane {
         tiles.add(tile8);
         tiles.add(tile9);
         setListeners();
-        
+
         System.out.println("hello from constructor");
     }
 
@@ -464,7 +464,7 @@ public class Board extends BorderPane {
             recordBtn.setText("Recording...");
             recordBtn.setDisable(true);
         });
-        
+
     }
 
     protected void playSound() {
@@ -503,6 +503,12 @@ public class Board extends BorderPane {
         if (isGameFinished()) {
             return;
         }
+
+        if (isFirst) {
+            isFirst = false;
+            recordBtn.setDisable(true);
+        }
+        
         int randomPosition = GetRandomPositionUseCase.getRandomPosition(recordPositionsUseCase.getPositions());
         Tile tile = GetTileUseCase.getTile(tiles, randomPosition);
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
@@ -530,11 +536,11 @@ public class Board extends BorderPane {
         recordBtn.setText("Record");
         recordBtn.setDisable(false);
         isPlaying = true;
-        if(isPc){
-         isPlaying=true;
-        }else{
-        isPlaying=false;
+        if (isPc) {
+            isPlaying = true;
+        } else {
+            isPlaying = false;
         }
-       
+
     }
 }
