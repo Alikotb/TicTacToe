@@ -147,7 +147,7 @@ public class LogInBase extends BorderPane {
         errorLabel.setText("");
         errorLabel.setStyle("-fx-text-fill: red;-fx-font-size: 20px;-fx-font-weight: bold; ");
         errorLabel.setId("errorLabel");
-        GridPane.setMargin(errorLabel, new Insets(20.0, 0.0, 50.0, 250.0));
+        GridPane.setMargin(errorLabel, new Insets(20.0, 0.0, 50.0, 280.0));
         
 
         GridPane.setRowIndex(Login, 4);

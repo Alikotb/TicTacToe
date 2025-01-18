@@ -64,7 +64,7 @@ public class OnlineBoard extends Board {
             } else {
                 displayEndGameAlertLoseP2('l');
             }
-             updateIsAvailableInDatabase(userNamePlayer1.getText());
+            updateIsAvailableInDatabase(userNamePlayer1.getText());
             updateIsAvailableInDatabase(userNamePlayer2.getText());
 
         });
@@ -186,15 +186,15 @@ public class OnlineBoard extends Board {
 
         int winner = winnerCkeck.isWinner(recordPositionsUseCase);
         if (winner != 0) {
-            
+
             isFinished = true;
             isPlaying = false;
             timer.cancel();
             if (winner == 1) {
                 reset();
                 highlightWinningTiles(winnerCkeck.getWinningPositions());
-                 updateIsAvailableInDatabase(userNamePlayer1.getText());
-                  updateIsAvailableInDatabase(userNamePlayer2.getText());
+                updateIsAvailableInDatabase(userNamePlayer1.getText());
+                updateIsAvailableInDatabase(userNamePlayer2.getText());
                 if (isRecording) {
                     if (isX) {
                         RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'W');
@@ -216,8 +216,8 @@ public class OnlineBoard extends Board {
             } else if (winner == 2) {
                 reset();
                 highlightWinningTiles(winnerCkeck.getWinningPositions());
-                 updateIsAvailableInDatabase(userNamePlayer1.getText());
-                  updateIsAvailableInDatabase(userNamePlayer2.getText());
+                updateIsAvailableInDatabase(userNamePlayer1.getText());
+                updateIsAvailableInDatabase(userNamePlayer2.getText());
                 if (isRecording) {
                     if (isX) {
                         RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'L');
@@ -237,8 +237,8 @@ public class OnlineBoard extends Board {
 
             } else if (winner == 3) {
                 reset();
-                 updateIsAvailableInDatabase(userNamePlayer1.getText());
-                  updateIsAvailableInDatabase(userNamePlayer2.getText());
+                updateIsAvailableInDatabase(userNamePlayer1.getText());
+                updateIsAvailableInDatabase(userNamePlayer2.getText());
                 if (isRecording) {
                     if (isX) {
                         RecordingUseCase.saveToFileOnline(userNamePlayer1.getText(), RecordingUseCase.Pos, userNamePlayer1.getText(), userNamePlayer2.getText(), 'E');
@@ -247,12 +247,12 @@ public class OnlineBoard extends Board {
                     }
                     recordHansel();
                 }
-                if(isX){
-                new EndGameAlert('e', stage, this,player1ScoreValue).show();
-               }
-               if(!isX){
-                new EndGameAlert('e', stage, this,player2ScoreValue).show();
-               }  
+                if (isX) {
+                    new EndGameAlert('e', stage, this, player1ScoreValue).show();
+                }
+                if (!isX) {
+                    new EndGameAlert('e', stage, this, player2ScoreValue).show();
+                }
             }
             recordPositionsUseCase.clear();
             return;
@@ -282,7 +282,7 @@ public class OnlineBoard extends Board {
             System.err.println("Failed to update " + playerName + "score");
         }
     }
-    
+
     private void updateIsAvailableInDatabase(String playerName) {
         String updateIsAvailableRequest = ToJesonUseCase.updateIsAvailable(playerName);
         if (!repo.updateIsAvailable(updateIsAvailableRequest)) {
@@ -295,8 +295,8 @@ public class OnlineBoard extends Board {
         RecordingUseCase.Pos = "";
 
     }
-    
-    private void reset(){
-    recordPositionsUseCase = new RecordPositionUseCase();
+
+    private void reset() {
+        recordPositionsUseCase = new RecordPositionUseCase();
     }
 }
