@@ -16,7 +16,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -25,6 +24,7 @@ import javafx.stage.StageStyle;
 import javax.json.Json;
 import tictactoe.data.repository.Repo;
 import tictactoe.domain.model.User;
+import tictactoe.domain.usecases.ToJsonUseCase;
 import tictactoe.ui.alert.IncomingRequestDialog;
 
 public class OnlineUsers extends BorderPane {
@@ -42,7 +42,7 @@ public class OnlineUsers extends BorderPane {
         score = sc;
         random = new Random();
         avatarImages = loadAvatars();
-        
+
         userList = FXCollections.observableArrayList();
         ListView<HBox> listView = new ListView<>(userList);
         Rectangle clip = new Rectangle(0, 0, 480, 520);
@@ -50,7 +50,6 @@ public class OnlineUsers extends BorderPane {
         clip.setArcHeight(25);
         listView.setClip(clip);
 
-        
         listView.setCellFactory(param -> new ListCell<HBox>() {
             protected void updateItem(HBox item, boolean empty) {
                 super.updateItem(item, empty);
@@ -78,19 +77,22 @@ public class OnlineUsers extends BorderPane {
                     Label scoreLabel = (Label) userInfo.getChildren().get(1);
                     String player2 = userNameLabel.getText();
 
-                    String json = Json.createObjectBuilder()
-                            .add("action", 4)
-                            .add("username-player1", username)
-                            .add("username-player2", player2)
-                            .add("score-player1", score)
-                            .add("score-player2", Integer.valueOf(scoreLabel.getText()))
-                            .add("status", 1) // invite
-                            .build().toString();
-                    if (new Repo().sendInvitation(json)) {
-                        System.out.println("request sent successfully");
-                    } else {
-                        System.out.println("request not sent");
-                    }
+                    String json = ToJsonUseCase.toJson(
+                            4,
+                            username,
+                            player2,
+                            score, Integer.valueOf(scoreLabel.getText()),
+                            1
+                    );
+//                    String json = Json.createObjectBuilder()
+//                            .add("action", 4)
+//                            .add("username-player1", username)
+//                            .add("username-player2", player2)
+//                            .add("score-player1", score)
+//                            .add("score-player2", Integer.valueOf(scoreLabel.getText()))
+//                            .add("status", 1) 
+//                            .build().toString();
+                    new Repo().sendInvitation(json);
                 }
             }
         });
@@ -102,9 +104,9 @@ public class OnlineUsers extends BorderPane {
         borderPaneClip.setArcWidth(25);
         borderPaneClip.setArcHeight(25);
         this.setClip(borderPaneClip);
-        
+
         this.setCenter(listView);
-        
+
         onlineStage.setResizable(false);
         onlineStage.initStyle(StageStyle.UTILITY);
         onlineStage.initModality(Modality.APPLICATION_MODAL);
@@ -149,9 +151,9 @@ public class OnlineUsers extends BorderPane {
         statusLabel.setStyle("-fx-alignment: center-right; -fx-padding: 0 0 0 10;");
 
         if ("in-game".equals(status)) {
-            statusLabel.setStyle(statusLabel.getStyle()+"-fx-text-fill: red;");
+            statusLabel.setStyle(statusLabel.getStyle() + "-fx-text-fill: red;");
         } else {
-            statusLabel.setStyle(statusLabel.getStyle()+"-fx-text-fill: green;");
+            statusLabel.setStyle(statusLabel.getStyle() + "-fx-text-fill: green;");
         }
 
         HBox userBox = new HBox(25, avatar, userInfo, statusLabel);

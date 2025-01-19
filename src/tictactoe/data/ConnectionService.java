@@ -62,7 +62,7 @@ public class ConnectionService {
                 dos = new DataOutputStream(server.getOutputStream());
                 startListening();
                 return true;
- 
+
             } catch (IOException ex) {
                 return false;
             }
@@ -159,7 +159,6 @@ public class ConnectionService {
                     NewGame1Base.navigateToHome(jsonObj);
                     break;
                 }
-                
 
             }
 
@@ -182,6 +181,7 @@ public class ConnectionService {
                 break;
             }
             case RESPONSE_ACCEPTED: {
+                board = null;
                 NewGame1Base.navigateToOnlineBoard(jsonObj, true);
                 break;
             }
@@ -205,6 +205,7 @@ public class ConnectionService {
         int code = jsonObj.getInt("code");
 
         if (code == 1) {
+            board = null;
             NewGame1Base.navigateToOnlineBoard(jsonObj, false);
         } else if (code == 2) {
             NewGame1Base.showMessagePopup(jsonObj.getString("username-player1"), " Already in a Game!");

@@ -12,7 +12,7 @@ import tictactoe.domain.usecases.GetXOImageUseCase;
 import tictactoe.domain.usecases.IsWinnerUseCase;
 import tictactoe.domain.usecases.RecordPositionUseCase;
 import tictactoe.domain.usecases.RecordingUseCase;
-import tictactoe.domain.usecases.ToJesonUseCase;
+import tictactoe.domain.usecases.ToJsonUseCase;
 import tictactoe.ui.alert.EndGameAlert;
 import static tictactoe.ui.screens.Board.isPlaying;
 
@@ -28,7 +28,6 @@ public class OnlineBoard extends Board {
         this.isX = isX;
         isRecording = false;
         winnerCkeck = new IsWinnerUseCase();
-        System.out.println("isX from OnlineBoard constructor ->  " + isX);
 
         if (isX) {
             isPlaying = true;
@@ -55,12 +54,13 @@ public class OnlineBoard extends Board {
         });
 
         forfeitBtn.setOnAction(e -> {
+            player1ScoreValue = Integer.parseInt(player1Score.getText());
+            player2ScoreValue = Integer.parseInt(player2Score.getText());
             timer.cancel();
             isFinished = true;
             sendRequest(0);
             if (isX) {
                 displayEndGameAlertLoseP1('l');
-                System.out.println("player 1 lose");
             } else {
                 displayEndGameAlertLoseP2('l');
             }
@@ -168,9 +168,9 @@ public class OnlineBoard extends Board {
             if (position == 0) {
                 timer.cancel();
                 if (isX) {
-                    player1ScoreValue = Integer.parseInt(player2Score.getText()) + 100;
+                    player1ScoreValue = Integer.parseInt(player1Score.getText()) + 100;
                     setPlayer2Score(player1ScoreValue);
-                    updateScoreInDatabase(userNamePlayer2.getText(), player1ScoreValue);
+                    updateScoreInDatabase(userNamePlayer1.getText(), player1ScoreValue);
                     displayEndGameAlertWinP1('w');
 
                 } else {
@@ -180,6 +180,7 @@ public class OnlineBoard extends Board {
                     displayEndGameAlertWinP2('w');
 
                 }
+                return;
             }
             isPlaying = true;
             printXOOpponent();
@@ -262,10 +263,10 @@ public class OnlineBoard extends Board {
                     recordHansel();
                 }
                 if (isX) {
-                    new EndGameAlert('e', stage, this, player1ScoreValue,userNamePlayer1.getText()).show();
+                    new EndGameAlert('e', stage, this, player1ScoreValue, userNamePlayer1.getText()).show();
                 }
                 if (!isX) {
-                    new EndGameAlert('e', stage, this, player2ScoreValue,userNamePlayer2.getText()).show();
+                    new EndGameAlert('e', stage, this, player2ScoreValue, userNamePlayer2.getText()).show();
                 }
             }
             recordPositionsUseCase.clear();
@@ -275,30 +276,30 @@ public class OnlineBoard extends Board {
     }
 
     private void displayEndGameAlertWinP1(char result) {
-        new EndGameAlert(result, stage, this, player1ScoreValue,userNamePlayer1.getText()).show();
+        new EndGameAlert(result, stage, this, player1ScoreValue, userNamePlayer1.getText()).show();
     }
 
     private void displayEndGameAlertLoseP1(char result) {
-        new EndGameAlert(result, stage, this, player1ScoreValue,userNamePlayer1.getText()).show();
+        new EndGameAlert(result, stage, this, player1ScoreValue, userNamePlayer1.getText()).show();
     }
 
     private void displayEndGameAlertWinP2(char result) {
-        new EndGameAlert(result, stage, this, player2ScoreValue,userNamePlayer2.getText()).show();
+        new EndGameAlert(result, stage, this, player2ScoreValue, userNamePlayer2.getText()).show();
     }
 
     private void displayEndGameAlertLoseP2(char result) {
-        new EndGameAlert(result, stage, this, player2ScoreValue,userNamePlayer2.getText()).show();
+        new EndGameAlert(result, stage, this, player2ScoreValue, userNamePlayer2.getText()).show();
     }
 
     private void updateScoreInDatabase(String playerName, int score) {
-        String updateScoreRequest = ToJesonUseCase.toJsonScoreUpdate(playerName, score);
+        String updateScoreRequest = ToJsonUseCase.toJsonScoreUpdate(playerName, score);
         if (!repo.updateScore(updateScoreRequest)) {
             System.err.println("Failed to update " + playerName + "score");
         }
     }
 
     private void updateIsAvailableInDatabase(String playerName) {
-        String updateIsAvailableRequest = ToJesonUseCase.updateIsAvailable(playerName);
+        String updateIsAvailableRequest = ToJsonUseCase.updateIsAvailable(playerName);
         if (!repo.updateIsAvailable(updateIsAvailableRequest)) {
             System.err.println("Failed to update " + playerName + "isAvailable");
         }

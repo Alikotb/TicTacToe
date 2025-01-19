@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import javax.json.JsonObject;
 import tictactoe.data.repository.Repo;
 import tictactoe.domain.usecases.HashingUseCase;
-import tictactoe.domain.usecases.ToJesonUseCase;
+import tictactoe.domain.usecases.ToJsonUseCase;
 import tictactoe.domain.usecases.ValidationUseCase;
 
 public class LogInBase extends BorderPane {
@@ -167,7 +167,7 @@ public class LogInBase extends BorderPane {
                 errorLabel.setText(validationError);
                 return;
             }
-            String loginRequest = ToJesonUseCase.toJson(email, hashPassword);
+            String loginRequest = ToJsonUseCase.toJson(email, hashPassword);
             boolean isConnected = repo.login(loginRequest);
             if (!isConnected) {
                 errorLabel.setText("Connection faild");
