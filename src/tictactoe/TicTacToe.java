@@ -1,14 +1,11 @@
 package tictactoe;
 
-import tictactoe.ui.Home;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import tictactoe.ui.Board;
-import tictactoe.ui.SignUp;
-import tictactoe.ui.Splash;
+import tictactoe.domain.usecases.PlayBackgroundMusicUseCase;
+import tictactoe.ui.screens.Splash;
 
 /**
  *
@@ -21,6 +18,7 @@ public class TicTacToe extends Application {
         Parent root = new Splash(stage);
         Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+        PlayBackgroundMusicUseCase.getInstance().startBackgroundMusic();
 
         stage.setTitle("Tic Tac Toe");
         stage.setScene(scene);

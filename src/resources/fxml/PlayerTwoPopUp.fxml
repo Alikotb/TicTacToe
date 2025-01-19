@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+<FlowPane fx:id="flowPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="350.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="userName1Label" text="Enter Your Name:">
+         <font>
+            <Font size="25.0" />
+         </font>
+         <padding>
+            <Insets left="16.0" top="8.0" />
+         </padding>
+      </Label>
+      <TextField fx:id="userName1TextField" prefHeight="60.0" prefWidth="380.0" promptText="Enter Your Name">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <FlowPane.margin>
+            <Insets bottom="16.0" left="16.0" right="16.0" top="8.0" />
+         </FlowPane.margin>
+      </TextField>
+      <Label fx:id="userName2Label" text="Enter Your Name:">
+         <font>
+            <Font size="25.0" />
+         </font>
+         <padding>
+            <Insets left="16.0" top="8.0" />
+         </padding>
+      </Label>
+      <TextField fx:id="userName2TextField" prefHeight="60.0" prefWidth="380.0" promptText="Enter Your Name">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <FlowPane.margin>
+            <Insets left="16.0" right="16.0" top="8.0" />
+         </FlowPane.margin>
+      </TextField>
+      <FlowPane fx:id="buttonsFlowPane" alignment="CENTER" hgap="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="OkBtn" mnemonicParsing="false" text="OK">
+               <FlowPane.margin>
+                  <Insets />
+               </FlowPane.margin>
+            </Button>
+            <Button fx:id="closeBtn" mnemonicParsing="false" text="close">
+               <FlowPane.margin>
+                  <Insets />
+               </FlowPane.margin>
+            </Button>
+         </children>
+         <FlowPane.margin>
+            <Insets top="8.0" />
+         </FlowPane.margin>
+      </FlowPane>
+   </children>
+</FlowPane>
