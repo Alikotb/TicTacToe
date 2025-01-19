@@ -25,24 +25,22 @@ import javafx.stage.StageStyle;
 import javax.json.Json;
 import tictactoe.data.repository.Repo;
 import tictactoe.domain.model.User;
+import tictactoe.domain.usecases.RandomAvatarUseCase;
 import tictactoe.ui.alert.IncomingRequestDialog;
 
 public class OnlineUsers extends BorderPane {
 
     private ObservableList<HBox> userList;
-    private final List<Image> avatarImages;
-    private final Random random;
     private static ArrayList<User> users = new ArrayList();
     private String username;
     private int score;
+    private final RandomAvatarUseCase randomAvatar;
     private final Font font = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/MyCustomFont.ttf"), 25.0);
 
     public OnlineUsers(Stage onlineStage, Stage mainStage, String name, int sc) {
         username = name;
         score = sc;
-        random = new Random();
-        avatarImages = loadAvatars();
-        
+        this.randomAvatar = new RandomAvatarUseCase();
         userList = FXCollections.observableArrayList();
         ListView<HBox> listView = new ListView<>(userList);
         Rectangle clip = new Rectangle(0, 0, 480, 520);
@@ -50,7 +48,6 @@ public class OnlineUsers extends BorderPane {
         clip.setArcHeight(25);
         listView.setClip(clip);
 
-        
         listView.setCellFactory(param -> new ListCell<HBox>() {
             protected void updateItem(HBox item, boolean empty) {
                 super.updateItem(item, empty);
@@ -91,6 +88,7 @@ public class OnlineUsers extends BorderPane {
                     } else {
                         System.out.println("request not sent");
                     }
+                    onlineStage.close();
                 }
             }
         });
@@ -102,15 +100,16 @@ public class OnlineUsers extends BorderPane {
         borderPaneClip.setArcWidth(25);
         borderPaneClip.setArcHeight(25);
         this.setClip(borderPaneClip);
-        
+
         this.setCenter(listView);
-        
+
         onlineStage.setResizable(false);
         onlineStage.initStyle(StageStyle.UTILITY);
         onlineStage.initModality(Modality.APPLICATION_MODAL);
         onlineStage.initOwner(mainStage);
         onlineStage.setX(mainStage.getX() + (mainStage.getWidth() / 2) - 250);
         onlineStage.setY(mainStage.getY() + (mainStage.getHeight() / 2) - 250);
+        onlineStage.setOnCloseRequest(event -> onlineStage.close());
     }
 
     private void addUser(String username, int score, String status) {
@@ -126,7 +125,7 @@ public class OnlineUsers extends BorderPane {
     }
 
     private HBox createUserBox(String username, int score, String status) {
-        Image avatarImage = getRandomAvatar();
+        Image avatarImage = randomAvatar.getRandomAvatar();
         ImageView avatar = new ImageView(avatarImage);
         avatar.setFitWidth(80);
         avatar.setFitHeight(80);
@@ -149,9 +148,9 @@ public class OnlineUsers extends BorderPane {
         statusLabel.setStyle("-fx-alignment: center-right; -fx-padding: 0 0 0 10;");
 
         if ("in-game".equals(status)) {
-            statusLabel.setStyle(statusLabel.getStyle()+"-fx-text-fill: red;");
+            statusLabel.setStyle(statusLabel.getStyle() + "-fx-text-fill: red;");
         } else {
-            statusLabel.setStyle(statusLabel.getStyle()+"-fx-text-fill: green;");
+            statusLabel.setStyle(statusLabel.getStyle() + "-fx-text-fill: green;");
         }
 
         HBox userBox = new HBox(25, avatar, userInfo, statusLabel);
@@ -159,6 +158,7 @@ public class OnlineUsers extends BorderPane {
         return userBox;
     }
 
+    /*
     private List<Image> loadAvatars() {
         List<Image> images = new ArrayList<>();
         for (int i = 1; i <= 15; i++) {
@@ -178,7 +178,7 @@ public class OnlineUsers extends BorderPane {
         }
         return avatarImages.get(random.nextInt(avatarImages.size()));
     }
-
+     */
     private void showAvilableUsers(ArrayList<User> users) {
         for (User u : users) {
             if (u.getUsername().equals(username)) {
