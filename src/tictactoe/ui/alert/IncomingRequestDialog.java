@@ -27,21 +27,21 @@ public class IncomingRequestDialog {
         dialog.setTitle("Game Challenge");
         dialog.setHeaderText(null);
 
-        dialog.getDialogPane().getStyleClass().add("dialog-pane");
+        dialog.getDialogPane().setStyle("-fx-background-color: #1F509A; -fx-background-radius: 10;");
 
         Label titleLabel = new Label("You have received a game challenge!");
-        titleLabel.getStyleClass().add("dialog-title");
+        titleLabel.setStyle("-fx-font-family: 'Black Han Sans'; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;");
 
         ImageView avatarImage = new ImageView(this.getClass().getResource("/resources/images/avatar.png").toString());
         avatarImage.setFitWidth(60);
         avatarImage.setFitHeight(60);
-        avatarImage.getStyleClass().add("avatar-image");
+        avatarImage.setStyle("-fx-background-radius: 50; -fx-border-radius: 50;");
 
-        Label opponentLabel = new Label("userName: " + jsonObj.getString("username-player1"));
-        opponentLabel.getStyleClass().add("opponent-label");
+        Label opponentLabel = new Label("Username : " + jsonObj.getString("username-player1"));
+        opponentLabel.setStyle("-fx-font-family: 'Black Han Sans'; -fx-text-fill: white; -fx-font-size: 14px;");
 
-        Label scoreLabel = new Label("score: " + jsonObj.getInt("score-player1"));
-        scoreLabel.getStyleClass().add("score-label");
+        Label scoreLabel = new Label("Score : " + jsonObj.getInt("score-player1"));
+        scoreLabel.setStyle("-fx-font-family: 'Black Han Sans'; -fx-text-fill: white; -fx-font-size: 14px;");
 
         VBox labelsContainer = new VBox(3, opponentLabel, scoreLabel);
         labelsContainer.setAlignment(Pos.CENTER_LEFT);
@@ -51,7 +51,7 @@ public class IncomingRequestDialog {
 
         Label messageLabel = new Label(
                 "You have been invited to join an exciting game.\nWill you accept the challenge or decline it?");
-        messageLabel.getStyleClass().add("message-label");
+        messageLabel.setStyle("-fx-font-family: 'Black Han Sans'; -fx-text-fill: white; -fx-font-size: 12px; -fx-wrap-text: true;");
         messageLabel.setWrapText(true);
         messageLabel.setMaxWidth(400);
 
@@ -61,7 +61,7 @@ public class IncomingRequestDialog {
         dialog.getDialogPane().getButtonTypes().addAll(acceptButtonType, declineButtonType);
 
         Button acceptButton = (Button) dialog.getDialogPane().lookupButton(acceptButtonType);
-        acceptButton.getStyleClass().add("accept-button");
+        acceptButton.setStyle("-fx-font-family: 'Black Han Sans'; -fx-background-color: green; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20; -fx-cursor: hand; -fx-padding: 10 20;-fx-cursor: hand;");
 
         acceptButton.setOnAction((e) -> {
             String json = Json.createObjectBuilder()
@@ -76,12 +76,12 @@ public class IncomingRequestDialog {
         });
 
         Button declineButton = (Button) dialog.getDialogPane().lookupButton(declineButtonType);
-        declineButton.getStyleClass().add("decline-button");
+        declineButton.setStyle("-fx-font-family: 'Black Han Sans'; -fx-background-color: red; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 20; -fx-cursor: hand; -fx-padding: 10 20;-fx-cursor: hand;");
+
         declineButton.setOnAction((e) -> {
-            // TODO
             String json = Json.createObjectBuilder()
                     .add("action", 4)
-                    .add("status", DECLINED) // declined status
+                    .add("status", DECLINED)
                     .add("username-player1", jsonObj.getString("username-player1"))
                     .add("username-player2", jsonObj.getString("username-player2"))
                     .build().toString();
@@ -92,21 +92,19 @@ public class IncomingRequestDialog {
         buttonContainer.setAlignment(Pos.CENTER);
 
         VBox contentPane = new VBox(15, titleLabel, headerContainer, messageLabel, buttonContainer);
-        contentPane.getStyleClass().add("content-pane");
+        contentPane.setStyle("-fx-font-family: 'Black Han Sans'; -fx-padding: 15; -fx-alignment: center;");
 
         dialog.getDialogPane().setContent(contentPane);
 
-        // Handle the result
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == acceptButtonType) {
                 stage.setScene(new Scene(new Board(new Stage())));
-                return true;  // Accept button clicked
+                return true;  // accept button clicked
             } else {
-                return false; // Decline button clicked
+                return false; // decline button clicked
             }
         });
 
-        //dialog.getDialogPane().getStylesheets().add(this.getClass().getResource("/CSS/homeStyle.css").toExternalForm());
         return dialog.showAndWait();
     }
 }

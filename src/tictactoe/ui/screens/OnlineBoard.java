@@ -168,9 +168,9 @@ public class OnlineBoard extends Board {
             if (position == 0) {
                 timer.cancel();
                 if (isX) {
-                    player1ScoreValue = Integer.parseInt(player2Score.getText()) + 100;
-                    setPlayer2Score(player1ScoreValue);
-                    updateScoreInDatabase(userNamePlayer2.getText(), player1ScoreValue);
+                    player1ScoreValue = Integer.parseInt(player1Score.getText()) + 100;
+                    setPlayer1Score(player1ScoreValue);
+                    updateScoreInDatabase(userNamePlayer1.getText(), player1ScoreValue);
                     displayEndGameAlertWinP1('w');
 
                 } else {
