@@ -24,7 +24,7 @@
     -fx-cursor: hand;
 }
   
-  #username, #email, #password, #confirmPassword {
+  #username, #email, #password, #confirmPassword,#UsernameTxt,#PasswordTxt,#UsernameTxtLog,#PasswordTxtLog {
       -fx-background-radius: 50px;
       -fx-border-color: #81BFDA; 
       -fx-border-radius:50px; 

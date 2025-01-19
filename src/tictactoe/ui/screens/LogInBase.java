@@ -131,7 +131,7 @@ public class LogInBase extends BorderPane {
         emailTextField.setPrefHeight(60.0);
         emailTextField.setPrefWidth(480.0);
         emailTextField.setPromptText("Username");
-        emailTextField.setId("UsernameTxt");
+        emailTextField.setId("UsernameTxtLog");
         GridPane.setMargin(emailTextField, new Insets(50.0, 0.0, 0.0, 160.0));
         emailTextField.setFont(new Font(25.0));
 
@@ -139,7 +139,7 @@ public class LogInBase extends BorderPane {
         passwordTextField.setMaxHeight(60.0);
         passwordTextField.setMaxWidth(480.0);
         passwordTextField.setPromptText("Password");
-        passwordTextField.setId("PasswordTxt");
+        passwordTextField.setId("PasswordTxtLog");
         GridPane.setMargin(passwordTextField, new Insets(0.0, 0.0, 0.0, 160.0));
         passwordTextField.setFont(new Font(25.0));
         
