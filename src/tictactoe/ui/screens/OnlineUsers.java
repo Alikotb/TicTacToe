@@ -24,25 +24,23 @@ import javafx.stage.StageStyle;
 import javax.json.Json;
 import tictactoe.data.repository.Repo;
 import tictactoe.domain.model.User;
+import tictactoe.domain.usecases.RandomAvatarUseCase;
 import tictactoe.domain.usecases.ToJsonUseCase;
 import tictactoe.ui.alert.IncomingRequestDialog;
 
 public class OnlineUsers extends BorderPane {
 
     private ObservableList<HBox> userList;
-    private final List<Image> avatarImages;
-    private final Random random;
     private static ArrayList<User> users = new ArrayList();
     private String username;
     private int score;
+    private final RandomAvatarUseCase randomAvatar;
     private final Font font = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/MyCustomFont.ttf"), 25.0);
 
     public OnlineUsers(Stage onlineStage, Stage mainStage, String name, int sc) {
         username = name;
         score = sc;
-        random = new Random();
-        avatarImages = loadAvatars();
-
+        this.randomAvatar = new RandomAvatarUseCase();
         userList = FXCollections.observableArrayList();
         ListView<HBox> listView = new ListView<>(userList);
         Rectangle clip = new Rectangle(0, 0, 480, 520);
@@ -76,7 +74,8 @@ public class OnlineUsers extends BorderPane {
                     Label userNameLabel = (Label) userInfo.getChildren().get(0);
                     Label scoreLabel = (Label) userInfo.getChildren().get(1);
                     String player2 = userNameLabel.getText();
-
+                    onlineStage.close();
+                  
                     String json = ToJsonUseCase.toJson(
                             4,
                             username,
@@ -84,15 +83,9 @@ public class OnlineUsers extends BorderPane {
                             score, Integer.valueOf(scoreLabel.getText()),
                             1
                     );
-//                    String json = Json.createObjectBuilder()
-//                            .add("action", 4)
-//                            .add("username-player1", username)
-//                            .add("username-player2", player2)
-//                            .add("score-player1", score)
-//                            .add("score-player2", Integer.valueOf(scoreLabel.getText()))
-//                            .add("status", 1) 
-//                            .build().toString();
+
                     new Repo().sendInvitation(json);
+
                 }
             }
         });
@@ -113,6 +106,7 @@ public class OnlineUsers extends BorderPane {
         onlineStage.initOwner(mainStage);
         onlineStage.setX(mainStage.getX() + (mainStage.getWidth() / 2) - 250);
         onlineStage.setY(mainStage.getY() + (mainStage.getHeight() / 2) - 250);
+        onlineStage.setOnCloseRequest(event -> onlineStage.close());
     }
 
     private void addUser(String username, int score, String status) {
@@ -128,7 +122,7 @@ public class OnlineUsers extends BorderPane {
     }
 
     private HBox createUserBox(String username, int score, String status) {
-        Image avatarImage = getRandomAvatar();
+        Image avatarImage = randomAvatar.getRandomAvatar();
         ImageView avatar = new ImageView(avatarImage);
         avatar.setFitWidth(80);
         avatar.setFitHeight(80);
@@ -160,27 +154,7 @@ public class OnlineUsers extends BorderPane {
         userBox.setStyle("-fx-border-width: 1;");
         return userBox;
     }
-
-    private List<Image> loadAvatars() {
-        List<Image> images = new ArrayList<>();
-        for (int i = 1; i <= 15; i++) {
-            try {
-                String imagePath = String.format("/resources/images/avaters/img%d.jpg", i);
-                images.add(new Image(getClass().getResource(imagePath).toExternalForm()));
-            } catch (NullPointerException e) {
-                System.out.println("Image not found: img" + i + ".jpg");
-            }
-        }
-        return images;
-    }
-
-    private Image getRandomAvatar() {
-        if (avatarImages.isEmpty()) {
-            return null;
-        }
-        return avatarImages.get(random.nextInt(avatarImages.size()));
-    }
-
+  
     private void showAvilableUsers(ArrayList<User> users) {
         for (User u : users) {
             if (u.getUsername().equals(username)) {
