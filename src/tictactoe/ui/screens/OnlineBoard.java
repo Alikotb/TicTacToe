@@ -1,7 +1,10 @@
 package tictactoe.ui.screens;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.json.Json;
 import javax.json.JsonObject;
 import tictactoe.data.repository.Repo;
@@ -276,19 +279,44 @@ public class OnlineBoard extends Board {
     }
 
     private void displayEndGameAlertWinP1(char result) {
-        new EndGameAlert(result, stage, this, player1ScoreValue, userNamePlayer1.getText()).show();
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(2),
+                e -> {
+                    new EndGameAlert(result, stage, this, player1ScoreValue, userNamePlayer1.getText()).show();
+                }
+        ));
+        timeline.play();
     }
 
     private void displayEndGameAlertLoseP1(char result) {
-        new EndGameAlert(result, stage, this, player1ScoreValue, userNamePlayer1.getText()).show();
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(2),
+                e -> {
+                    new EndGameAlert(result, stage, this, player1ScoreValue, userNamePlayer1.getText()).show();
+                }
+        ));
+        timeline.play();
     }
 
     private void displayEndGameAlertWinP2(char result) {
-        new EndGameAlert(result, stage, this, player2ScoreValue, userNamePlayer2.getText()).show();
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(2),
+                e -> {
+                    new EndGameAlert(result, stage, this, player2ScoreValue, userNamePlayer2.getText()).show();
+                }
+        ));
+        timeline.play();
+        
     }
 
-    private void displayEndGameAlertLoseP2(char result) {
-        new EndGameAlert(result, stage, this, player2ScoreValue, userNamePlayer2.getText()).show();
+    private void displayEndGameAlertLoseP2(char result) {    
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(2),
+                e -> {
+                    new EndGameAlert(result, stage, this, player2ScoreValue, userNamePlayer2.getText()).show();
+                }
+        ));
+        timeline.play();
     }
 
     private void updateScoreInDatabase(String playerName, int score) {
