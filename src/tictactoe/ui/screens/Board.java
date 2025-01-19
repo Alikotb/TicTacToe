@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -27,6 +28,7 @@ import tictactoe.domain.usecases.TimerUseCase;
 import tictactoe.ui.alert.EndGameAlert;
 import tictactoe.domain.usecases.RecordingUseCase;
 import tictactoe.domain.model.Record;
+import tictactoe.domain.usecases.RandomAvatarUseCase;
 
 public class Board extends BorderPane {
 
@@ -288,7 +290,9 @@ public class Board extends BorderPane {
         playerTwoImage.setFitWidth(120.0);
         playerTwoImage.setPickOnBounds(true);
         playerTwoImage.setPreserveRatio(true);
-//        playerTwoImage.setImage(new Image(getClass().getResource("/resources/images/player2.png").toExternalForm()));
+        Circle mask = new Circle(60, 60, 60);
+        playerTwoImage.setClip(mask);
+        playerTwoImage.setImage(new RandomAvatarUseCase().getRandomAvatar());
         VBox.setMargin(playerTwoImage, new Insets(0.0, 0.0, 15.0, 0.0));
 
         Font font = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/MyCustomFont.ttf"), 25.0);  // 16px size
@@ -321,7 +325,9 @@ public class Board extends BorderPane {
         playerOneImage.setFitWidth(120.0);
         playerOneImage.setPickOnBounds(true);
         playerOneImage.setPreserveRatio(true);
-//        playerOneImage.setImage(new Image(getClass().getResource("/resources/images/player1.png").toExternalForm()));
+        Circle m = new Circle(60, 60, 60);
+        playerOneImage.setClip(m);
+        playerOneImage.setImage(new RandomAvatarUseCase().getRandomAvatar());
         VBox.setMargin(playerOneImage, new Insets(0.0, 0.0, 15.0, 0.0));
 
         userNamePlayer1.setTextFill(javafx.scene.paint.Color.WHITE);
@@ -506,7 +512,7 @@ public class Board extends BorderPane {
             isFirst = false;
             recordBtn.setDisable(true);
         }
-        
+
         int randomPosition = GetRandomPositionUseCase.getRandomPosition(recordPositionsUseCase.getPositions());
         Tile tile = GetTileUseCase.getTile(tiles, randomPosition);
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));

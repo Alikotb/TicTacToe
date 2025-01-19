@@ -14,6 +14,8 @@ import javafx.scene.layout.GridPane;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import tictactoe.domain.usecases.ShowPopupUseCase;
 
 public class OfflineBase extends BorderPane {
 
@@ -140,7 +142,8 @@ public class OfflineBase extends BorderPane {
         History.setId("History");
         History.setOnAction(e -> {
             Stage historyStage = new Stage();
-            historyStage.setScene(new Scene(new History(historyStage,mystage), 355, 500));
+            historyStage.setScene(new Scene(new History(historyStage,mystage), 600, 520));
+            ShowPopupUseCase.showPopup(mystage, historyStage, 300, StageStyle.UTILITY);
             historyStage.show();
         });
 

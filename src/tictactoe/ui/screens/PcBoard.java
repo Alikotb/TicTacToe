@@ -8,6 +8,7 @@ import javafx.stage.StageStyle;
 import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetXOImageUseCase;
 import tictactoe.domain.usecases.RecordingUseCase;
+import tictactoe.domain.usecases.ShowPopupUseCase;
 import tictactoe.ui.alert.PromptUserName;
 
 public class PcBoard extends Board {
@@ -16,11 +17,7 @@ public class PcBoard extends Board {
         super(owner);
         Stage stage = new Stage();
         stage.setScene(new Scene(new PromptUserName(stage, this)));
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(owner);
-        stage.show();
+        ShowPopupUseCase.showPopup(owner, stage, 206, StageStyle.UNDECORATED);
 
         timer.setOnTimeStopped(() -> {
             printXO();

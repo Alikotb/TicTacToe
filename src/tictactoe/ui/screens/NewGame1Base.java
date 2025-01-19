@@ -125,10 +125,10 @@ public class NewGame1Base extends BorderPane {
         GridPane.setMargin(LogOut, new Insets(0.0, 20.0, 0.0, 680.0));
 
         Avater.setImage(randomAvatarUseCase.getRandomAvatar());
-        Avater.setFitWidth(80);
-        Avater.setFitHeight(80);
+         Avater.setFitWidth(80);
+         Avater.setFitHeight(80);
          Circle mask = new Circle(40, 40, 40);
-        Avater.setClip(mask);
+         Avater.setClip(mask);
         GridPane.setMargin(Avater, new Insets(0.0, 0.0, 0.0, 25.0));
 
         this.username.setText(username);
@@ -173,7 +173,8 @@ public class NewGame1Base extends BorderPane {
         History.setId("HISTORY");
         History.setOnAction(e -> {
             Stage historyStage = new Stage();
-            historyStage.setScene(new Scene(new History(historyStage, mystage, username, score)));
+            historyStage.setScene(new Scene(new History(historyStage,mystage, username, score), 600, 520));
+            ShowPopupUseCase.showPopup(mystage, historyStage, 300, StageStyle.UTILITY);
             historyStage.show();
         });
 
@@ -218,7 +219,7 @@ public class NewGame1Base extends BorderPane {
             Platform.runLater(() -> {
                 Stage connectionLostStage = new Stage();
                 connectionLostStage.setScene(new Scene(new ConnectionLostPopup(mystage, connectionLostStage), 300, 300));
-                ShowPopupUseCase.showPopup(mystage, connectionLostStage, 150);
+                ShowPopupUseCase.showPopup(mystage, connectionLostStage, 150, StageStyle.UNDECORATED);
             });
         }
     }
