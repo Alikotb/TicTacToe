@@ -40,6 +40,23 @@
     -fx-cursor: hand;
 }
 #theLable,#LogInButton {
+  
+  #username, #email, #password, #confirmPassword,#UsernameTxt,#PasswordTxt,#UsernameTxtLog,#PasswordTxtLog {
+      -fx-background-radius: 50px;
+      -fx-border-color: #81BFDA; 
+      -fx-border-radius:50px; 
+      -fx-border-width: 2px;
+  }
+  
+  #signUpButton {
+      -fx-background-color:#1F509A;
+      -fx-background-radius:50px;
+      -fx-font-family: "Black Han Sans";
+      -fx-text-fill: white;
+      -fx-font-size: 25px;
+      -fx-cursor: hand;
+  }
+  #theLable,#LogInButton {
     -fx-font-family: 'Black Han Sans';
     -fx-font-size: 22px;
     -fx-cursor: hand;
