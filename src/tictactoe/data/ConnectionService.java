@@ -28,7 +28,7 @@ public class ConnectionService {
     private DataOutputStream dos;
     private OnlineBoard board;
 
-    private static final String LOCAL_HOST = "192.168.48.121";
+    private static final String LOCAL_HOST = "127.0.0.1";
     private static final int PORT = 55555;
     private static final int ACTION_SIGN_UP = 1;
     private static final int ACTION_LOGIN = 2;
