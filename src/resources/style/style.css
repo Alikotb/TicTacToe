@@ -6,8 +6,8 @@
     -fx-background-color: linear-gradient(to bottom, #EBF8FF, #71B9D7, #0D88B7);
     -fx-font-family: "MyCustomFont";
 
-  
-  }
+
+}
 
 .homeBtn {
     -fx-background-color: #1F509A;
@@ -23,23 +23,23 @@
     -fx-background-color: #16427D;
     -fx-cursor: hand;
 }
-  
-  #username, #email, #password, #confirmPassword {
-      -fx-background-radius: 50px;
-      -fx-border-color: #81BFDA; 
-      -fx-border-radius:50px; 
-      -fx-border-width: 2px;
-  }
-  
-  #signUpButton {
-      -fx-background-color:#1F509A;
-      -fx-background-radius:50px;
-      -fx-font-family: "Black Han Sans";
-      -fx-text-fill: white;
-      -fx-font-size: 25px;
-      -fx-cursor: hand;
-  }
-  #theLable,#LogInButton {
+
+#username, #email, #password, #confirmPassword {
+    -fx-background-radius: 50px;
+    -fx-border-color: #81BFDA; 
+    -fx-border-radius:50px; 
+    -fx-border-width: 2px;
+}
+
+#signUpButton {
+    -fx-background-color:#1F509A;
+    -fx-background-radius:50px;
+    -fx-font-family: "Black Han Sans";
+    -fx-text-fill: white;
+    -fx-font-size: 25px;
+    -fx-cursor: hand;
+}
+#theLable,#LogInButton {
     -fx-font-family: 'Black Han Sans';
     -fx-font-size: 22px;
     -fx-cursor: hand;
@@ -138,11 +138,11 @@
 
 #back,#Login2,#LogOut{
     -fx-background-color: rgba(31, 80, 154, 0.0); 
--fx-cursor: hand;
+    -fx-cursor: hand;
 }
 #PlayWithFriend:hover, #PlayVsComp:hover, #History:hover,#Login:hover,#HISTORY:hover,#NEWGAME:hover{
     -fx-background-color: #16427D;
--fx-cursor: hand;
+    -fx-cursor: hand;
 }
 #UsernameTxt,#PasswordTxt, #userPrombet{
     -fx-border-radius: 50px; 
@@ -151,4 +151,7 @@
     -fx-background-radius: 50px;
     -fx-background-color: white;
     -fx-font-family: "Black Han Sans";
+}
+#restartBtn:hover, #exitBtn:hover, {
+    -fx-cursor: hand;
 }

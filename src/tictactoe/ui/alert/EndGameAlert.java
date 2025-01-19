@@ -109,7 +109,7 @@ public class EndGameAlert {
             alertStage = new Stage();
 
             alertStage.setScene(alertScene);
-           // alertStage.initStyle(StageStyle.UNDECORATED);
+            alertStage.initStyle(StageStyle.UNDECORATED);
             alertStage.setResizable(false);
             alertStage.initOwner(stage);
             alertStage.setX(stage.getX() + (stage.getWidth() / 2) - 350);
