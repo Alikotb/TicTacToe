@@ -16,7 +16,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -26,6 +25,7 @@ import javax.json.Json;
 import tictactoe.data.repository.Repo;
 import tictactoe.domain.model.User;
 import tictactoe.domain.usecases.RandomAvatarUseCase;
+import tictactoe.domain.usecases.ToJsonUseCase;
 import tictactoe.ui.alert.IncomingRequestDialog;
 
 public class OnlineUsers extends BorderPane {
@@ -74,21 +74,18 @@ public class OnlineUsers extends BorderPane {
                     Label userNameLabel = (Label) userInfo.getChildren().get(0);
                     Label scoreLabel = (Label) userInfo.getChildren().get(1);
                     String player2 = userNameLabel.getText();
-
-                    String json = Json.createObjectBuilder()
-                            .add("action", 4)
-                            .add("username-player1", username)
-                            .add("username-player2", player2)
-                            .add("score-player1", score)
-                            .add("score-player2", Integer.valueOf(scoreLabel.getText()))
-                            .add("status", 1) // invite
-                            .build().toString();
-                    if (new Repo().sendInvitation(json)) {
-                        System.out.println("request sent successfully");
-                    } else {
-                        System.out.println("request not sent");
-                    }
                     onlineStage.close();
+                  
+                    String json = ToJsonUseCase.toJson(
+                            4,
+                            username,
+                            player2,
+                            score, Integer.valueOf(scoreLabel.getText()),
+                            1
+                    );
+
+                    new Repo().sendInvitation(json);
+
                 }
             }
         });
@@ -157,28 +154,7 @@ public class OnlineUsers extends BorderPane {
         userBox.setStyle("-fx-border-width: 1;");
         return userBox;
     }
-
-    /*
-    private List<Image> loadAvatars() {
-        List<Image> images = new ArrayList<>();
-        for (int i = 1; i <= 15; i++) {
-            try {
-                String imagePath = String.format("/resources/images/avaters/img%d.jpg", i);
-                images.add(new Image(getClass().getResource(imagePath).toExternalForm()));
-            } catch (NullPointerException e) {
-                System.out.println("Image not found: img" + i + ".jpg");
-            }
-        }
-        return images;
-    }
-
-    private Image getRandomAvatar() {
-        if (avatarImages.isEmpty()) {
-            return null;
-        }
-        return avatarImages.get(random.nextInt(avatarImages.size()));
-    }
-     */
+  
     private void showAvilableUsers(ArrayList<User> users) {
         for (User u : users) {
             if (u.getUsername().equals(username)) {
