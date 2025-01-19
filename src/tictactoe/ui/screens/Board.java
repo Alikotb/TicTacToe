@@ -2,6 +2,8 @@ package tictactoe.ui.screens;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -16,6 +18,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetRandomPositionUseCase;
 import tictactoe.domain.usecases.GetTileUseCase;
@@ -398,7 +401,7 @@ public class Board extends BorderPane {
                 isRecording = false;
                 RecordingUseCase.Pos = "";
             }
-            new EndGameAlert('w', stage, this).show();
+            callEndGameAlert('w', stage, this);
         } else if (result == 2) {
             TheWinner = 'L';
             timer.cancel();
@@ -413,7 +416,7 @@ public class Board extends BorderPane {
                 isRecording = false;
                 RecordingUseCase.Pos = "";
             }
-            new EndGameAlert('l', stage, this).show();
+            callEndGameAlert('l', stage, this);
         } else if (result == 3) {
             TheWinner = 'E';
             timer.cancel();
@@ -424,7 +427,7 @@ public class Board extends BorderPane {
                 RecordingUseCase.Pos = "";
             }
             playSound();
-            new EndGameAlert('e', stage, this).show();
+            callEndGameAlert('e', stage, this);
 
         } else {
             playSound();
@@ -545,6 +548,17 @@ public class Board extends BorderPane {
         } else {
             isPlaying = false;
         }
+
+    }
+
+    private void callEndGameAlert(char status, Stage stage, Board board) {
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(2),
+                e -> {
+                    new EndGameAlert(status, stage, this).show();
+                }
+        ));
+        timeline.play();
 
     }
 }
