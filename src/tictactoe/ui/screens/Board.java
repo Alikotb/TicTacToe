@@ -6,7 +6,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -30,7 +29,6 @@ import tictactoe.domain.usecases.RecordPositionUseCase;
 import tictactoe.domain.usecases.TimerUseCase;
 import tictactoe.ui.alert.EndGameAlert;
 import tictactoe.domain.usecases.RecordingUseCase;
-import tictactoe.domain.model.Record;
 import tictactoe.domain.usecases.RandomAvatarUseCase;
 
 public class Board extends BorderPane {
@@ -503,7 +501,7 @@ public class Board extends BorderPane {
             printXO();
             playSound();
         });
-        timer.startTimer(5, isX);
+        timer.startTimer(10, isX);
     }
 
     protected void printXO() {
@@ -536,7 +534,7 @@ public class Board extends BorderPane {
         isFinished = false;
         timer.cancel();
         if (!isPc) {
-            timer.startTimer(5, isX);
+            timer.startTimer(10, isX);
         }
         playerOneTimer.setText("");
         playerTwoTimer.setText("");

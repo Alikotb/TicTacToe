@@ -23,8 +23,6 @@ import tictactoe.data.repository.Repo;
 import tictactoe.domain.usecases.RandomAvatarUseCase;
 import tictactoe.domain.usecases.ShowPopupUseCase;
 import tictactoe.ui.alert.ConnectionLostPopup;
-import tictactoe.domain.usecases.RecordingUseCase;
-import static tictactoe.ui.screens.LogInBase.mystage;
 import static tictactoe.ui.screens.SignUp.errorLable;
 
 public class NewGame1Base extends BorderPane {
@@ -197,7 +195,6 @@ public class NewGame1Base extends BorderPane {
     }
 
     public static void navigateToOnlineBoard(JsonObject json, boolean isX) {
-        System.out.println("isX in navigateToOnlineBoard -> " + isX);
         Platform.runLater(() -> {
             mystage.setScene(new Scene(new OnlineBoard(mystage, json, isX)));
         });

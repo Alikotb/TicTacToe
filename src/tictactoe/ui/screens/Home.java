@@ -1,18 +1,13 @@
 package tictactoe.ui.screens;
 
-import java.util.Optional;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -47,7 +42,6 @@ public class Home extends BorderPane {
         });
 
         FlowPane.setMargin(offlineButton, new Insets(50.0, 0.0, 0.0, 155.0));
-       // GridPane.setRowIndex(onlineButton, 1);
         onlineButton.setPrefWidth(490);
         onlineButton.setPrefHeight(90);
         onlineButton.setMnemonicParsing(false);
@@ -64,7 +58,6 @@ public class Home extends BorderPane {
 
         onlineButton.setFont(new Font("System Bold", 20.0));
 
-        //  setCenter(gridPane);
         BorderPane.setAlignment(flowPane, javafx.geometry.Pos.CENTER);
         flowPane.setPrefHeight(600.0);
         flowPane.setPrefWidth(800.0);
@@ -78,11 +71,6 @@ public class Home extends BorderPane {
         onlineButton.getStyleClass().add("homeBtn");
         offlineButton.getStyleClass().add("homeBtn");
 
-//        gridPane.getColumnConstraints().add(columnConstraints);
-//        gridPane.getRowConstraints().add(rowConstraints);
-//        gridPane.getRowConstraints().add(rowConstraints0);
-//        gridPane.getChildren().add(offlineButton);
-//        gridPane.getChildren().add(onlineButton);
         flowPane.getChildren().add(imageView);
         flowPane.getChildren().add(offlineButton);
         flowPane.getChildren().add(onlineButton);

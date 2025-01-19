@@ -55,7 +55,7 @@ public class IsWinnerUseCase {
     }
 
     public List<Integer> getWinningPositions() {
-        return winningPositions; // Return the winning positions
+        return winningPositions; 
     }
 
 }

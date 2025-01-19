@@ -1,14 +1,10 @@
 package tictactoe;
 
-import tictactoe.ui.screens.Home;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tictactoe.domain.usecases.PlayBackgroundMusicUseCase;
-import tictactoe.ui.screens.Board;
-import tictactoe.ui.screens.SignUp;
 import tictactoe.ui.screens.Splash;
 
 /**

@@ -1,12 +1,10 @@
 package tictactoe.ui.screens;
 
 import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetXOImageUseCase;
-import tictactoe.domain.usecases.IsWinnerUseCase;
 import tictactoe.domain.usecases.RecordingUseCase;
 import tictactoe.domain.usecases.ShowPopupUseCase;
 import tictactoe.ui.alert.PromptUserNames;
@@ -46,7 +44,7 @@ public class PlayerTwoBoard extends Board {
 
         reverseXO();
         timer.cancel();
-        timer.startTimer(5, isX); // TODO
+        timer.startTimer(10, isX); 
         checkWinner();
     }
 }
