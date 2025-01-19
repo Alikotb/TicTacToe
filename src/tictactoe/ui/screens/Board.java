@@ -372,8 +372,6 @@ public class Board extends BorderPane {
         tiles.add(tile8);
         tiles.add(tile9);
         setListeners();
-
-        System.out.println("hello from constructor");
     }
 
     protected void printXO(Tile tile) {
