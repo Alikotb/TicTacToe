@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.sampled.*;
 
 public class PlaySoundUseCase {
@@ -39,7 +37,6 @@ public class PlaySoundUseCase {
             clip.open(audioStream);
             soundClips.put(soundNum, clip);
         } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
-            Logger.getLogger(PlaySoundUseCase.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Failed to preload sound: " + soundFile.getPath());
         }
     }
@@ -51,7 +48,7 @@ public class PlaySoundUseCase {
                 if (clip.isRunning()) {
                     clip.stop();
                 }
-                clip.setFramePosition(0); 
+                clip.setFramePosition(0);
                 clip.start();
             }).start();
         } else {

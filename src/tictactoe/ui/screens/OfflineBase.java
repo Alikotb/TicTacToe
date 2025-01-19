@@ -1,6 +1,5 @@
 package tictactoe.ui.screens;
 
-import tictactoe.ui.screens.Board;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

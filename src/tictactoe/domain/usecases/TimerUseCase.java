@@ -70,8 +70,8 @@ public class TimerUseCase {
                     Platform.runLater(() -> {
 
                         if (!isPc) {
-                            isX = !isX; // reverseXO
-                            startTimer(5, isX); // TODO
+                            isX = !isX; 
+                            startTimer(10, isX); 
                             playerOneTimer.setText("");
                             playerTwoTimer.setText("");
                             onTimeStopped.onTimeStopped();

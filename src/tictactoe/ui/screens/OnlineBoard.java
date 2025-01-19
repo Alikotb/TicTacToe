@@ -35,7 +35,7 @@ public class OnlineBoard extends Board {
             player2Score.setText(json.getInt("score-player2") + "");
             userNamePlayer1.setText(json.getString("username-player1"));
             userNamePlayer2.setText(json.getString("username-player2"));
-        } else { // O
+        } else { 
             isPlaying = false;
             player2Score.setText(json.getInt("score-player2") + "");
             player1Score.setText(json.getInt("score-player1") + "");
@@ -43,7 +43,7 @@ public class OnlineBoard extends Board {
             userNamePlayer1.setText(json.getString("username-player1"));
         }
         board = this;
-        timer.startTimer(5, true);
+        timer.startTimer(10, true);
         timer.setOnTimeStopped(() -> {
             printXO();
         });
@@ -92,7 +92,7 @@ public class OnlineBoard extends Board {
         recordPositionsUseCase.recordPositions(tile, isX);
         isPlaying = false;
         timer.cancel();
-        timer.startTimer(5, !isX);
+        timer.startTimer(10, !isX);
         checkWinner();
         sendRequest(tile.getPosition());
 
@@ -119,7 +119,7 @@ public class OnlineBoard extends Board {
             playSound();
             isPlaying = false;
             timer.cancel();
-            timer.startTimer(5, !isX);
+            timer.startTimer(10, !isX);
             sendRequest(randomPosition);
         } else if (!isX && isPlaying) {
             tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
@@ -127,7 +127,7 @@ public class OnlineBoard extends Board {
             playSound();
             isPlaying = false;
             timer.cancel();
-            timer.startTimer(5, !isX);
+            timer.startTimer(10, !isX);
             sendRequest(randomPosition);
         }
     }
@@ -149,10 +149,10 @@ public class OnlineBoard extends Board {
         recordPositionsUseCase.recordPositions(tile, !isX);
         if (isX && isPlaying) {
             timer.cancel();
-            timer.startTimer(5, isX);
+            timer.startTimer(10, isX);
         } else if (!isX && isPlaying) {
             timer.cancel();
-            timer.startTimer(5, isX);
+            timer.startTimer(10, isX);
         }
 
         if (isFirst) {

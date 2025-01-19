@@ -39,7 +39,6 @@
     -fx-font-size: 25px;
     -fx-cursor: hand;
 }
-#theLable,#LogInButton {
   
   #username, #email, #password, #confirmPassword,#UsernameTxt,#PasswordTxt,#UsernameTxtLog,#PasswordTxtLog {
       -fx-background-radius: 50px;
@@ -179,6 +178,6 @@
     -fx-alignment: center; 
 }
 
-#restartBtn:hover, #exitBtn:hover, {
+#restartBtn:hover, #exitBtn:hover{
     -fx-cursor: hand;
 }

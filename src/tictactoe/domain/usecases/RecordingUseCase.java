@@ -23,8 +23,6 @@ import tictactoe.domain.model.Record;
 public class RecordingUseCase {
 
     public static String Pos = "";
-    //the path in windows   C:\Users\pc"user"\AppData\Local\XOGame
-    //the path in MAC   /Users/username/Library/Application Support/XOGame
     private static String pathDir;
     private static final String PATH_WINDOWS = System.getenv("LOCALAPPDATA") + File.separator + "XOGame";
     ;
@@ -32,7 +30,6 @@ public class RecordingUseCase {
 
     public static void saveToFile(String actions, String userName1, String userName2, char win) {
         setPath();
-        //System.getenv("APPDATA");
         File directory = new File(setPath());
         Date date = new Date();
         String filePath = setPath() + File.separator + date.getTime() + ".json";
@@ -77,7 +74,6 @@ public class RecordingUseCase {
 
     ////////for online  game
     public static void saveToFileOnline(String user, String actions, String userName1, String userName2, char win) {
-        //System.getenv("APPDATA");
         String onlineDir = setPath() + File.separator + user;
         File directory = new File(onlineDir);
         Date date = new Date();

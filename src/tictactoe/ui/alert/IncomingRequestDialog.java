@@ -11,6 +11,7 @@ import javafx.stage.StageStyle;
 import javax.json.Json;
 import javax.json.JsonObject;
 import tictactoe.data.repository.Repo;
+import tictactoe.domain.usecases.ShowPopupUseCase;
 import tictactoe.ui.screens.Board;
 
 public class IncomingRequestDialog {
@@ -96,20 +97,16 @@ public class IncomingRequestDialog {
         contentPane.setStyle("-fx-font-family: 'Black Han Sans'; -fx-padding: 15; -fx-alignment: center;");
 
         dialog.getDialogPane().setContent(contentPane);
-        dialog.initStyle(StageStyle.UNDECORATED);
-        dialog.initStyle(StageStyle.UTILITY);
         dialog.setOnShowing(e -> {
-            double x = stage.getX() + (stage.getWidth() - dialog.getDialogPane().getWidth()) / 2;
-            double y = stage.getY() + (stage.getHeight() - dialog.getDialogPane().getHeight()) / 2;
-            dialog.setX(x);
-            dialog.setY(y);
+            dialog.initStyle(StageStyle.UTILITY);
+            dialog.setResizable(false);
         });
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == acceptButtonType) {
                 stage.setScene(new Scene(new Board(new Stage())));
-                return true;  // accept button clicked
+                return true;
             } else {
-                return false; // decline button clicked
+                return false;
             }
         });
 

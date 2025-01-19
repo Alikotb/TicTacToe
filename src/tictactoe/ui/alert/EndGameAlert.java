@@ -13,6 +13,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.stage.StageStyle;
 import tictactoe.domain.usecases.PlayBackgroundMusicUseCase;
 import tictactoe.domain.usecases.RecordingUseCase;
 import tictactoe.ui.screens.Board;

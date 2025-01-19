@@ -108,7 +108,6 @@ public class SignUp extends BorderPane {
             String validationError = validator.validateFields(userNameTextField, emailTextFeild, passwordTextFeild, confirmPasswordTextFeild);
             if (validationError == null) {
                 String hashPassword = HashingUseCase.hashPassword(passwordTextFeild.getText());
-                System.out.println(hashPassword);
                 JsonObject jsonObject = Json.createObjectBuilder()
                         .add("action", 1)
                         .add("username", userNameTextField.getText())
@@ -197,7 +196,6 @@ public class SignUp extends BorderPane {
         String status = json.getString("status");
         Platform.runLater(() -> {
             if ("success".equals(status)) {
-                System.err.println(json);
                 errorLable.setText(json.getString("message"));
                 errorLable.setStyle("-fx-text-fill: green;");
                 Scene scene = new Scene(new LogInBase(stage), 800, 600);

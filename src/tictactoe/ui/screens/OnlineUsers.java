@@ -10,8 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListCell;
@@ -21,12 +19,10 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javax.json.Json;
 import tictactoe.data.repository.Repo;
 import tictactoe.domain.model.User;
 import tictactoe.domain.usecases.RandomAvatarUseCase;
 import tictactoe.domain.usecases.ToJsonUseCase;
-import tictactoe.ui.alert.IncomingRequestDialog;
 
 public class OnlineUsers extends BorderPane {
 

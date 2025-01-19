@@ -162,7 +162,6 @@ public class LogInBase extends BorderPane {
              String email = emailTextField.getText();
             String hashPassword = HashingUseCase.hashPassword(passwordTextField.getText());
              String validationError = validator.validateFields(emailTextField ,passwordTextField);
-             System.err.println(validationError);
             if (validationError!=null){
                 errorLabel.setText(validationError);
                 return;
