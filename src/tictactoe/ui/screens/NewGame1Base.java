@@ -13,12 +13,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.json.Json;
 import javax.json.JsonObject;
 import tictactoe.data.repository.Repo;
+import tictactoe.domain.usecases.RandomAvatarUseCase;
 import tictactoe.domain.usecases.ShowPopupUseCase;
 import tictactoe.ui.alert.ConnectionLostPopup;
 import tictactoe.domain.usecases.RecordingUseCase;
@@ -41,6 +43,7 @@ public class NewGame1Base extends BorderPane {
     protected final Button NEWGAME;
     protected final Button History;
     protected static Stage mystage;
+    protected RandomAvatarUseCase randomAvatarUseCase;
 
      public NewGame1Base(Stage mystage, String username, int score) {
         this.mystage = mystage;
@@ -57,6 +60,7 @@ public class NewGame1Base extends BorderPane {
         imageView = new ImageView();
         NEWGAME = new Button();
         History = new Button();
+        randomAvatarUseCase=new RandomAvatarUseCase();
 
         this.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
         
@@ -120,7 +124,11 @@ public class NewGame1Base extends BorderPane {
 
         GridPane.setMargin(LogOut, new Insets(0.0, 20.0, 0.0, 680.0));
 
-        Avater.setImage(new Image(getClass().getResource("/resources/images/hacker.png").toExternalForm()));
+        Avater.setImage(randomAvatarUseCase.getRandomAvatar());
+        Avater.setFitWidth(80);
+        Avater.setFitHeight(80);
+         Circle mask = new Circle(40, 40, 40);
+        Avater.setClip(mask);
         GridPane.setMargin(Avater, new Insets(0.0, 0.0, 0.0, 25.0));
 
         this.username.setText(username);
