@@ -1,6 +1,7 @@
 package tictactoe.ui.alert;
 
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -44,6 +45,7 @@ public class EndReplayGameAlert {
         
         Button exitBtn = new Button("Exit");
         exitBtn.setFont(font);
+        exitBtn.setCursor(Cursor.HAND);
         exitBtn.setStyle("-fx-background-color: #DC3545; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;");
         exitBtn.setOnAction(e -> {
             alertStage.close();  

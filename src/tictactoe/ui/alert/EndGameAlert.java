@@ -13,16 +13,15 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
-import javafx.stage.StageStyle;
 import tictactoe.domain.usecases.PlayBackgroundMusicUseCase;
 import tictactoe.domain.usecases.RecordingUseCase;
 import tictactoe.ui.screens.Board;
-import tictactoe.ui.screens.LogInBase;
 import tictactoe.ui.screens.NewGame1Base;
 import tictactoe.ui.screens.OfflineBase;
 import tictactoe.ui.screens.OnlineBoard;
 
 public class EndGameAlert {
+
     protected File file;
     private Media video;
     private MediaPlayer mediaPlayer;
@@ -32,16 +31,17 @@ public class EndGameAlert {
     private Board board;
     int score;
     String username;
-    
-    public EndGameAlert(char status, Stage stage, Board board,int score,String username ) {
-    this(status,stage,board);    
-    this.score = score;
-    this.username= username;
+
+    public EndGameAlert(char status, Stage stage, Board board, int score, String username) {
+        this(status, stage, board);
+        this.score = score;
+        this.username = username;
     }
+
     public EndGameAlert(char status, Stage stage, Board board) {
         this.stage = stage;
         this.board = board;
-        
+
         if (status == 'w') {
             file = new File("src/resources/videos/win2.mp4");
         } else if (status == 'l') {
@@ -69,7 +69,9 @@ public class EndGameAlert {
             Button restartButton = new Button("Restart");
             Button exitButton = new Button("Exit");
             restartButton.setId("restartBtn");
+            restartButton.setPrefWidth(150.0);
             exitButton.setId("exitBtn");
+            exitButton.setPrefWidth(150.0);
             restartButton.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;");
             exitButton.setStyle("-fx-background-color: red; -fx-text-fill: white;-fx-font-size: 24px; -fx-font-weight: bold;");
 
@@ -79,13 +81,18 @@ public class EndGameAlert {
                 alertStage.close();
             });
 
+            Parent r = stage.getScene().getRoot();
+            if (r instanceof OnlineBoard) {
+                restartButton.setManaged(false);
+            }
+
             exitButton.setOnAction(e -> {
                 mediaPlayer.stop();
                 alertStage.close();
                 PlayBackgroundMusicUseCase.getInstance().startBackgroundMusic();
                 Parent root = stage.getScene().getRoot();
                 if (root instanceof OnlineBoard) {
-                    Scene newgameScene = new Scene(new NewGame1Base(stage,username,score), 800, 600);
+                    Scene newgameScene = new Scene(new NewGame1Base(stage, username, score), 800, 600);
                     stage.setScene(newgameScene);
                     newgameScene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
                 } else {
@@ -93,7 +100,6 @@ public class EndGameAlert {
                     stage.setScene(offlineScene);
                     offlineScene.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
                 }
-                
 
             });
 

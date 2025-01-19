@@ -13,5 +13,8 @@ public class MessagePopup extends Label {
         setPadding(new Insets(25.0, 50.0, 25.0, 50.0));
         setFont(new Font(24.0));
 
+        this.getStylesheets().add(getClass().getResource("/resources/style/style.css").toExternalForm());
+        setId("Message");
+
     }
 }

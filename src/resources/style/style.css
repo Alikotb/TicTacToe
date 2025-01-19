@@ -169,6 +169,16 @@
     -fx-background-color: white;
     -fx-font-family: "Black Han Sans";
 }
+
+#Message{
+    -fx-background-color:#F5F5F5;
+    -fx-border-width: 2px;
+    -fx-font-family: "Black Han Sans";
+    -fx-font-size: 30px;
+    -fx-text-fill: #B71C1C;
+    -fx-alignment: center; 
+}
+
 #restartBtn:hover, #exitBtn:hover, {
     -fx-cursor: hand;
 }

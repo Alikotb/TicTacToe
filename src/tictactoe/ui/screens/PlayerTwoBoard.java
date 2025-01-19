@@ -8,6 +8,7 @@ import tictactoe.domain.model.Tile;
 import tictactoe.domain.usecases.GetXOImageUseCase;
 import tictactoe.domain.usecases.IsWinnerUseCase;
 import tictactoe.domain.usecases.RecordingUseCase;
+import tictactoe.domain.usecases.ShowPopupUseCase;
 import tictactoe.ui.alert.PromptUserNames;
 
 public class PlayerTwoBoard extends Board {
@@ -16,11 +17,7 @@ public class PlayerTwoBoard extends Board {
         super(owner);
         Stage stage = new Stage();
         stage.setScene(new Scene(new PromptUserNames(stage, this)));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(owner);
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.show();
+        ShowPopupUseCase.showPopup(owner, stage, 206, StageStyle.UNDECORATED);
 
         forfeitBtn.setOnAction(e -> {
             timer.cancel();
@@ -38,12 +35,12 @@ public class PlayerTwoBoard extends Board {
         if (!recordPositionsUseCase.getPositions().contains(tile.getPosition()) || isFinished) {
             return;
         }
-        
+
         if (isFirst) {
-            isFirst=false;
+            isFirst = false;
             recordBtn.setDisable(true);
         }
-        
+
         tile.getBtn().setGraphic(GetXOImageUseCase.getXOImage(isX));
         recordPositionsUseCase.recordPositions(tile, isX);
 

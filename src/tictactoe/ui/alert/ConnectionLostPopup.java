@@ -50,8 +50,18 @@ public class ConnectionLostPopup extends FlowPane {
         goHomeBtn.setOnAction((e) -> {
             stage.setScene(new Scene(new Home(stage)));
             connectionLostStage.close();
-                });
+        });
         FlowPane.setMargin(goHomeBtn, new Insets(0.0));
+
+        goHomeBtn.setPrefHeight(60);
+        goHomeBtn.setPrefWidth(150);
+
+        goHomeBtn.setStyle("-fx-background-color:linear-gradient(to bottom, #FF6B6B, #D32F2F, #B71C1C); "
+                + "-fx-background-radius: 50px; "
+                + "-fx-font-family: 'Black Han Sans'; "
+                + "-fx-text-fill: white; "
+                + "-fx-font-size: 20px; "
+                + "-fx-cursor: hand;");
 
         getChildren().add(lostConnectionImgView);
         getChildren().add(label);
