@@ -152,9 +152,9 @@ The server code for this project is available at the following GitHub repository
 
 ## Contributers:
 
-Ahmed Saad – comm.ahmedsaad@alexu.edu.eg  
-Ali Kotb – Alikotb38@gmail.com  
-Nour Agami – nuralquds123@gmail.com  
-Yousef Adel – youssefadelfayad@gmail.com 
+[Ahmed Saad](https://www.linkedin.com/in/dev-ahmed-saad/)  
+[Ali Kotb](https://www.linkedin.com/in/ali-kotb-497a4718a/)  
+[Nour Agami](https://www.linkedin.com/in/nour-agami-846837245/)  
+[Yousef Adel](https://www.linkedin.com/in/yousseffayad/) 
 
 
